@@ -1,0 +1,233 @@
+<mxfile host="65bd71144e">
+    <diagram id="-rfGrMWS1U7ydQWTNpGl" name="シーン">
+        <mxGraphModel dx="469" dy="591" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="アプリ" style="swimlane;" parent="1" vertex="1">
+                    <mxGeometry x="150" y="90" width="1130" height="890" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="シーンを追加する" style="ellipse;whiteSpace=wrap;html=1;" parent="2" vertex="1">
+                    <mxGeometry x="450" y="320" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" style="edgeStyle=none;html=1;" parent="2" source="6" target="9" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" style="edgeStyle=none;html=1;" parent="2" source="6" target="5" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" style="edgeStyle=none;html=1;" parent="2" source="6" target="8" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" style="edgeStyle=none;html=1;" parent="2" source="6" target="7" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="シーンを管理する" style="ellipse;whiteSpace=wrap;html=1;" parent="2" vertex="1">
+                    <mxGeometry x="70" y="450" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="シーンを変更する" style="ellipse;whiteSpace=wrap;html=1;" parent="2" vertex="1">
+                    <mxGeometry x="450" y="494" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="シーンを削除する" style="ellipse;whiteSpace=wrap;html=1;" parent="2" vertex="1">
+                    <mxGeometry x="360" y="720" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="シーンを確認する" style="ellipse;whiteSpace=wrap;html=1;" parent="2" vertex="1">
+                    <mxGeometry x="360" y="110" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="シーン一覧を確認する" style="ellipse;whiteSpace=wrap;html=1;" parent="2" vertex="1">
+                    <mxGeometry x="630" y="50" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="タスクを削除する" style="ellipse;whiteSpace=wrap;html=1;" parent="2" vertex="1">
+                    <mxGeometry x="660" y="660" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="ステータスを削除する" style="ellipse;whiteSpace=wrap;html=1;" parent="2" vertex="1">
+                    <mxGeometry x="660" y="770" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="シーンのタスクを確認する" style="ellipse;whiteSpace=wrap;html=1;" parent="2" vertex="1">
+                    <mxGeometry x="630" y="200" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" style="edgeStyle=none;html=1;" parent="2" source="9" target="10" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="201.83318343680617" y="462.58567401258506" as="sourcePoint"/>
+                        <mxPoint x="428.09770078538486" y="197.40269563092806" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="25" style="edgeStyle=none;html=1;" parent="2" source="9" target="22" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="540.5696214325937" y="142.17486251491277" as="sourcePoint"/>
+                        <mxPoint x="649.5015528100075" y="117.8885438199984" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="27" value="invokes" style="edgeStyle=none;html=1;dashed=1;" parent="2" source="8" target="13" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="528.0551814216522" y="543.8249302224413" as="sourcePoint"/>
+                        <mxPoint x="651.9448185783501" y="496.1750697775576" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="28" value="invokes" style="edgeStyle=none;html=1;dashed=1;" parent="2" source="8" target="14" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="542.2061503672687" y="753.7176223910242" as="sourcePoint"/>
+                        <mxPoint x="677.9270645342401" y="726.414587093152" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="11" style="edgeStyle=none;html=1;" parent="1" source="3" target="6" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="利用者" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="1" vertex="1">
+                    <mxGeometry x="50" y="550" width="30" height="60" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram name="タスク" id="56yqynXjsinlY-wTS2qH">
+        <mxGraphModel dx="1278" dy="1168" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="B2lpsBPX4hIi-Zjtqcvu-0"/>
+                <mxCell id="B2lpsBPX4hIi-Zjtqcvu-1" parent="B2lpsBPX4hIi-Zjtqcvu-0"/>
+                <mxCell id="B2lpsBPX4hIi-Zjtqcvu-2" value="アプリ" style="swimlane;" parent="B2lpsBPX4hIi-Zjtqcvu-1" vertex="1">
+                    <mxGeometry x="150" y="90" width="1130" height="890" as="geometry"/>
+                </mxCell>
+                <mxCell id="B2lpsBPX4hIi-Zjtqcvu-4" value="タスクを追加する" style="ellipse;whiteSpace=wrap;html=1;" parent="B2lpsBPX4hIi-Zjtqcvu-2" vertex="1">
+                    <mxGeometry x="360" y="320" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="B2lpsBPX4hIi-Zjtqcvu-5" style="edgeStyle=none;html=1;" parent="B2lpsBPX4hIi-Zjtqcvu-2" source="B2lpsBPX4hIi-Zjtqcvu-9" target="B2lpsBPX4hIi-Zjtqcvu-13" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="B2lpsBPX4hIi-Zjtqcvu-6" style="edgeStyle=none;html=1;" parent="B2lpsBPX4hIi-Zjtqcvu-2" source="B2lpsBPX4hIi-Zjtqcvu-9" target="B2lpsBPX4hIi-Zjtqcvu-4" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="B2lpsBPX4hIi-Zjtqcvu-7" style="edgeStyle=none;html=1;" parent="B2lpsBPX4hIi-Zjtqcvu-2" source="B2lpsBPX4hIi-Zjtqcvu-9" target="B2lpsBPX4hIi-Zjtqcvu-12" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="B2lpsBPX4hIi-Zjtqcvu-8" style="edgeStyle=none;html=1;" parent="B2lpsBPX4hIi-Zjtqcvu-2" source="B2lpsBPX4hIi-Zjtqcvu-9" target="B2lpsBPX4hIi-Zjtqcvu-11" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="B2lpsBPX4hIi-Zjtqcvu-9" value="タスクを管理する" style="ellipse;whiteSpace=wrap;html=1;" parent="B2lpsBPX4hIi-Zjtqcvu-2" vertex="1">
+                    <mxGeometry x="70" y="450" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="B2lpsBPX4hIi-Zjtqcvu-11" value="タスクを変更する" style="ellipse;whiteSpace=wrap;html=1;" parent="B2lpsBPX4hIi-Zjtqcvu-2" vertex="1">
+                    <mxGeometry x="360" y="520" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="B2lpsBPX4hIi-Zjtqcvu-12" value="タスクを削除する" style="ellipse;whiteSpace=wrap;html=1;" parent="B2lpsBPX4hIi-Zjtqcvu-2" vertex="1">
+                    <mxGeometry x="360" y="720" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="B2lpsBPX4hIi-Zjtqcvu-13" value="タスクを一覧確認する" style="ellipse;whiteSpace=wrap;html=1;" parent="B2lpsBPX4hIi-Zjtqcvu-2" vertex="1">
+                    <mxGeometry x="360" y="110" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="B2lpsBPX4hIi-Zjtqcvu-25" value="シーンを追加する" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="B2lpsBPX4hIi-Zjtqcvu-2">
+                    <mxGeometry x="70" y="740" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="B2lpsBPX4hIi-Zjtqcvu-27" value="resolves" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="B2lpsBPX4hIi-Zjtqcvu-2" source="B2lpsBPX4hIi-Zjtqcvu-25" target="B2lpsBPX4hIi-Zjtqcvu-9">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="542.2541931938606" y="753.7656197643696" as="sourcePoint"/>
+                        <mxPoint x="677.9270645342376" y="726.4145870931525" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="B2lpsBPX4hIi-Zjtqcvu-28" value="タスクをステータスでフィルターする" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="B2lpsBPX4hIi-Zjtqcvu-2">
+                    <mxGeometry x="650" y="110" width="240" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="B2lpsBPX4hIi-Zjtqcvu-30" value="invokes&lt;br&gt;" style="edgeStyle=none;html=1;dashed=1;" edge="1" parent="B2lpsBPX4hIi-Zjtqcvu-2" source="B2lpsBPX4hIi-Zjtqcvu-13" target="B2lpsBPX4hIi-Zjtqcvu-28">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="527.9790220571883" y="396.2141326887195" as="sourcePoint"/>
+                        <mxPoint x="651.9448185783485" y="443.8249302224417" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="B2lpsBPX4hIi-Zjtqcvu-23" style="edgeStyle=none;html=1;" parent="B2lpsBPX4hIi-Zjtqcvu-1" source="B2lpsBPX4hIi-Zjtqcvu-24" target="B2lpsBPX4hIi-Zjtqcvu-9" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="B2lpsBPX4hIi-Zjtqcvu-24" value="利用者" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="B2lpsBPX4hIi-Zjtqcvu-1" vertex="1">
+                    <mxGeometry x="50" y="550" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="B2lpsBPX4hIi-Zjtqcvu-26" style="edgeStyle=none;html=1;" edge="1" parent="B2lpsBPX4hIi-Zjtqcvu-1" source="B2lpsBPX4hIi-Zjtqcvu-24" target="B2lpsBPX4hIi-Zjtqcvu-25">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="90" y="590" as="sourcePoint"/>
+                        <mxPoint x="230" y="590" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+    <diagram name="ステータス" id="xHxNKdXMINnUdFiZRbAh">
+        <mxGraphModel dx="469" dy="591" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-0"/>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-1" parent="U3eM_3qGk5RYvs7WbInR-0"/>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-2" value="アプリ" style="swimlane;" parent="U3eM_3qGk5RYvs7WbInR-1" vertex="1">
+                    <mxGeometry x="150" y="90" width="1130" height="890" as="geometry"/>
+                </mxCell>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-3" value="ステータスを追加する" style="ellipse;whiteSpace=wrap;html=1;" parent="U3eM_3qGk5RYvs7WbInR-2" vertex="1">
+                    <mxGeometry x="360" y="320" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-4" style="edgeStyle=none;html=1;" parent="U3eM_3qGk5RYvs7WbInR-2" source="U3eM_3qGk5RYvs7WbInR-8" target="U3eM_3qGk5RYvs7WbInR-11" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-5" style="edgeStyle=none;html=1;" parent="U3eM_3qGk5RYvs7WbInR-2" source="U3eM_3qGk5RYvs7WbInR-8" target="U3eM_3qGk5RYvs7WbInR-3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-6" style="edgeStyle=none;html=1;" parent="U3eM_3qGk5RYvs7WbInR-2" source="U3eM_3qGk5RYvs7WbInR-8" target="U3eM_3qGk5RYvs7WbInR-10" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-7" style="edgeStyle=none;html=1;" parent="U3eM_3qGk5RYvs7WbInR-2" source="U3eM_3qGk5RYvs7WbInR-8" target="U3eM_3qGk5RYvs7WbInR-9" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-8" value="ステータスを管理する" style="ellipse;whiteSpace=wrap;html=1;" parent="U3eM_3qGk5RYvs7WbInR-2" vertex="1">
+                    <mxGeometry x="70" y="450" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-9" value="ステータスを変更する" style="ellipse;whiteSpace=wrap;html=1;" parent="U3eM_3qGk5RYvs7WbInR-2" vertex="1">
+                    <mxGeometry x="360" y="520" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="xZyrv0aK8luMjXnekwmp-1" value="invokes" style="edgeStyle=none;html=1;dashed=1;" parent="U3eM_3qGk5RYvs7WbInR-2" source="U3eM_3qGk5RYvs7WbInR-10" target="xZyrv0aK8luMjXnekwmp-0" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-10" value="ステータスを削除する" style="ellipse;whiteSpace=wrap;html=1;" parent="U3eM_3qGk5RYvs7WbInR-2" vertex="1">
+                    <mxGeometry x="360" y="720" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-11" value="ステータスを一覧確認する" style="ellipse;whiteSpace=wrap;html=1;" parent="U3eM_3qGk5RYvs7WbInR-2" vertex="1">
+                    <mxGeometry x="360" y="110" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-12" value="シーンを追加する" style="ellipse;whiteSpace=wrap;html=1;" parent="U3eM_3qGk5RYvs7WbInR-2" vertex="1">
+                    <mxGeometry x="70" y="740" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-13" value="resolves" style="edgeStyle=none;html=1;dashed=1;" parent="U3eM_3qGk5RYvs7WbInR-2" source="U3eM_3qGk5RYvs7WbInR-12" target="U3eM_3qGk5RYvs7WbInR-8" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="542.2541931938606" y="753.7656197643696" as="sourcePoint"/>
+                        <mxPoint x="677.9270645342376" y="726.4145870931525" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-15" value="ステータスの並び順を変更する" style="ellipse;whiteSpace=wrap;html=1;" parent="U3eM_3qGk5RYvs7WbInR-2" vertex="1">
+                    <mxGeometry x="640" y="590" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-19" value="ステータス内容を変更する" style="ellipse;whiteSpace=wrap;html=1;" parent="U3eM_3qGk5RYvs7WbInR-2" vertex="1">
+                    <mxGeometry x="640" y="440" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-21" style="edgeStyle=none;html=1;" parent="U3eM_3qGk5RYvs7WbInR-2" source="U3eM_3qGk5RYvs7WbInR-9" target="U3eM_3qGk5RYvs7WbInR-19" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="249.33319730259086" y="518.8888565006168" as="sourcePoint"/>
+                        <mxPoint x="380.9113604081988" y="550.9096387192203" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-22" style="edgeStyle=none;html=1;" parent="U3eM_3qGk5RYvs7WbInR-2" source="U3eM_3qGk5RYvs7WbInR-9" target="U3eM_3qGk5RYvs7WbInR-15" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="535.814548539116" y="548.4448832584867" as="sourcePoint"/>
+                        <mxPoint x="664.2939372161143" y="511.6303036525387" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="xZyrv0aK8luMjXnekwmp-0" value="タスクのステータスを変更する" style="ellipse;whiteSpace=wrap;html=1;" parent="U3eM_3qGk5RYvs7WbInR-2" vertex="1">
+                    <mxGeometry x="677" y="710" width="180" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-16" style="edgeStyle=none;html=1;" parent="U3eM_3qGk5RYvs7WbInR-1" source="U3eM_3qGk5RYvs7WbInR-17" target="U3eM_3qGk5RYvs7WbInR-8" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-17" value="利用者" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" parent="U3eM_3qGk5RYvs7WbInR-1" vertex="1">
+                    <mxGeometry x="50" y="550" width="30" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="U3eM_3qGk5RYvs7WbInR-18" style="edgeStyle=none;html=1;" parent="U3eM_3qGk5RYvs7WbInR-1" source="U3eM_3qGk5RYvs7WbInR-17" target="U3eM_3qGk5RYvs7WbInR-12" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="90" y="590" as="sourcePoint"/>
+                        <mxPoint x="230" y="590" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
