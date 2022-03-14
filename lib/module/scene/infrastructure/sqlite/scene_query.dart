@@ -16,10 +16,11 @@ class SceneSQLiteQuery implements SceneQuery {
 
   @override
   Future<List<SceneData>> all() async {
-    final list = await _helper.executor().query(
-          _table,
-          orderBy: 'last_modified ASC',
-        );
+    final executor = await _helper.executor();
+    final list = await executor.query(
+      _table,
+      orderBy: 'last_modified DESC',
+    );
 
     if (list.isEmpty) {
       return <SceneData>[];

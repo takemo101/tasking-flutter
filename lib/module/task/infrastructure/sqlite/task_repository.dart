@@ -17,19 +17,21 @@ class TaskSQLiteRepository implements TaskRepository {
 
   @override
   Future<bool> existsByOperationID(OperationID id) async {
-    final list = await _helper.executor().query(
-          _table,
-          where: 'operation_id = ?',
-          whereArgs: [id.value],
-          limit: 1,
-        );
+    final executor = await _helper.executor();
+    final list = await executor.query(
+      _table,
+      where: 'operation_id = ?',
+      whereArgs: [id.value],
+      limit: 1,
+    );
 
     return list.isNotEmpty;
   }
 
   @override
   Future<StartedTask?> findStartedByID(TaskID id) async {
-    final list = await _helper.executor().query(
+    final executor = await _helper.executor();
+    final list = await executor.query(
       _table,
       where: 'id = ? AND is_discarded = ?',
       whereArgs: [id.value, 0],
@@ -40,7 +42,8 @@ class TaskSQLiteRepository implements TaskRepository {
 
   @override
   Future<DiscardedTask?> findDiscardedByID(TaskID id) async {
-    final list = await _helper.executor().query(
+    final executor = await _helper.executor();
+    final list = await executor.query(
       _table,
       where: 'id = ? AND is_discarded = ?',
       whereArgs: [id.value, 1],
@@ -51,7 +54,8 @@ class TaskSQLiteRepository implements TaskRepository {
 
   @override
   Future<void> remove(RemovedTask task) async {
-    await _helper.executor().delete(
+    final executor = await _helper.executor();
+    await executor.delete(
       _table,
       where: "id = ?",
       whereArgs: [task.id.value],
@@ -60,21 +64,23 @@ class TaskSQLiteRepository implements TaskRepository {
 
   @override
   Future<void> store(CreatedTask task) async {
-    await _helper.executor().insert(
-          _table,
-          _mapper.fromCreatedTaskToMap(task),
-          conflictAlgorithm: ConflictAlgorithm.replace,
-        );
+    final executor = await _helper.executor();
+    await executor.insert(
+      _table,
+      _mapper.fromCreatedTaskToMap(task),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   @override
   Future<void> update(CreatedTask task) async {
-    await _helper.executor().update(
-          _table,
-          _mapper.fromCreatedTaskToMap(task),
-          where: "id = ?",
-          whereArgs: [task.id.value],
-          conflictAlgorithm: ConflictAlgorithm.fail,
-        );
+    final executor = await _helper.executor();
+    await executor.update(
+      _table,
+      _mapper.fromCreatedTaskToMap(task),
+      where: "id = ?",
+      whereArgs: [task.id.value],
+      conflictAlgorithm: ConflictAlgorithm.fail,
+    );
   }
 }

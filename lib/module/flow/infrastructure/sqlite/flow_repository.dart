@@ -8,57 +8,45 @@ import 'package:sqflite/sqflite.dart';
 class FlowSQLiteRepository implements FlowRepository {
   final SQLiteHelper _helper;
 
-  final String _table = 'scenes';
-  final String _operationTable = 'operations';
+  final String _table = 'operations';
 
   final FlowRepositoryMapper _mapper = FlowRepositoryMapper();
 
   FlowSQLiteRepository({required SQLiteHelper helper}) : _helper = helper;
 
   @override
-  Future<CreatedFlow?> findByID(SceneID id) async {
-    final maps = await _helper.executor().rawQuery(
-      '''
-        SELECT $_operationTable.*
-        FROM $_table
-        INNER JOIN $_operationTable
-        ON $_table.id = $_operationTable.scene_id
-        WHERE $_table.id = ?
-      ''',
-      [id.value],
+  Future<Flow?> findByID(SceneID id) async {
+    final executor = await _helper.executor();
+    final maps = await executor.query(
+      _table,
+      where: "scene_id = ?",
+      whereArgs: [id.value],
     );
 
     if (maps.isEmpty) {
       return null;
     }
 
-    return _mapper.fromMapToCreatedFlow(id, maps);
+    return _mapper.fromMapToFlow(id, maps);
   }
 
   @override
-  Future<void> store(CreatedFlow flow) async {
-    final maps = _mapper.fromCreatedFlowToOperationMapList(flow);
-    for (final map in maps) {
-      await _helper.executor().insert(
-            _operationTable,
-            map,
-            conflictAlgorithm: ConflictAlgorithm.replace,
-          );
-    }
-  }
-
-  @override
-  Future<void> update(CreatedFlow flow) async {
+  Future<void> save(Flow flow) async {
     // all delete
-    await _helper.executor().delete(
-      _operationTable,
+    final executor = await _helper.executor();
+    await executor.delete(
+      _table,
       where: "scene_id = ?",
       whereArgs: [flow.id.value],
     );
 
-    final maps = _mapper.fromCreatedFlowToOperationMapList(flow);
+    final maps = _mapper.fromFlowToOperationMapList(flow);
     for (final map in maps) {
-      await _helper.executor().insert(_operationTable, map);
+      await executor.insert(
+        _table,
+        map,
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
     }
   }
 }

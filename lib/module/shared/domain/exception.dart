@@ -22,6 +22,7 @@ class DomainException implements Exception {
 enum DomainExceptionType {
   notFound,
   notEmpty,
+  notMatch,
   duplicate,
   number,
   length,
@@ -38,6 +39,8 @@ extension ExceptionTypeMessage on DomainExceptionType {
         return 'not found error';
       case DomainExceptionType.notEmpty:
         return 'not empty error';
+      case DomainExceptionType.notMatch:
+        return 'not match error';
       case DomainExceptionType.duplicate:
         return 'duplicate error';
       case DomainExceptionType.number:

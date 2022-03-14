@@ -6,7 +6,7 @@ import 'package:tasking/module/flow/domain/vo/operation_name.dart';
 import 'package:tasking/module/flow/domain/vo/reorder_operation_ids.dart';
 import 'package:tasking/module/shared/domain/exception.dart';
 
-/// operation collection class
+/// operation collection mutable class
 class Operations {
   List<Operation> _operations;
 
@@ -106,7 +106,7 @@ class Operations {
 
       _operations.removeAt(index);
 
-      FlowOrder order = FlowOrder.initial();
+      var order = FlowOrder.initial();
 
       /// reorder
       _operations.asMap().forEach((int i, Operation op) {

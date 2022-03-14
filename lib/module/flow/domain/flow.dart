@@ -9,8 +9,9 @@ import 'package:tasking/module/scene/domain/scene.dart';
 import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 import 'package:tasking/module/shared/domain/event.dart';
 
-/// aggregate root base class
-abstract class Flow extends Scene {
+/// aggregate root class
+@immutable
+class Flow extends Scene {
   final Operations _operations;
 
   /// private constructor
@@ -27,38 +28,16 @@ abstract class Flow extends Scene {
   /// get operation list
   List<Operation> get operations => _operations.operations;
 
-  @override
-  bool operator ==(Object other) =>
-      identical(other, this) || (other is Flow && other.id == id);
-
-  @override
-  int get hashCode => runtimeType.hashCode ^ id.hashCode;
-}
-
-/// created task class
-@immutable
-class CreatedFlow extends Flow {
-  /// private constructor
-  const CreatedFlow._({
-    required SceneID id,
-    required Operations operations,
-    List<Event> events = const <Event>[],
-  }) : super._(
-          id: id,
-          operations: operations,
-          events: events,
-        );
-
   /// create constructor
-  CreatedFlow.create({
+  Flow.create({
     required SceneID id,
-  }) : super._(
+  }) : this._(
           id: id,
           operations: Operations.initial(),
         );
 
   /// reconstruct
-  CreatedFlow.reconstruct({
+  Flow.reconstruct({
     required SceneID id,
     required List<Operation> operations,
   }) : this._(
@@ -85,50 +64,44 @@ class CreatedFlow extends Flow {
   OperationID get defaultOperationID => _operations.defaultOperation().id;
 
   /// add operation
-  CreatedFlow addOperation(OperationDetail operationDetail) {
-    final ops = _operations.clone;
-
-    ops.add(operationDetail);
-
-    return CreatedFlow._(
+  Flow addOperation(OperationDetail operationDetail) {
+    return Flow._(
       id: id,
-      operations: ops,
+      operations: _operations.clone..add(operationDetail),
       events: domainEvents,
     );
   }
 
   /// change operation
-  CreatedFlow changeOperation(
+  Flow changeOperation(
     OperationID operationID,
     OperationDetail operationDetail,
   ) {
-    final ops = _operations.clone;
-    ops.changeByID(operationID, operationDetail);
-
-    return CreatedFlow._(
+    return Flow._(
       id: id,
-      operations: ops,
+      operations: _operations.clone
+        ..changeByID(
+          operationID,
+          operationDetail,
+        ),
       events: domainEvents,
     );
   }
 
   /// remove operation
-  CreatedFlow removeOperation(
+  Flow removeOperation(
     OperationID operationID,
   ) {
-    final ops = _operations.clone;
-    ops.removeByID(operationID);
-
-    return CreatedFlow._(
+    return Flow._(
       id: id,
-      operations: ops,
+      operations: _operations.clone..removeByID(operationID),
       events: domainEvents,
     );
   }
 
   /// clear
-  CreatedFlow clear() {
-    return CreatedFlow._(
+  Flow clear() {
+    return Flow._(
       id: id,
       operations: Operations.empty(),
       events: domainEvents,
@@ -136,16 +109,20 @@ class CreatedFlow extends Flow {
   }
 
   /// reorder operation
-  CreatedFlow reorderOperations(
+  Flow reorderOperations(
     ReOrderOperationIDs operationIDs,
   ) {
-    final ops = _operations.clone;
-    ops.reorderByIDs(operationIDs);
-
-    return CreatedFlow._(
+    return Flow._(
       id: id,
-      operations: ops,
+      operations: _operations.clone..reorderByIDs(operationIDs),
       events: domainEvents,
     );
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(other, this) || (other is Flow && other.id == id);
+
+  @override
+  int get hashCode => runtimeType.hashCode ^ id.hashCode;
 }

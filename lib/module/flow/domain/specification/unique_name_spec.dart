@@ -3,7 +3,7 @@ import 'package:tasking/module/flow/domain/flow.dart';
 
 // unique name specification
 class UniqueNameSpec {
-  final CreatedFlow _flow;
+  final Flow _flow;
 
   UniqueNameSpec(this._flow);
 

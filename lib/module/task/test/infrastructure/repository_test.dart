@@ -42,13 +42,13 @@ void main() async {
 
       await sceneRepository.store(scene);
 
-      var flow = CreatedFlow.create(id: scene.id);
+      var flow = Flow.create(id: scene.id);
       flow = flow.addOperation(OperationDetail(
         name: OperationName('operation'),
         color: const OperationColor(1),
       ));
 
-      await flowRepository.store(flow);
+      await flowRepository.save(flow);
 
       final task = StartedTask.start(
         id: TaskID.generate(),
@@ -78,13 +78,13 @@ void main() async {
 
       await sceneRepository.store(scene);
 
-      var flow = CreatedFlow.create(id: scene.id);
+      var flow = Flow.create(id: scene.id);
       flow = flow.addOperation(OperationDetail(
         name: OperationName('operation'),
         color: const OperationColor(1),
       ));
 
-      await flowRepository.store(flow);
+      await flowRepository.save(flow);
 
       final task = StartedTask.start(
         id: TaskID.generate(),
@@ -132,13 +132,13 @@ void main() async {
 
       await sceneRepository.store(scene);
 
-      var flow = CreatedFlow.create(id: scene.id);
+      var flow = Flow.create(id: scene.id);
       flow = flow.addOperation(OperationDetail(
         name: OperationName('operation'),
         color: const OperationColor(1),
       ));
 
-      await flowRepository.store(flow);
+      await flowRepository.save(flow);
 
       final task = StartedTask.start(
         id: TaskID.generate(),

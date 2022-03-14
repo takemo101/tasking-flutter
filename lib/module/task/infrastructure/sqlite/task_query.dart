@@ -11,25 +11,26 @@ class TaskSQLiteQuery implements TaskQuery {
 
   final String _operationTable = 'operations';
 
+  final String _pinTable = 'pins';
+
   final TaskQueryMapper _mapper = TaskQueryMapper();
 
   TaskSQLiteQuery({
     required SQLiteHelper helper,
   }) : _helper = helper;
 
-  String get _selectSQL => '''
+  @override
+  Future<List<TaskData>> allDiscardedBySceneID(SceneID sceneID) async {
+    final executor = await _helper.executor();
+    final maps = await executor.rawQuery(
+      '''
         SELECT $_table.*, $_operationTable.name AS operation_name
         FROM $_table
         INNER JOIN $_operationTable
         ON $_table.operation_id = $_operationTable.id
         WHERE $_table.scene_id = ? AND $_table.is_discarded = ?
-        ORDER BY flow_order ASC
-      ''';
-
-  @override
-  Future<List<TaskData>> allDiscardedBySceneID(SceneID sceneID) async {
-    final maps = await _helper.executor().rawQuery(
-      _selectSQL,
+        ORDER BY last_modified DESC
+      ''',
       [sceneID.value, 1],
     );
 
@@ -42,8 +43,18 @@ class TaskSQLiteQuery implements TaskQuery {
 
   @override
   Future<List<TaskData>> allStartedBySceneID(SceneID sceneID) async {
-    final maps = await _helper.executor().rawQuery(
-      _selectSQL,
+    final executor = await _helper.executor();
+    final maps = await executor.rawQuery(
+      '''
+        SELECT $_table.*, $_operationTable.name AS operation_name
+        FROM $_table
+        INNER JOIN $_operationTable
+        ON $_table.operation_id = $_operationTable.id
+        INNER JOIN $_pinTable
+        ON $_table.id = $_pinTable.task_id
+        WHERE $_table.scene_id = ? AND $_table.is_discarded = ?
+        ORDER BY $_pinTable.board_order ASC
+      ''',
       [sceneID.value, 0],
     );
 

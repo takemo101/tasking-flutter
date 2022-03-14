@@ -7,11 +7,11 @@ import 'package:tasking/module/shared/domain/transaction.dart';
 
 /// oreder operation command dto
 @immutable
-class ReOrderOperationCommand {
+class ReOrderOperationsCommand {
   final String id;
   final List<String> operationIDs;
 
-  const ReOrderOperationCommand({
+  const ReOrderOperationsCommand({
     required this.id,
     required this.operationIDs,
   });
@@ -28,7 +28,7 @@ class ReOrderOperationsUseCase {
   })  : _repository = repository,
         _transaction = transaction;
 
-  Future<void> execute(ReOrderOperationCommand command) async {
+  Future<void> execute(ReOrderOperationsCommand command) async {
     await _transaction.transaction(() async {
       final flow = await _repository.findByID(SceneID(command.id));
 
@@ -39,7 +39,7 @@ class ReOrderOperationsUseCase {
       final reOrderOperationIDs =
           ReOrderOperationIDs.fromStringList(command.operationIDs);
 
-      await _repository.update(
+      await _repository.save(
         flow.reorderOperations(reOrderOperationIDs),
       );
     });

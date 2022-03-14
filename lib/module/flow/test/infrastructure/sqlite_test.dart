@@ -41,8 +41,8 @@ void main() async {
     ),
   );
 
-  repository.store(
-    CreatedFlow.reconstruct(
+  repository.save(
+    Flow.reconstruct(
       id: id,
       operations: [
         Operation.reconstruct(
@@ -89,8 +89,8 @@ void main() async {
         ),
       );
 
-      await repository.store(
-        CreatedFlow.reconstruct(
+      await repository.save(
+        Flow.reconstruct(
           id: id,
           operations: [
             Operation.reconstruct(
@@ -148,8 +148,8 @@ void main() async {
         ),
       );
 
-      await repository.store(
-        CreatedFlow.reconstruct(
+      await repository.save(
+        Flow.reconstruct(
           id: id,
           operations: [
             Operation.reconstruct(
@@ -183,7 +183,7 @@ void main() async {
           ),
         );
 
-        await repository.update(flow);
+        await repository.save(flow);
 
         var after = await repository.findByID(id);
 

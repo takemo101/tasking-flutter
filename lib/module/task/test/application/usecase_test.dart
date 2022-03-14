@@ -22,6 +22,7 @@ import 'package:tasking/module/task/application/usecase/remove_task_usecase.dart
 import 'package:tasking/module/task/application/usecase/resume_task_usecase.dart';
 import 'package:tasking/module/task/application/usecase/start_task_usecase.dart';
 import 'package:tasking/module/task/domain/event/task_event.dart';
+import 'package:tasking/module/task/infrastructure/sqlite/board_repository.dart';
 import 'package:tasking/module/task/infrastructure/sqlite/task_query.dart';
 import 'package:tasking/module/task/infrastructure/sqlite/task_repository.dart';
 
@@ -36,6 +37,7 @@ void main() async {
 
   SceneSQLiteRepository sceneRepository = SceneSQLiteRepository(helper: helper);
   FlowSQLiteRepository flowRepository = FlowSQLiteRepository(helper: helper);
+  BoardSQLiteRepository boardRepository = BoardSQLiteRepository(helper: helper);
 
   TaskSQLiteQuery query = TaskSQLiteQuery(helper: helper);
   TaskSQLiteRepository repository = TaskSQLiteRepository(helper: helper);
@@ -82,7 +84,7 @@ void main() async {
       color: const OperationColor(11),
     ));
 
-    await flowRepository.update(flow);
+    await flowRepository.save(flow);
   }
 
   group('TaskUseCase test', () {
@@ -94,6 +96,7 @@ void main() async {
         final usecase = StartTaskUseCase(
           repository: repository,
           flowRepository: flowRepository,
+          boardRepository: boardRepository,
           transaction: transaction,
           eventBus: bus,
         );
@@ -144,6 +147,7 @@ void main() async {
       if (scene != null) {
         final usecase = StartTaskUseCase(
           repository: repository,
+          boardRepository: boardRepository,
           flowRepository: flowRepository,
           transaction: transaction,
           eventBus: bus,
@@ -161,6 +165,7 @@ void main() async {
 
           final discardUseCase = DiscardTaskUseCase(
             repository: repository,
+            boardRepository: boardRepository,
             transaction: transaction,
             eventBus: bus,
           );
@@ -175,6 +180,7 @@ void main() async {
 
             final resumeUseCase = ResumeTaskUseCase(
               repository: repository,
+              boardRepository: boardRepository,
               transaction: transaction,
               eventBus: bus,
             );
@@ -199,6 +205,7 @@ void main() async {
       if (scene != null) {
         final usecase = StartTaskUseCase(
           repository: repository,
+          boardRepository: boardRepository,
           flowRepository: flowRepository,
           transaction: transaction,
           eventBus: bus,
@@ -216,6 +223,7 @@ void main() async {
 
           final discardUseCase = DiscardTaskUseCase(
             repository: repository,
+            boardRepository: boardRepository,
             transaction: transaction,
             eventBus: bus,
           );
@@ -249,6 +257,7 @@ void main() async {
       if (scene != null) {
         final usecase = StartTaskUseCase(
           repository: repository,
+          boardRepository: boardRepository,
           flowRepository: flowRepository,
           transaction: transaction,
           eventBus: bus,
@@ -272,6 +281,7 @@ void main() async {
 
         final discardUseCase = DiscardTaskUseCase(
           repository: repository,
+          boardRepository: boardRepository,
           transaction: transaction,
           eventBus: bus,
         );

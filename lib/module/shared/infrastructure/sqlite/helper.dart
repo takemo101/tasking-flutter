@@ -4,7 +4,6 @@ import 'dart:async';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart';
-import 'package:tasking/module/shared/infrastructure/sqlite/exception.dart';
 import 'package:tasking/module/shared/infrastructure/sqlite/migration.dart';
 
 import 'package:tasking/module/shared/infrastructure/sqlite/migration/migration_20220308.dart';
@@ -30,35 +29,31 @@ class SQLiteHelper {
   })  : _databaseName = name,
         _databaseVersion = version;
 
-  Database _connection() {
+  Future<Database> _connection() async {
     if (!isConnected()) {
-      throw SQLiteException('not open');
+      await open();
     }
     return _database!;
   }
 
-  DatabaseExecutor executor() {
-    return _transaction ?? _connection();
+  Future<DatabaseExecutor> executor() async {
+    return _transaction ?? await _connection();
   }
 
   bool isConnected() {
     return _database != null;
   }
 
-  Future<Database> open() async {
-    if (isConnected()) {
-      return _connection();
+  Future<void> open() async {
+    if (!isConnected()) {
+      if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
+        // for pc
+        _database = await _openDatabaseForPC();
+      } else {
+        // for phone
+        _database = await _openDatabaseForPhone();
+      }
     }
-
-    if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
-      // for pc
-      _database = await _openDatabaseForPC();
-    } else {
-      // for phone
-      _database = await _openDatabaseForPhone();
-    }
-
-    return _connection();
   }
 
   Future<void> dispose() async {
@@ -67,7 +62,7 @@ class SQLiteHelper {
   }
 
   Future<T> transaction<T>(Future<T> Function() f) async {
-    return _connection().transaction<T>((txn) async {
+    return (await _connection()).transaction<T>((txn) async {
       _transaction = txn;
       return await f();
     }).then((v) {

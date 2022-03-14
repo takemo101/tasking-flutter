@@ -5,7 +5,7 @@ import 'package:tasking/module/task/domain/vo/task_id.dart';
 
 /// start default task factory class
 class StartDefaultTask {
-  final CreatedFlow _flow;
+  final Flow _flow;
 
   StartDefaultTask(this._flow);
 

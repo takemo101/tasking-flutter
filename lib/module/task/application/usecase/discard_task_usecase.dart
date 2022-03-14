@@ -1,6 +1,7 @@
 import 'package:tasking/module/shared/application/exception.dart';
 import 'package:tasking/module/shared/domain/event.dart';
 import 'package:tasking/module/shared/domain/transaction.dart';
+import 'package:tasking/module/task/domain/board_repository.dart';
 import 'package:tasking/module/task/domain/task.dart';
 import 'package:tasking/module/task/domain/task_repository.dart';
 import 'package:tasking/module/task/domain/vo/task_id.dart';
@@ -8,14 +9,17 @@ import 'package:tasking/module/task/domain/vo/task_id.dart';
 /// discard task usecase
 class DiscardTaskUseCase {
   final TaskRepository _repository;
+  final BoardRepository _boardRepository;
   final Transaction _transaction;
   final DomainEventBus _eventBus;
 
   DiscardTaskUseCase({
     required TaskRepository repository,
+    required BoardRepository boardRepository,
     required Transaction transaction,
     required DomainEventBus eventBus,
   })  : _repository = repository,
+        _boardRepository = boardRepository,
         _transaction = transaction,
         _eventBus = eventBus;
 
@@ -27,7 +31,14 @@ class DiscardTaskUseCase {
         throw NotFoundException(id, name: 'task');
       }
 
-      await _repository.update(task.discard());
+      final discardedTask = task.discard();
+
+      await _repository.update(discardedTask);
+
+      final board = await _boardRepository.findByID(discardedTask.sceneID);
+
+      await _boardRepository
+          .save(board.removePinByDiscardedTask(discardedTask));
 
       return task;
     });

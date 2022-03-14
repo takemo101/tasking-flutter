@@ -3,14 +3,14 @@ import 'package:tasking/module/shared/domain/exception.dart';
 abstract class NameString {
   final String value;
 
-  String get name => 'name';
+  String get label => 'name';
   int get max => 20;
 
   NameString(String name) : value = name.trim() {
     if (value.isEmpty) {
       throw DomainException(
         type: DomainExceptionType.notEmpty,
-        detail: '$name is empty!',
+        detail: '$label is empty!',
       );
     }
 
@@ -18,7 +18,7 @@ abstract class NameString {
     if (value.length > max) {
       throw DomainException(
         type: DomainExceptionType.length,
-        detail: '$name is too long!',
+        detail: '$label is too long!',
       );
     }
   }

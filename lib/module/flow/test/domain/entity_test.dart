@@ -12,13 +12,13 @@ void main() {
 
   group('Flow entity test', () {
     test("Flow create OK test", () {
-      final flow = CreatedFlow.create(id: id);
+      final flow = Flow.create(id: id);
 
       expect(flow.id, id);
     });
 
     test("Flow addOperation OK test", () {
-      CreatedFlow flow = CreatedFlow.create(id: id);
+      Flow flow = Flow.create(id: id);
 
       flow = flow.addOperation(
         OperationDetail(
@@ -37,7 +37,7 @@ void main() {
     });
 
     test("Flow changeOperation OK test", () {
-      CreatedFlow flow = CreatedFlow.create(id: id);
+      Flow flow = Flow.create(id: id);
 
       flow = flow.addOperation(
         OperationDetail(
@@ -67,7 +67,7 @@ void main() {
     });
 
     test("Flow removeOperation OK test", () {
-      CreatedFlow flow = CreatedFlow.create(id: id);
+      Flow flow = Flow.create(id: id);
 
       flow = flow.addOperation(
         OperationDetail(
@@ -88,7 +88,7 @@ void main() {
     });
 
     test("Flow reorderOperations OK test", () {
-      CreatedFlow flow = CreatedFlow.create(id: id);
+      Flow flow = Flow.create(id: id);
 
       flow = flow.addOperation(
         OperationDetail(
@@ -119,7 +119,7 @@ void main() {
     });
 
     test("Flow nextOperation OK test", () {
-      CreatedFlow flow = CreatedFlow.create(id: id);
+      Flow flow = Flow.create(id: id);
 
       flow = flow.addOperation(
         OperationDetail(

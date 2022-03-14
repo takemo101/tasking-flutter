@@ -42,7 +42,7 @@ class RemoveOperationUseCase {
         throw NotFoundException(command.id, name: 'operation');
       }
 
-      await _repository.update(
+      await _repository.save(
         flow.removeOperation(operationID),
       );
     });

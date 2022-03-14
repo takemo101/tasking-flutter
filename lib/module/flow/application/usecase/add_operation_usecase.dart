@@ -52,7 +52,7 @@ class AddOperationUseCase {
         throw NotUniqueOperationNameException();
       }
 
-      await _repository.store(flow.addOperation(operationDetail));
+      await _repository.save(flow.addOperation(operationDetail));
     });
   }
 }

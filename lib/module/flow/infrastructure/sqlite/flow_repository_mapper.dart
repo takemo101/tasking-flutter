@@ -9,16 +9,9 @@ import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 
 /// flow repository mapper class
 class FlowRepositoryMapper {
-  /// from created flow to map
-  Map<String, dynamic> fromCreatedFlowToMap(CreatedFlow flow) {
-    return {
-      'id': flow.id.value,
-    };
-  }
-
   /// from created flow to operation map list
-  List<Map<String, dynamic>> fromCreatedFlowToOperationMapList(
-    CreatedFlow flow,
+  List<Map<String, dynamic>> fromFlowToOperationMapList(
+    Flow flow,
   ) {
     List<Map<String, dynamic>> result = [];
 
@@ -46,11 +39,11 @@ class FlowRepositoryMapper {
   }
 
   /// from map to created flow aggregate
-  CreatedFlow fromMapToCreatedFlow(
+  Flow fromMapToFlow(
     SceneID id,
     List<Map<String, dynamic>> operationMaps,
   ) {
-    return CreatedFlow.reconstruct(
+    return Flow.reconstruct(
       id: id,
       operations: operationMaps
           .map((op) => Operation.reconstruct(

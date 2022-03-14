@@ -7,4 +7,7 @@ class SceneName extends Name<SceneName> {
 
   @override
   int get max => 60;
+
+  @override
+  String get label => 'scene name';
 }

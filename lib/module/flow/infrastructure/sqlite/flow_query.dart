@@ -7,8 +7,7 @@ import 'package:tasking/module/shared/infrastructure/sqlite/helper.dart';
 class FlowSQLiteQuery implements FlowQuery {
   final SQLiteHelper _helper;
 
-  final String _table = 'scenes';
-  final String _operationTable = 'operations';
+  final String _table = 'operations';
 
   final FlowQueryMapper _mapper = FlowQueryMapper();
 
@@ -18,16 +17,12 @@ class FlowSQLiteQuery implements FlowQuery {
 
   @override
   Future<FlowData?> detail(SceneID id) async {
-    final maps = await _helper.executor().rawQuery(
-      '''
-        SELECT $_operationTable.*
-        FROM $_table
-        INNER JOIN $_operationTable
-        ON $_table.id = $_operationTable.scene_id
-        WHERE $_table.id = ?
-        ORDER BY flow_order ASC
-      ''',
-      [id.value],
+    final executor = await _helper.executor();
+    final maps = await executor.query(
+      _table,
+      where: 'scene_id = ?',
+      whereArgs: [id.value],
+      orderBy: 'flow_order ASC',
     );
 
     if (maps.isEmpty) {

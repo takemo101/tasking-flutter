@@ -9,5 +9,5 @@ class TaskContent extends Name<TaskContent> {
   int get max => 120;
 
   @override
-  String get name => 'content';
+  String get label => 'content';
 }

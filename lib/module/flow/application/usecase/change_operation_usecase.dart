@@ -61,7 +61,7 @@ class ChangeOperationUseCase {
         throw NotUniqueOperationNameException();
       }
 
-      await _repository.update(
+      await _repository.save(
         flow.changeOperation(operationID, operationDetail),
       );
     });

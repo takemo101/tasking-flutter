@@ -17,8 +17,8 @@ class CreateSceneFlowSubscriber implements EventSubscriber<CreateSceneEvent> {
   @override
   void handle(CreateSceneEvent event) async {
     await _transaction.transaction(() async {
-      await _repository.store(
-        CreatedFlow.create(id: event.id),
+      await _repository.save(
+        Flow.create(id: event.id),
       );
     });
   }

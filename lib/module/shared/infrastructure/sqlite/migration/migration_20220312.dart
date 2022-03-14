@@ -21,5 +21,18 @@ class Migration20220312 implements SQLiteMigration {
         FOREIGN KEY (operation_id) REFERENCES operations (id) ON DELETE CASCADE
       )
     ''');
+
+    // pins table
+    batch.execute('DROP TABLE IF EXISTS pins');
+    batch.execute('''
+      CREATE TABLE pins (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        scene_id TEXT NOT NULL,
+        task_id TEXT NOT NULL,
+        board_order INTEGER NOT NULL,
+        FOREIGN KEY (scene_id) REFERENCES scenes (id) ON DELETE CASCADE
+        FOREIGN KEY (task_id) REFERENCES tasks (id) ON DELETE CASCADE
+      )
+    ''');
   }
 }

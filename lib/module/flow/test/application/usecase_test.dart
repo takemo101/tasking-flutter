@@ -40,9 +40,9 @@ void main() async {
 
   sceneRepository.store(scene);
 
-  final flow = CreatedFlow.create(id: scene.id);
+  final flow = Flow.create(id: scene.id);
 
-  repository.store(flow);
+  repository.save(flow);
 
   group('FlowUseCase test', () {
     test("AddOperationUseCase and RemoveOperationUseCase test", () async {
@@ -178,7 +178,7 @@ void main() async {
           var ids = addFlow.operations.map((e) => e.id.value).toList();
           ids = ids.reversed.toList();
 
-          await reorderUseCase.execute(ReOrderOperationCommand(
+          await reorderUseCase.execute(ReOrderOperationsCommand(
             id: scene.id.value,
             operationIDs: ids,
           ));

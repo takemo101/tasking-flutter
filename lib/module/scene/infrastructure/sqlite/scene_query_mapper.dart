@@ -9,8 +9,10 @@ class SceneQueryMapper {
     return SceneData(
       id: map['id'].toString(),
       name: map['name'].toString(),
-      genre: genre.name,
-      genreJPName: genre.jpname,
+      genre: GenreData(
+        label: genre.name,
+        name: genre.jpname,
+      ),
       lastModified: DateTime.parse(
         map['last_modified'].toString(),
       ),

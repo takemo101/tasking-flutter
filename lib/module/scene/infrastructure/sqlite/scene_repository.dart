@@ -19,7 +19,8 @@ class SceneSQLiteRepository implements SceneRepository {
 
   @override
   Future<CreatedScene?> findByID(SceneID id) async {
-    final list = await _helper.executor().query(
+    final executor = await _helper.executor();
+    final list = await executor.query(
       _table,
       where: 'id = ?',
       whereArgs: [id.value],
@@ -30,7 +31,8 @@ class SceneSQLiteRepository implements SceneRepository {
 
   @override
   Future<List<CreatedScene>> listByName(SceneName name) async {
-    final list = await _helper.executor().query(
+    final executor = await _helper.executor();
+    final list = await executor.query(
       _table,
       where: 'name = ?',
       whereArgs: [name.value],
@@ -45,7 +47,8 @@ class SceneSQLiteRepository implements SceneRepository {
 
   @override
   Future<void> remove(RemovedScene scene) async {
-    await _helper.executor().delete(
+    final executor = await _helper.executor();
+    await executor.delete(
       _table,
       where: "id = ?",
       whereArgs: [scene.id.value],
@@ -54,21 +57,23 @@ class SceneSQLiteRepository implements SceneRepository {
 
   @override
   Future<void> store(CreatedScene scene) async {
-    await _helper.executor().insert(
-          _table,
-          _mapper.fromCreatedSceneToMap(scene),
-          conflictAlgorithm: ConflictAlgorithm.replace,
-        );
+    final executor = await _helper.executor();
+    await executor.insert(
+      _table,
+      _mapper.fromCreatedSceneToMap(scene),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   @override
   Future<void> update(CreatedScene scene) async {
-    await _helper.executor().update(
-          _table,
-          _mapper.fromCreatedSceneToMap(scene),
-          where: "id = ?",
-          whereArgs: [scene.id.value],
-          conflictAlgorithm: ConflictAlgorithm.fail,
-        );
+    final executor = await _helper.executor();
+    await executor.update(
+      _table,
+      _mapper.fromCreatedSceneToMap(scene),
+      where: "id = ?",
+      whereArgs: [scene.id.value],
+      conflictAlgorithm: ConflictAlgorithm.fail,
+    );
   }
 }
