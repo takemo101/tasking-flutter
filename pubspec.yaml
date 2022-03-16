@@ -9,7 +9,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_launcher_icons: ^0.9.2
   flutter_markdown: ^0.6.9
+  flutter_native_splash: ^2.0.4
   flutter_riverpod: ^1.0.3
   intl: ^0.17.0
   path: ^1.8.0
@@ -25,3 +27,13 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+flutter_icons:
+  ios: true
+  android: true
+  image_path_ios: "asset/icon/ios/icon-1024.png"
+  image_path_android: "asset/icon/android/icon-512.png"
+
+flutter_native_splash:
+  image: "asset/icon/hibitask.png"
+  color: "4CAF50"

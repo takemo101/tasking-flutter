@@ -38,7 +38,9 @@ class FlowPage extends ConsumerWidget {
             : const EmptyContainer('新規オペレーションを追加してください'),
         color: const Color.fromRGBO(255, 255, 255, 1),
       ),
-      floatingActionButton: AddOperationButton(notifier: notifier),
+      floatingActionButton: detail == null || !detail.canAddOperation
+          ? AddOperationButton(notifier: notifier)
+          : null,
     );
   }
 }

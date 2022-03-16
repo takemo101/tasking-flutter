@@ -8,6 +8,14 @@ class NotUniqueOperationNameException extends ApplicationException {
         );
 }
 
+class LimitSizeOperationsException extends ApplicationException {
+  LimitSizeOperationsException()
+      : super(
+          detail: 'limit size operations!',
+          jp: 'これ以上オペレーションを追加できません！',
+        );
+}
+
 class ExistsTaskOperationException extends ApplicationException {
   ExistsTaskOperationException()
       : super(

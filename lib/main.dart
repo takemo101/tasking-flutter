@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tasking/module/scene/presentation/page/scene_list_page.dart';
+import 'package:tasking/module/shared/infrastructure/initializer.dart';
+import 'package:tasking/module/shared/infrastructure/sqlite/initializer.dart';
 import 'package:tasking/module/shared/presentation/route.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-void main() {
+void main() async {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  await initialize();
+
   runApp(
     const ProviderScope(
       child: App(),
     ),
   );
+
+  FlutterNativeSplash.remove();
 }
 
 class App extends ConsumerWidget {
@@ -29,4 +39,12 @@ class App extends ConsumerWidget {
       home: SceneListPage(),
     );
   }
+}
+
+Future<void> initialize() async {
+  final initializer = Initializer([
+    SQLiteInitializer(),
+  ]);
+
+  await initializer.initialize();
 }

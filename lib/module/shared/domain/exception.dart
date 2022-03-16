@@ -32,6 +32,7 @@ enum DomainExceptionType {
   duplicate,
   number,
   length,
+  size,
   datetime,
   specification,
   unknown,
@@ -53,6 +54,8 @@ extension ExceptionTypeMessage on DomainExceptionType {
         return 'invalid number error';
       case DomainExceptionType.length:
         return 'invalid length error';
+      case DomainExceptionType.size:
+        return 'invalid size error';
       case DomainExceptionType.datetime:
         return 'invalid datetime error';
       case DomainExceptionType.specification:

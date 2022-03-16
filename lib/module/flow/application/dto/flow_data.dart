@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+import 'package:tasking/module/flow/domain/collection/operations.dart';
 import 'package:tasking/module/flow/domain/vo/flow_order.dart';
 
 @immutable
@@ -10,6 +11,8 @@ class FlowData {
     required this.id,
     required this.operations,
   });
+
+  bool get canAddOperation => operations.length >= Operations.limit;
 }
 
 @immutable

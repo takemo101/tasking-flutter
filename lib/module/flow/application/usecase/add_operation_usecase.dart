@@ -52,6 +52,11 @@ class AddOperationUseCase {
         throw NotUniqueOperationNameException();
       }
 
+      // limit check
+      if (flow.isLimitSizeOperations) {
+        throw LimitSizeOperationsException();
+      }
+
       await _repository.save(flow.addOperation(operationDetail));
     });
   }

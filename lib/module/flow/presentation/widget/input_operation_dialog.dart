@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tasking/module/flow/application/exception.dart';
 import 'package:tasking/module/flow/presentation/widget/color_dropdown.dart';
+import 'package:tasking/module/shared/application/exception.dart';
 import 'package:tasking/module/shared/domain/exception.dart';
 import 'package:tasking/module/shared/presentation/validator/validator.dart';
 import 'package:tasking/module/shared/presentation/widget/error_dialog.dart';
@@ -99,7 +99,7 @@ class InputOperationDialog extends StatelessWidget {
           message: e.toJP(),
           onConfirm: show,
         ).show();
-      } on NotUniqueOperationNameException catch (e) {
+      } on ApplicationException catch (e) {
         Navigator.of(context).pop();
         ErrorDialog(
           context: _context,

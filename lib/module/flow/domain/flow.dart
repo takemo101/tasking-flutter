@@ -45,6 +45,9 @@ class Flow extends Scene {
           operations: Operations(operations),
         );
 
+  /// can add operation
+  bool get isLimitSizeOperations => _operations.isLimitSize();
+
   /// is unique operation name
   bool isUniqueOperationName(OperationName name, [OperationID? operationID]) {
     return operationID == null

@@ -8,11 +8,20 @@ import 'package:tasking/module/shared/domain/exception.dart';
 
 /// operation collection mutable class
 class Operations {
+  static const limit = 10;
+
   List<Operation> _operations;
 
   Operations(
     List<Operation> operations,
   ) : _operations = operations {
+    if (_operations.length > Operations.limit) {
+      throw DomainException(
+        type: DomainExceptionType.size,
+        detail: 'list size of the operation is too large!',
+      );
+    }
+
     _operations.sort((a, b) => a.order.compareTo(b.order));
   }
 
@@ -21,6 +30,10 @@ class Operations {
 
   /// create empty data constructor
   Operations.empty() : this(<Operation>[]);
+
+  bool isLimitSize() {
+    return _operations.length >= Operations.limit;
+  }
 
   /// has by operation name
   bool hasByName(OperationName name) {
