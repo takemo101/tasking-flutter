@@ -26,7 +26,7 @@ class App extends ConsumerWidget {
       ),
       initialRoute: routeGenerator.homeRouteName,
       onGenerateRoute: routeGenerator.generate,
-      home: const SceneListPage(),
+      home: SceneListPage(),
     );
   }
 }

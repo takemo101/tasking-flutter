@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:tasking/module/scene/presentation/widget/create_scene_button.dart';
+import 'package:tasking/module/scene/presentation/widget/manual_drawer.dart';
 import 'package:tasking/module/scene/presentation/widget/remove_scene_button.dart';
 import 'package:tasking/module/scene/presentation/widget/update_scene_button.dart';
 import 'package:tasking/module/scene/scene_provider.dart';
@@ -12,7 +13,9 @@ import 'package:tasking/module/shared/presentation/widget/list_icon_button.dart'
 import 'package:tasking/module/shared/presentation/widget/side_action_button.dart';
 
 class SceneListPage extends ConsumerWidget {
-  const SceneListPage({Key? key}) : super(key: key);
+  final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
+
+  SceneListPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,14 +23,16 @@ class SceneListPage extends ConsumerWidget {
     final list = notifier.list;
 
     return Scaffold(
+      key: _key,
       appBar: AppBar(
-        title: const Text('タスクシーン'),
+        title: const Text('シーン'),
+        automaticallyImplyLeading: false,
         actions: [
           AppBarActionButton(
             icon: Icons.menu_book,
             text: '使い方',
             onPressed: () async {
-              //
+              _key.currentState!.openDrawer();
             },
           ),
         ],
@@ -103,6 +108,42 @@ class SceneListPage extends ConsumerWidget {
               )
             : const EmptyContainer('新規シーンを追加してください'),
         color: const Color.fromRGBO(255, 255, 255, 1),
+      ),
+      drawer: ManualDrawer(
+        children: [
+          ListTile(
+            title: const Text('アプリの利用手順'),
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                AppRoute.manualHowToUsePage.route,
+              );
+            },
+          ),
+          ListTile(
+            title: const Text('シーンについて'),
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                AppRoute.manualAboutTheScenePage.route,
+              );
+            },
+          ),
+          ListTile(
+            title: const Text('フローについて'),
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                AppRoute.manualAboutTheFlowPage.route,
+              );
+            },
+          ),
+          ListTile(
+            title: const Text('タスクについて'),
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                AppRoute.manualAboutTheTaskPage.route,
+              );
+            },
+          ),
+        ],
       ),
       floatingActionButton: CreateSceneButton(notifier: notifier),
     );
