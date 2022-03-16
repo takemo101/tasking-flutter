@@ -4,10 +4,5 @@ import 'package:tasking/module/shared/domain/vo/parts.dart';
 
 @immutable
 class TidyOperationIDs extends Parts<OperationID, TidyOperationIDs> {
-  TidyOperationIDs(List<OperationID> list) : super(list);
-
-  TidyOperationIDs.fromStringList(List<String> strings)
-      : this(
-          strings.map<OperationID>((s) => OperationID(s)).toList(),
-        );
+  TidyOperationIDs(List<OperationID> list) : super(list.reversed.toList());
 }

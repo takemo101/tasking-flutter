@@ -1,5 +1,9 @@
 import 'package:tasking/module/shared/application/exception.dart';
 
 class NotUniqueSceneNameException extends ApplicationException {
-  NotUniqueSceneNameException() : super(detail: 'not unique scene name!');
+  NotUniqueSceneNameException()
+      : super(
+          detail: 'not unique scene name!',
+          jp: 'シーンネームが重複しています！',
+        );
 }

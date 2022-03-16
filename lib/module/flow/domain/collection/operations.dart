@@ -27,6 +27,13 @@ class Operations {
     return _operations.indexWhere((op) => op.detail.name == name) != -1;
   }
 
+  /// has by operation name
+  bool hasByNameExceptID(OperationName name, OperationID id) {
+    return _operations
+            .indexWhere((op) => op.id != id && op.detail.name == name) !=
+        -1;
+  }
+
   /// has by operation id
   bool hasByID(OperationID id) {
     return _operations.indexWhere((op) => op.id == id) != -1;

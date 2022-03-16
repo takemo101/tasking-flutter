@@ -18,8 +18,11 @@ class Migration20220312 implements SQLiteMigration {
         is_discarded INTEGER NOT NULL,
         PRIMARY KEY (id),
         FOREIGN KEY (scene_id) REFERENCES scenes (id) ON DELETE CASCADE
-        FOREIGN KEY (operation_id) REFERENCES operations (id) ON DELETE CASCADE
       )
+    ''');
+    batch.execute('''
+      CREATE INDEX idx_task_operation_d
+      ON tasks(operation_id)
     ''');
 
     // pins table

@@ -16,6 +16,6 @@ final sceneNotifierProvider =
     ChangeNotifierProvider<SceneNotifier>((ref) => SceneNotifier(
           repository: ref.read(sceneRepositoryProvider),
           query: ref.read(sceneQueryProvider),
-          transaction: ref.read(sqliteTransactionProvider),
+          transaction: ref.read(transactionProvider),
           eventBus: ref.read(domainEventBusProvider),
         )..listUpdate());

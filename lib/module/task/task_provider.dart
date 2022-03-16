@@ -19,11 +19,15 @@ final boardRepositoryProvider = Provider<BoardRepository>(
     (ref) => BoardSQLiteRepository(helper: ref.read(sqliteHelperProvider)));
 
 final taskNotifierProvider =
-    ChangeNotifierProvider<TaskNotifier>((ref) => TaskNotifier(
-          repository: ref.read(taskRepositoryProvider),
-          flowRepository: ref.read(flowRepositoryProvider),
-          boardRepository: ref.read(boardRepositoryProvider),
-          query: ref.read(taskQueryProvider),
-          transaction: ref.read(sqliteTransactionProvider),
-          eventBus: ref.read(domainEventBusProvider),
-        ));
+    ChangeNotifierProvider.family<TaskNotifier, String>(
+        (ref, sceneID) => TaskNotifier(
+              sceneID,
+              repository: ref.read(taskRepositoryProvider),
+              flowRepository: ref.read(flowRepositoryProvider),
+              boardRepository: ref.read(boardRepositoryProvider),
+              query: ref.read(taskQueryProvider),
+              transaction: ref.read(transactionProvider),
+              eventBus: ref.read(domainEventBusProvider),
+            )
+              ..startedListUpdate()
+              ..discardedListUpdate());

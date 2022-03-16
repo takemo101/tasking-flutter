@@ -6,5 +6,8 @@ class OperationName extends Name<OperationName> {
   OperationName(String name) : super(name);
 
   @override
-  int get max => 30;
+  int get max => 8;
+
+  @override
+  String get label => 'operation name';
 }

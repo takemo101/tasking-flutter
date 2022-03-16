@@ -17,17 +17,29 @@ const List<SQLiteMigration> _migrations = <SQLiteMigration>[
 ];
 
 class SQLiteHelper {
+  static SQLiteHelper? _instance;
+
   final String _databaseName;
   final int _databaseVersion;
 
   Database? _database;
   Transaction? _transaction;
 
-  SQLiteHelper({
-    String name = 'database.sqlite',
-    int version = 1,
+  SQLiteHelper._({
+    required String name,
+    required int version,
   })  : _databaseName = name,
         _databaseVersion = version;
+
+  factory SQLiteHelper({
+    String name = 'database.sqlite',
+    int version = 1,
+  }) {
+    return _instance ??= SQLiteHelper._(
+      name: name,
+      version: version,
+    );
+  }
 
   Future<Database> _connection() async {
     if (!isConnected()) {
@@ -62,7 +74,8 @@ class SQLiteHelper {
   }
 
   Future<T> transaction<T>(Future<T> Function() f) async {
-    return (await _connection()).transaction<T>((txn) async {
+    final connect = await _connection();
+    return connect.transaction<T>((txn) async {
       _transaction = txn;
       return await f();
     }).then((v) {

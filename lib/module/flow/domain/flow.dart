@@ -46,8 +46,10 @@ class Flow extends Scene {
         );
 
   /// is unique operation name
-  bool isUniqueOperationName(OperationName name) {
-    return !_operations.hasByName(name);
+  bool isUniqueOperationName(OperationName name, [OperationID? operationID]) {
+    return operationID == null
+        ? !_operations.hasByName(name)
+        : !_operations.hasByNameExceptID(name, operationID);
   }
 
   /// is assignable operation name

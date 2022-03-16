@@ -6,10 +6,10 @@ class ErrorDialog extends StatelessWidget {
   final VoidCallback? onConfirm;
 
   const ErrorDialog({
-    Key? key,
     required BuildContext context,
     required this.message,
     this.onConfirm,
+    Key? key,
   })  : _context = context,
         super(key: key);
 

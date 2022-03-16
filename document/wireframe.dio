@@ -1,181 +1,181 @@
 <mxfile host="65bd71144e">
     <diagram id="kdKV2vqOKt_8fOoCHRYA" name="top">
-        <mxGraphModel dx="897" dy="591" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="788" dy="699" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="2" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="159" y="80" width="510" height="630" as="geometry"/>
                 </mxCell>
-                <mxCell id="3" value="シーン追加&lt;br&gt;ボタン" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="3" value="シーン追加&lt;br&gt;ボタン" style="ellipse;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="580" y="100" width="70" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="4" value="シーン" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                <mxCell id="4" value="シーン" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
                     <mxGeometry x="384" y="120" width="60" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="6" value="シーン名" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="6" value="シーン名" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="204" y="270" width="420" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="7" value="シーン名" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="7" value="シーン名" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="204" y="210" width="420" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="8" value="シーン名" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="8" value="シーン名" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="204" y="330" width="420" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="9" value="シーン名" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                <mxCell id="9" value="シーン名" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
                     <mxGeometry x="204" y="390" width="420" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
     </diagram>
     <diagram id="TGw5aPREfg2xwXCBpTqU" name="add_scene">
-        <mxGraphModel grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" page="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="412" dy="643" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="L0vJJMpG2yHtjHzEtmZj-0"/>
                 <mxCell id="L0vJJMpG2yHtjHzEtmZj-1" parent="L0vJJMpG2yHtjHzEtmZj-0"/>
-                <mxCell id="DafGaUzn1Qd9vmD5xgcy-0" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="L0vJJMpG2yHtjHzEtmZj-1">
+                <mxCell id="DafGaUzn1Qd9vmD5xgcy-0" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="L0vJJMpG2yHtjHzEtmZj-1" vertex="1">
                     <mxGeometry x="159" y="80" width="510" height="630" as="geometry"/>
                 </mxCell>
-                <mxCell id="DafGaUzn1Qd9vmD5xgcy-2" value="シーン" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="L0vJJMpG2yHtjHzEtmZj-1">
+                <mxCell id="DafGaUzn1Qd9vmD5xgcy-2" value="シーン" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="L0vJJMpG2yHtjHzEtmZj-1" vertex="1">
                     <mxGeometry x="384" y="120" width="60" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="DafGaUzn1Qd9vmD5xgcy-4" value="シーン&lt;br&gt;追加ボタン" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="L0vJJMpG2yHtjHzEtmZj-1">
+                <mxCell id="DafGaUzn1Qd9vmD5xgcy-4" value="シーン&lt;br&gt;追加ボタン" style="ellipse;whiteSpace=wrap;html=1;" parent="L0vJJMpG2yHtjHzEtmZj-1" vertex="1">
                     <mxGeometry x="580" y="100" width="70" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="DafGaUzn1Qd9vmD5xgcy-5" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="L0vJJMpG2yHtjHzEtmZj-1">
+                <mxCell id="DafGaUzn1Qd9vmD5xgcy-5" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="L0vJJMpG2yHtjHzEtmZj-1" vertex="1">
                     <mxGeometry x="249" y="220" width="330" height="370" as="geometry"/>
                 </mxCell>
-                <mxCell id="DafGaUzn1Qd9vmD5xgcy-6" value="モーダル" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="L0vJJMpG2yHtjHzEtmZj-1">
+                <mxCell id="DafGaUzn1Qd9vmD5xgcy-6" value="モーダル" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="L0vJJMpG2yHtjHzEtmZj-1" vertex="1">
                     <mxGeometry x="384" y="240" width="60" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="DafGaUzn1Qd9vmD5xgcy-7" value="追加する&lt;br&gt;ボタン" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="L0vJJMpG2yHtjHzEtmZj-1">
+                <mxCell id="DafGaUzn1Qd9vmD5xgcy-7" value="追加する&lt;br&gt;ボタン" style="ellipse;whiteSpace=wrap;html=1;" parent="L0vJJMpG2yHtjHzEtmZj-1" vertex="1">
                     <mxGeometry x="480" y="500" width="70" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="DafGaUzn1Qd9vmD5xgcy-8" value="シーン名" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="L0vJJMpG2yHtjHzEtmZj-1">
+                <mxCell id="DafGaUzn1Qd9vmD5xgcy-8" value="シーン名" style="rounded=0;whiteSpace=wrap;html=1;" parent="L0vJJMpG2yHtjHzEtmZj-1" vertex="1">
                     <mxGeometry x="280" y="300" width="270" height="50" as="geometry"/>
                 </mxCell>
-                <mxCell id="VglFxWcePfPBrVQFwnX4-0" value="ジャンル選択" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="L0vJJMpG2yHtjHzEtmZj-1">
+                <mxCell id="VglFxWcePfPBrVQFwnX4-0" value="ジャンル選択" style="rounded=0;whiteSpace=wrap;html=1;" parent="L0vJJMpG2yHtjHzEtmZj-1" vertex="1">
                     <mxGeometry x="279" y="400" width="270" height="50" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
     </diagram>
     <diagram id="VMaCzwrLiHbyLaR8imWv" name="task_top">
-        <mxGraphModel dx="897" dy="591" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="412" dy="643" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="JDwBtqaGDCrSX6BFVCbT-0"/>
                 <mxCell id="JDwBtqaGDCrSX6BFVCbT-1" parent="JDwBtqaGDCrSX6BFVCbT-0"/>
-                <mxCell id="JDwBtqaGDCrSX6BFVCbT-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="JDwBtqaGDCrSX6BFVCbT-1">
+                <mxCell id="JDwBtqaGDCrSX6BFVCbT-2" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="JDwBtqaGDCrSX6BFVCbT-1" vertex="1">
                     <mxGeometry x="159" y="80" width="510" height="630" as="geometry"/>
                 </mxCell>
-                <mxCell id="JDwBtqaGDCrSX6BFVCbT-3" value="戻る&lt;br&gt;ボタン" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="JDwBtqaGDCrSX6BFVCbT-1">
+                <mxCell id="JDwBtqaGDCrSX6BFVCbT-3" value="戻る&lt;br&gt;ボタン" style="ellipse;whiteSpace=wrap;html=1;" parent="JDwBtqaGDCrSX6BFVCbT-1" vertex="1">
                     <mxGeometry x="180" y="100" width="70" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="JDwBtqaGDCrSX6BFVCbT-4" value="タスク" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="JDwBtqaGDCrSX6BFVCbT-1">
+                <mxCell id="JDwBtqaGDCrSX6BFVCbT-4" value="タスク" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="JDwBtqaGDCrSX6BFVCbT-1" vertex="1">
                     <mxGeometry x="384" y="120" width="60" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="JDwBtqaGDCrSX6BFVCbT-5" value="タスク名" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="JDwBtqaGDCrSX6BFVCbT-1">
+                <mxCell id="JDwBtqaGDCrSX6BFVCbT-5" value="タスク名" style="rounded=0;whiteSpace=wrap;html=1;" parent="JDwBtqaGDCrSX6BFVCbT-1" vertex="1">
                     <mxGeometry x="204" y="210" width="420" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="JDwBtqaGDCrSX6BFVCbT-7" value="タスク&lt;br&gt;追加ボタン" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="JDwBtqaGDCrSX6BFVCbT-1">
+                <mxCell id="JDwBtqaGDCrSX6BFVCbT-7" value="タスク&lt;br&gt;追加ボタン" style="ellipse;whiteSpace=wrap;html=1;" parent="JDwBtqaGDCrSX6BFVCbT-1" vertex="1">
                     <mxGeometry x="560" y="620" width="70" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="JDwBtqaGDCrSX6BFVCbT-8" value="フロー&lt;br&gt;リストへ" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="JDwBtqaGDCrSX6BFVCbT-1">
+                <mxCell id="JDwBtqaGDCrSX6BFVCbT-8" value="フロー&lt;br&gt;リストへ" style="ellipse;whiteSpace=wrap;html=1;" parent="JDwBtqaGDCrSX6BFVCbT-1" vertex="1">
                     <mxGeometry x="580" y="100" width="70" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="JDwBtqaGDCrSX6BFVCbT-12" value="オペレーション名" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="JDwBtqaGDCrSX6BFVCbT-1">
+                <mxCell id="JDwBtqaGDCrSX6BFVCbT-12" value="オペレーション名" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="JDwBtqaGDCrSX6BFVCbT-1" vertex="1">
                     <mxGeometry x="510" y="225" width="100" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="JDwBtqaGDCrSX6BFVCbT-14" value="タスク名" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="JDwBtqaGDCrSX6BFVCbT-1">
+                <mxCell id="JDwBtqaGDCrSX6BFVCbT-14" value="タスク名" style="rounded=0;whiteSpace=wrap;html=1;" parent="JDwBtqaGDCrSX6BFVCbT-1" vertex="1">
                     <mxGeometry x="204" y="270" width="420" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="JDwBtqaGDCrSX6BFVCbT-15" value="オペレーション名" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="JDwBtqaGDCrSX6BFVCbT-1">
+                <mxCell id="JDwBtqaGDCrSX6BFVCbT-15" value="オペレーション名" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="JDwBtqaGDCrSX6BFVCbT-1" vertex="1">
                     <mxGeometry x="510" y="285" width="100" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="JDwBtqaGDCrSX6BFVCbT-16" value="タスク名" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="JDwBtqaGDCrSX6BFVCbT-1">
+                <mxCell id="JDwBtqaGDCrSX6BFVCbT-16" value="タスク名" style="rounded=0;whiteSpace=wrap;html=1;" parent="JDwBtqaGDCrSX6BFVCbT-1" vertex="1">
                     <mxGeometry x="204" y="330" width="420" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="JDwBtqaGDCrSX6BFVCbT-17" value="オペレーション名" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="JDwBtqaGDCrSX6BFVCbT-1">
+                <mxCell id="JDwBtqaGDCrSX6BFVCbT-17" value="オペレーション名" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="JDwBtqaGDCrSX6BFVCbT-1" vertex="1">
                     <mxGeometry x="510" y="345" width="100" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="JDwBtqaGDCrSX6BFVCbT-18" value="タスク名" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="JDwBtqaGDCrSX6BFVCbT-1">
+                <mxCell id="JDwBtqaGDCrSX6BFVCbT-18" value="タスク名" style="rounded=0;whiteSpace=wrap;html=1;" parent="JDwBtqaGDCrSX6BFVCbT-1" vertex="1">
                     <mxGeometry x="204" y="390" width="420" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="JDwBtqaGDCrSX6BFVCbT-19" value="オペレーション名" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="JDwBtqaGDCrSX6BFVCbT-1">
+                <mxCell id="JDwBtqaGDCrSX6BFVCbT-19" value="オペレーション名" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="JDwBtqaGDCrSX6BFVCbT-1" vertex="1">
                     <mxGeometry x="510" y="405" width="100" height="30" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
     </diagram>
     <diagram id="AWEvoZcwYbkP6gri7rli" name="add_task">
-        <mxGraphModel dx="897" dy="591" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="591" dy="524" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="MhfxojFHT6eBUDM4Of84-0"/>
                 <mxCell id="MhfxojFHT6eBUDM4Of84-1" parent="MhfxojFHT6eBUDM4Of84-0"/>
-                <mxCell id="Cz1TaruO-3d7SXAnfGlp-0" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="MhfxojFHT6eBUDM4Of84-1">
+                <mxCell id="Cz1TaruO-3d7SXAnfGlp-0" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="MhfxojFHT6eBUDM4Of84-1" vertex="1">
                     <mxGeometry x="159" y="80" width="510" height="630" as="geometry"/>
                 </mxCell>
-                <mxCell id="Cz1TaruO-3d7SXAnfGlp-1" value="戻る&lt;br&gt;ボタン" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="MhfxojFHT6eBUDM4Of84-1">
+                <mxCell id="Cz1TaruO-3d7SXAnfGlp-1" value="戻る&lt;br&gt;ボタン" style="ellipse;whiteSpace=wrap;html=1;" parent="MhfxojFHT6eBUDM4Of84-1" vertex="1">
                     <mxGeometry x="180" y="100" width="70" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="Cz1TaruO-3d7SXAnfGlp-2" value="タスク" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="MhfxojFHT6eBUDM4Of84-1">
+                <mxCell id="Cz1TaruO-3d7SXAnfGlp-2" value="タスク" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="MhfxojFHT6eBUDM4Of84-1" vertex="1">
                     <mxGeometry x="384" y="120" width="60" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="Cz1TaruO-3d7SXAnfGlp-4" value="タスク&lt;br&gt;追加ボタン" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="MhfxojFHT6eBUDM4Of84-1">
+                <mxCell id="Cz1TaruO-3d7SXAnfGlp-4" value="タスク&lt;br&gt;追加ボタン" style="ellipse;whiteSpace=wrap;html=1;" parent="MhfxojFHT6eBUDM4Of84-1" vertex="1">
                     <mxGeometry x="560" y="620" width="70" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="Cz1TaruO-3d7SXAnfGlp-5" value="フロー&lt;br&gt;リストへ" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="MhfxojFHT6eBUDM4Of84-1">
+                <mxCell id="Cz1TaruO-3d7SXAnfGlp-5" value="フロー&lt;br&gt;リストへ" style="ellipse;whiteSpace=wrap;html=1;" parent="MhfxojFHT6eBUDM4Of84-1" vertex="1">
                     <mxGeometry x="580" y="100" width="70" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="Cz1TaruO-3d7SXAnfGlp-13" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="MhfxojFHT6eBUDM4Of84-1">
+                <mxCell id="Cz1TaruO-3d7SXAnfGlp-13" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="MhfxojFHT6eBUDM4Of84-1" vertex="1">
                     <mxGeometry x="249" y="220" width="330" height="370" as="geometry"/>
                 </mxCell>
-                <mxCell id="Cz1TaruO-3d7SXAnfGlp-14" value="モーダル" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="MhfxojFHT6eBUDM4Of84-1">
+                <mxCell id="Cz1TaruO-3d7SXAnfGlp-14" value="モーダル" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="MhfxojFHT6eBUDM4Of84-1" vertex="1">
                     <mxGeometry x="384" y="240" width="60" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="Cz1TaruO-3d7SXAnfGlp-15" value="追加する&lt;br&gt;ボタン" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="MhfxojFHT6eBUDM4Of84-1">
+                <mxCell id="Cz1TaruO-3d7SXAnfGlp-15" value="追加する&lt;br&gt;ボタン" style="ellipse;whiteSpace=wrap;html=1;" parent="MhfxojFHT6eBUDM4Of84-1" vertex="1">
                     <mxGeometry x="480" y="500" width="70" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="Cz1TaruO-3d7SXAnfGlp-16" value="タスク内容" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="MhfxojFHT6eBUDM4Of84-1">
+                <mxCell id="Cz1TaruO-3d7SXAnfGlp-16" value="タスク内容" style="rounded=0;whiteSpace=wrap;html=1;" parent="MhfxojFHT6eBUDM4Of84-1" vertex="1">
                     <mxGeometry x="280" y="300" width="270" height="140" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
     </diagram>
     <diagram id="t3zIE1eBHO_t5JfmYGvQ" name="flow_top">
-        <mxGraphModel dx="897" dy="591" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="412" dy="643" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="C2H09qEIfgW4TE_aYjpf-0"/>
                 <mxCell id="C2H09qEIfgW4TE_aYjpf-1" parent="C2H09qEIfgW4TE_aYjpf-0"/>
-                <mxCell id="JObvOzubmNUBCJuIXaN0-0" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="C2H09qEIfgW4TE_aYjpf-1">
+                <mxCell id="JObvOzubmNUBCJuIXaN0-0" value="" style="rounded=0;whiteSpace=wrap;html=1;" parent="C2H09qEIfgW4TE_aYjpf-1" vertex="1">
                     <mxGeometry x="159" y="80" width="510" height="630" as="geometry"/>
                 </mxCell>
-                <mxCell id="JObvOzubmNUBCJuIXaN0-1" value="戻る&lt;br&gt;ボタン" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="C2H09qEIfgW4TE_aYjpf-1">
+                <mxCell id="JObvOzubmNUBCJuIXaN0-1" value="戻る&lt;br&gt;ボタン" style="ellipse;whiteSpace=wrap;html=1;" parent="C2H09qEIfgW4TE_aYjpf-1" vertex="1">
                     <mxGeometry x="180" y="100" width="70" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="JObvOzubmNUBCJuIXaN0-2" value="フロー" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="C2H09qEIfgW4TE_aYjpf-1">
+                <mxCell id="JObvOzubmNUBCJuIXaN0-2" value="フロー" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="C2H09qEIfgW4TE_aYjpf-1" vertex="1">
                     <mxGeometry x="384" y="120" width="60" height="30" as="geometry"/>
                 </mxCell>
-                <mxCell id="JObvOzubmNUBCJuIXaN0-3" value="オペレーション名" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="C2H09qEIfgW4TE_aYjpf-1">
+                <mxCell id="JObvOzubmNUBCJuIXaN0-3" value="オペレーション名" style="rounded=0;whiteSpace=wrap;html=1;" parent="C2H09qEIfgW4TE_aYjpf-1" vertex="1">
                     <mxGeometry x="204" y="210" width="420" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="JObvOzubmNUBCJuIXaN0-4" value="オペレ&lt;br&gt;追加ボタン" style="ellipse;whiteSpace=wrap;html=1;" vertex="1" parent="C2H09qEIfgW4TE_aYjpf-1">
+                <mxCell id="JObvOzubmNUBCJuIXaN0-4" value="オペレ&lt;br&gt;追加ボタン" style="ellipse;whiteSpace=wrap;html=1;" parent="C2H09qEIfgW4TE_aYjpf-1" vertex="1">
                     <mxGeometry x="560" y="620" width="70" height="70" as="geometry"/>
                 </mxCell>
-                <mxCell id="JObvOzubmNUBCJuIXaN0-7" value="オペレーション名" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="C2H09qEIfgW4TE_aYjpf-1">
+                <mxCell id="JObvOzubmNUBCJuIXaN0-7" value="オペレーション名" style="rounded=0;whiteSpace=wrap;html=1;" parent="C2H09qEIfgW4TE_aYjpf-1" vertex="1">
                     <mxGeometry x="204" y="270" width="420" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="JObvOzubmNUBCJuIXaN0-13" value="オペレーション名" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="C2H09qEIfgW4TE_aYjpf-1">
+                <mxCell id="JObvOzubmNUBCJuIXaN0-13" value="オペレーション名" style="rounded=0;whiteSpace=wrap;html=1;" parent="C2H09qEIfgW4TE_aYjpf-1" vertex="1">
                     <mxGeometry x="204" y="330" width="420" height="60" as="geometry"/>
                 </mxCell>
-                <mxCell id="JObvOzubmNUBCJuIXaN0-14" value="オペレーション名" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="C2H09qEIfgW4TE_aYjpf-1">
+                <mxCell id="JObvOzubmNUBCJuIXaN0-14" value="オペレーション名" style="rounded=0;whiteSpace=wrap;html=1;" parent="C2H09qEIfgW4TE_aYjpf-1" vertex="1">
                     <mxGeometry x="204" y="390" width="420" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
     </diagram>
     <diagram name="add_flow" id="AinhfAnAxyuKCfjEDJpi">
-        <mxGraphModel grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" page="1" fold="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+        <mxGraphModel dx="412" dy="643" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
             <root>
                 <mxCell id="ivzDwVTdWeBUDMq2t84X-0"/>
                 <mxCell id="ivzDwVTdWeBUDMq2t84X-1" parent="ivzDwVTdWeBUDMq2t84X-0"/>
@@ -203,7 +203,7 @@
                 <mxCell id="ivzDwVTdWeBUDMq2t84X-10" value="オペレーション名" style="rounded=0;whiteSpace=wrap;html=1;" parent="ivzDwVTdWeBUDMq2t84X-1" vertex="1">
                     <mxGeometry x="280" y="300" width="270" height="40" as="geometry"/>
                 </mxCell>
-                <mxCell id="s1BWMAB9j_pgPHXnS62j-0" value="カラー選択" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="ivzDwVTdWeBUDMq2t84X-1">
+                <mxCell id="s1BWMAB9j_pgPHXnS62j-0" value="カラー選択" style="rounded=0;whiteSpace=wrap;html=1;" parent="ivzDwVTdWeBUDMq2t84X-1" vertex="1">
                     <mxGeometry x="280" y="360" width="270" height="40" as="geometry"/>
                 </mxCell>
             </root>

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tasking/module/scene/application/dto/scene_data.dart';
 import 'package:tasking/module/scene/presentation/notifier/scene_notifier.dart';
 import 'package:tasking/module/scene/presentation/widget/input_scene_dialog.dart';
+import 'package:tasking/module/shared/presentation/widget/list_icon_button.dart';
 
 class UpdateSceneButton extends StatelessWidget {
   final SceneNotifier notifier;
@@ -15,8 +16,8 @@ class UpdateSceneButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      icon: const Icon(Icons.edit),
+    return ListIconButton(
+      icon: Icons.edit,
       onPressed: () => InputSceneDialog(
         context: context,
         heading: 'シーン編集',

@@ -8,8 +8,11 @@ class TaskQueryMapper {
       id: map['id'].toString(),
       content: map['content'].toString(),
       sceneID: map['scene_id'].toString(),
-      operationID: map['operation_id'].toString(),
-      operationName: map['operation_name'].toString(),
+      operation: TaskOperationData(
+        id: map['operation_id'].toString(),
+        name: map['operation_name'].toString(),
+        color: map['operation_color'],
+      ),
       lastModified: DateTime.parse(
         map['last_modified'].toString(),
       ),

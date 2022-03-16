@@ -1,9 +1,12 @@
 import 'package:meta/meta.dart';
+import 'package:tasking/module/flow/application/exception.dart';
 import 'package:tasking/module/flow/domain/flow_repository.dart';
+import 'package:tasking/module/flow/domain/specification/exists_task_operation_spec.dart';
 import 'package:tasking/module/flow/domain/vo/operation_id.dart';
 import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 import 'package:tasking/module/shared/application/exception.dart';
 import 'package:tasking/module/shared/domain/transaction.dart';
+import 'package:tasking/module/task/domain/task_repository.dart';
 
 /// remove operation command dto
 @immutable
@@ -20,12 +23,15 @@ class RemoveOperationCommand {
 /// remove operation usecase
 class RemoveOperationUseCase {
   final FlowRepository _repository;
+  final ExistsTaskOperationSpec _spec;
   final Transaction _transaction;
 
   RemoveOperationUseCase({
     required FlowRepository repository,
+    required TaskRepository taskRepository,
     required Transaction transaction,
   })  : _repository = repository,
+        _spec = ExistsTaskOperationSpec(taskRepository),
         _transaction = transaction;
 
   Future<void> execute(RemoveOperationCommand command) async {
@@ -40,6 +46,10 @@ class RemoveOperationUseCase {
 
       if (!flow.isAssignableOperation(operationID)) {
         throw NotFoundException(command.id, name: 'operation');
+      }
+
+      if (!await _spec.isSatisfiedBy(operationID)) {
+        throw ExistsTaskOperationException();
       }
 
       await _repository.save(

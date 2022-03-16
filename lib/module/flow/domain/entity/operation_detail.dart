@@ -1,4 +1,4 @@
-import 'package:meta/meta.dart';
+import 'package:flutter/material.dart';
 import 'package:tasking/module/flow/domain/vo/operation_color.dart';
 import 'package:tasking/module/flow/domain/vo/operation_name.dart';
 
@@ -16,7 +16,7 @@ class OperationDetail {
   OperationDetail.initial()
       : this(
           name: OperationName('新規'),
-          color: const OperationColor(0),
+          color: OperationColor(Colors.red.value),
         );
 
   @override

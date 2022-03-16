@@ -57,7 +57,7 @@ class ChangeOperationUseCase {
       }
 
       // unique name check
-      if (!UniqueNameSpec(flow).isSatisfiedBy(operationDetail)) {
+      if (!UniqueNameSpec(flow).isSatisfiedBy(operationDetail, operationID)) {
         throw NotUniqueOperationNameException();
       }
 

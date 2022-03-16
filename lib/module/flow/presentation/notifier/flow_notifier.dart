@@ -8,6 +8,7 @@ import 'package:tasking/module/flow/application/usecase/remove_operation_usecase
 import 'package:tasking/module/flow/application/usecase/reorder_operations_usecase.dart';
 import 'package:tasking/module/flow/domain/flow_repository.dart';
 import 'package:tasking/module/shared/domain/transaction.dart';
+import 'package:tasking/module/task/domain/task_repository.dart';
 
 class FlowNotifier extends ChangeNotifier {
   final AddOperationUseCase _addUseCase;
@@ -16,15 +17,20 @@ class FlowNotifier extends ChangeNotifier {
   final RemoveOperationUseCase _removeUseCase;
   final ReOrderOperationsUseCase _reorderUseCase;
 
+  final String _id;
+
   FlowData? _detail;
 
   FlowData? get detail => _detail;
 
-  FlowNotifier({
+  FlowNotifier(
+    String id, {
     required FlowRepository repository,
+    required TaskRepository taskRepository,
     required FlowQuery query,
     required Transaction transaction,
-  })  : _addUseCase = AddOperationUseCase(
+  })  : _id = id,
+        _addUseCase = AddOperationUseCase(
           repository: repository,
           transaction: transaction,
         ),
@@ -35,6 +41,7 @@ class FlowNotifier extends ChangeNotifier {
         _detailUseCase = FlowDetailUseCase(query: query),
         _removeUseCase = RemoveOperationUseCase(
           repository: repository,
+          taskRepository: taskRepository,
           transaction: transaction,
         ),
         _reorderUseCase = ReOrderOperationsUseCase(
@@ -42,55 +49,53 @@ class FlowNotifier extends ChangeNotifier {
           transaction: transaction,
         );
 
-  void addOpertion({
-    required String id,
+  Future<void> addOpertion({
     required String name,
     required int color,
   }) async {
     await _addUseCase.execute(
       AddOperationCommand(
-        id: id,
+        id: _id,
         name: name,
         color: color,
       ),
     );
 
-    detailUpdate(id);
+    detailUpdate();
   }
 
-  void changeOperation({
-    required String id,
+  Future<void> changeOperation({
     required String operationID,
     required String name,
     required int color,
   }) async {
     await _changeUseCase.execute(
       ChangeOperationCommand(
-        id: id,
+        id: _id,
         operationID: operationID,
         name: name,
         color: color,
       ),
     );
 
-    detailUpdate(id);
+    detailUpdate();
   }
 
-  void removeOperation({
+  Future<void> removeOperation({
     required String id,
     required String operationID,
   }) async {
     await _removeUseCase.execute(
       RemoveOperationCommand(
-        id: id,
+        id: _id,
         operationID: operationID,
       ),
     );
 
-    detailUpdate(id);
+    detailUpdate();
   }
 
-  void reorderOperation({
+  Future<void> reorderOperation({
     required String id,
     required List<String> operationIDs,
   }) async {
@@ -101,11 +106,11 @@ class FlowNotifier extends ChangeNotifier {
       ),
     );
 
-    detailUpdate(id);
+    detailUpdate();
   }
 
-  void detailUpdate(String id) {
-    _detailUseCase.execute(id).then((detail) {
+  void detailUpdate() {
+    _detailUseCase.execute(_id).then((detail) {
       _detail = detail;
       notifyListeners();
     });

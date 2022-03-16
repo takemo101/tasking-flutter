@@ -65,6 +65,7 @@ class TaskSQLiteRepository implements TaskRepository {
   @override
   Future<void> store(CreatedTask task) async {
     final executor = await _helper.executor();
+
     await executor.insert(
       _table,
       _mapper.fromCreatedTaskToMap(task),

@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:tasking/module/shared/application/exception.dart';
 import 'package:tasking/module/shared/domain/exception.dart';
 import 'package:tasking/module/shared/presentation/widget/error_dialog.dart';
 
 typedef RemoveCallback = Future<void> Function();
 
-class RemoveSceneDialog extends StatelessWidget {
+class RemoveDialog extends StatelessWidget {
   final BuildContext _context;
-  final String heading;
+  final String title;
+  final String message;
   final RemoveCallback onRemove;
 
-  const RemoveSceneDialog({
-    Key? key,
+  const RemoveDialog({
     required BuildContext context,
-    required this.heading,
+    required this.title,
+    required this.message,
     required this.onRemove,
+    Key? key,
   })  : _context = context,
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('シーン削除'),
-      content: const Text('このシーンを削除してもよろしいですか？'),
+      title: Text(title),
+      content: Text(message),
       actions: <Widget>[
         TextButton(
           child: const Text('キャンセル'),
@@ -37,13 +40,13 @@ class RemoveSceneDialog extends StatelessWidget {
               Navigator.of(context).pop();
               ErrorDialog(
                 context: _context,
-                message: e.toString(),
+                message: e.toJP(),
               ).show();
-            } catch (_) {
+            } on ApplicationException catch (e) {
               Navigator.of(context).pop();
               ErrorDialog(
                 context: _context,
-                message: 'error',
+                message: e.toJP(),
               ).show();
             }
           },

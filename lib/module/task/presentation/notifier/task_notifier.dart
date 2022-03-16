@@ -11,6 +11,7 @@ import 'package:tasking/module/task/application/usecase/remove_task_usecase.dart
 import 'package:tasking/module/task/application/usecase/resume_task_usecase.dart';
 import 'package:tasking/module/task/application/usecase/start_task_usecase.dart';
 import 'package:tasking/module/task/application/usecase/started_task_list_usecase.dart';
+import 'package:tasking/module/task/application/usecase/tidy_tasks_usecase.dart';
 import 'package:tasking/module/task/domain/board_repository.dart';
 import 'package:tasking/module/task/domain/task_repository.dart';
 
@@ -20,8 +21,11 @@ class TaskNotifier extends ChangeNotifier {
   final DiscardTaskUseCase _discardUseCase;
   final RemoveTaskUseCase _removeUseCase;
   final ResumeTaskUseCase _resumeUseCase;
+  final TidyTasksUseCase _tidyTasksUseCase;
   final DiscardedTaskListUseCase _discardedListUseCase;
   final StartedTaskListUseCase _startedTaskListUseCase;
+
+  final String _sceneID;
 
   List<TaskData> _discardedList = <TaskData>[];
   List<TaskData> _startedList = <TaskData>[];
@@ -29,14 +33,16 @@ class TaskNotifier extends ChangeNotifier {
   List<TaskData> get discardedList => List.unmodifiable(_discardedList);
   List<TaskData> get startedList => List.unmodifiable(_startedList);
 
-  TaskNotifier({
+  TaskNotifier(
+    String sceneID, {
     required TaskRepository repository,
     required FlowRepository flowRepository,
     required BoardRepository boardRepository,
     required TaskQuery query,
     required Transaction transaction,
     required DomainEventBus eventBus,
-  })  : _startUseCase = StartTaskUseCase(
+  })  : _sceneID = sceneID,
+        _startUseCase = StartTaskUseCase(
           repository: repository,
           boardRepository: boardRepository,
           flowRepository: flowRepository,
@@ -65,58 +71,68 @@ class TaskNotifier extends ChangeNotifier {
           transaction: transaction,
           eventBus: eventBus,
         ),
+        _tidyTasksUseCase = TidyTasksUseCase(
+          flowRepository: flowRepository,
+          boardRepository: boardRepository,
+          transaction: transaction,
+        ),
         _discardedListUseCase = DiscardedTaskListUseCase(query: query),
         _startedTaskListUseCase = StartedTaskListUseCase(query: query);
 
-  void start({
-    required String sceneID,
+  Future<void> start({
     required String content,
   }) async {
-    final id = await _startUseCase.execute(
+    await _startUseCase.execute(
       StartTaskCommand(
-        sceneID: sceneID,
+        sceneID: _sceneID,
         content: content,
       ),
     );
 
-    startedListUpdate(id.value);
+    startedListUpdate();
   }
 
-  void changeOperation(String id) async {
+  Future<void> changeOperation(String id) async {
     await _changeUseCase.execute(id);
 
-    startedListUpdate(id);
+    startedListUpdate();
   }
 
-  void discard(String id) async {
+  Future<void> discard(String id) async {
     await _discardUseCase.execute(id);
 
-    startedListUpdate(id);
-    discardedListUpdate(id);
+    startedListUpdate();
+    discardedListUpdate();
   }
 
-  void resume(String id) async {
+  Future<void> resume(String id) async {
     await _resumeUseCase.execute(id);
 
-    startedListUpdate(id);
-    discardedListUpdate(id);
+    startedListUpdate();
+    discardedListUpdate();
   }
 
-  void remove(String id) async {
+  Future<void> remove(String id) async {
     await _removeUseCase.execute(id);
 
-    discardedListUpdate(id);
+    discardedListUpdate();
   }
 
-  void discardedListUpdate(String id) {
-    _discardedListUseCase.execute(id).then((list) {
+  Future<void> tidy() async {
+    await _tidyTasksUseCase.execute(_sceneID);
+
+    startedListUpdate();
+  }
+
+  void discardedListUpdate() {
+    _discardedListUseCase.execute(_sceneID).then((list) {
       _discardedList = list;
       notifyListeners();
     });
   }
 
-  void startedListUpdate(String id) {
-    _startedTaskListUseCase.execute(id).then((list) {
+  void startedListUpdate() {
+    _startedTaskListUseCase.execute(_sceneID).then((list) {
       _startedList = list;
       notifyListeners();
     });

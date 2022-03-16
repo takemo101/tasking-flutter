@@ -6,7 +6,7 @@ class SceneName extends Name<SceneName> {
   SceneName(String name) : super(name);
 
   @override
-  int get max => 60;
+  int get max => 20;
 
   @override
   String get label => 'scene name';

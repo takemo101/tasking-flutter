@@ -24,7 +24,7 @@ class TaskSQLiteQuery implements TaskQuery {
     final executor = await _helper.executor();
     final maps = await executor.rawQuery(
       '''
-        SELECT $_table.*, $_operationTable.name AS operation_name
+        SELECT $_table.*, $_operationTable.name AS operation_name, $_operationTable.color AS operation_color
         FROM $_table
         INNER JOIN $_operationTable
         ON $_table.operation_id = $_operationTable.id
@@ -46,14 +46,14 @@ class TaskSQLiteQuery implements TaskQuery {
     final executor = await _helper.executor();
     final maps = await executor.rawQuery(
       '''
-        SELECT $_table.*, $_operationTable.name AS operation_name
+        SELECT $_table.*, $_operationTable.name AS operation_name, $_operationTable.color AS operation_color
         FROM $_table
         INNER JOIN $_operationTable
         ON $_table.operation_id = $_operationTable.id
         INNER JOIN $_pinTable
         ON $_table.id = $_pinTable.task_id
         WHERE $_table.scene_id = ? AND $_table.is_discarded = ?
-        ORDER BY $_pinTable.board_order ASC
+        ORDER BY $_pinTable.board_order DESC
       ''',
       [sceneID.value, 0],
     );

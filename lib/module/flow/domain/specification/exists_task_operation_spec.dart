@@ -9,6 +9,6 @@ class ExistsTaskOperationSpec {
 
   // is exists task operation by operation id
   Future<bool> isSatisfiedBy(OperationID id) async {
-    return await _repository.existsByOperationID(id);
+    return !await _repository.existsByOperationID(id);
   }
 }

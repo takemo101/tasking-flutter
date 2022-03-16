@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tasking/module/scene/presentation/notifier/scene_notifier.dart';
-import 'package:tasking/module/scene/presentation/widget/remove_scene_dialog.dart';
+import 'package:tasking/module/shared/presentation/widget/list_icon_button.dart';
+import 'package:tasking/module/shared/presentation/widget/remove_dialog.dart';
 
 class RemoveSceneButton extends StatelessWidget {
   final SceneNotifier notifier;
@@ -14,11 +15,12 @@ class RemoveSceneButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-      icon: const Icon(Icons.delete),
-      onPressed: () => RemoveSceneDialog(
+    return ListIconButton(
+      icon: Icons.delete,
+      onPressed: () => RemoveDialog(
         context: context,
-        heading: 'シーン削除',
+        title: 'シーン削除',
+        message: 'このシーンを削除してもよろしいですか？',
         onRemove: () async {
           await notifier.remove(id);
         },

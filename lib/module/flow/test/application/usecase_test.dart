@@ -17,6 +17,7 @@ import 'package:tasking/module/scene/infrastructure/sqlite/scene_repository.dart
 import 'package:tasking/module/shared/application/exception.dart';
 import 'package:tasking/module/shared/infrastructure/sqlite/helper.dart';
 import 'package:tasking/module/shared/infrastructure/sqlite/transaction.dart';
+import 'package:tasking/module/task/infrastructure/sqlite/task_repository.dart';
 
 void main() async {
   final helper = SQLiteHelper();
@@ -28,6 +29,7 @@ void main() async {
   await helper.open();
 
   SceneSQLiteRepository sceneRepository = SceneSQLiteRepository(helper: helper);
+  TaskSQLiteRepository taskRepository = TaskSQLiteRepository(helper: helper);
   FlowSQLiteQuery query = FlowSQLiteQuery(helper: helper);
   FlowSQLiteRepository repository = FlowSQLiteRepository(helper: helper);
   SQLiteTransaction transaction = SQLiteTransaction(helper: helper);
@@ -76,6 +78,7 @@ void main() async {
 
           final removeUseCase = RemoveOperationUseCase(
             repository: repository,
+            taskRepository: taskRepository,
             transaction: transaction,
           );
 
@@ -119,6 +122,17 @@ void main() async {
           color: 2222,
         ));
 
+        final addUseCase = AddOperationUseCase(
+          repository: repository,
+          transaction: transaction,
+        );
+
+        await addUseCase.execute(AddOperationCommand(
+          id: findFlow.id.value,
+          name: 'WEWEWE',
+          color: 2222,
+        ));
+
         final changeFlow = await repository.findByID(scene.id);
 
         expect(changeFlow, isNotNull);
@@ -133,7 +147,7 @@ void main() async {
           await usecase.execute(ChangeOperationCommand(
             id: findFlow.id.value,
             operationID: flow.operations.first.id.value,
-            name: 'EIF',
+            name: 'WEWEWE',
             color: 2222,
           ));
         }, throwsA(const TypeMatcher<NotUniqueOperationNameException>()));

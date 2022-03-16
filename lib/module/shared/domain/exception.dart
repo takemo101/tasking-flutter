@@ -2,10 +2,12 @@
 class DomainException implements Exception {
   final DomainExceptionType type;
   final String detail;
+  final String? jp;
 
   DomainException({
     this.type = DomainExceptionType.unknown,
     required this.detail,
+    this.jp,
   });
 
   bool hasType(DomainExceptionType t) {
@@ -15,6 +17,10 @@ class DomainException implements Exception {
   @override
   String toString() {
     return '${type.message}: $detail';
+  }
+
+  String toJP() {
+    return jp == null || jp!.isEmpty ? toString() : jp!;
   }
 }
 
