@@ -66,10 +66,11 @@ void main() async {
         eventBus: bus,
       );
 
-      final id = await createUsecase.execute(const CreateSceneCommand(
+      final id = (await createUsecase.execute(const CreateSceneCommand(
         name: 'hello',
         genre: 'jobs',
-      ));
+      )))
+          .result;
 
       final scene = await repository.findByID(id);
 
@@ -95,10 +96,11 @@ void main() async {
         eventBus: bus,
       );
 
-      final id = await createUsecase.execute(const CreateSceneCommand(
+      final id = (await createUsecase.execute(const CreateSceneCommand(
         name: 'hello2',
         genre: 'jobs',
-      ));
+      )))
+          .result;
 
       final scene = await repository.findByID(id);
 

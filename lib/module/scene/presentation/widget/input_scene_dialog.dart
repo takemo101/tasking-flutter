@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tasking/module/scene/application/dto/scene_data.dart';
-import 'package:tasking/module/scene/application/exception.dart';
 import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 import 'package:tasking/module/scene/presentation/widget/genre_dropdown.dart';
 import 'package:tasking/module/shared/application/exception.dart';

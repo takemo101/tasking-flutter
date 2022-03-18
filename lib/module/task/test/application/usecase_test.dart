@@ -68,10 +68,11 @@ void main() async {
     eventBus: bus,
   );
 
-  final sceneID = await sceneUseCase.execute(CreateSceneCommand(
+  final sceneID = (await sceneUseCase.execute(CreateSceneCommand(
     name: 'hello',
     genre: Genre.hobby.name,
-  ));
+  )))
+      .result;
 
   var flow = await flowRepository.findByID(sceneID);
   if (flow != null) {
@@ -101,10 +102,11 @@ void main() async {
           eventBus: bus,
         );
 
-        final id = await usecase.execute(StartTaskCommand(
+        final id = (await usecase.execute(StartTaskCommand(
           sceneID: sceneID.value,
           content: 'yes',
-        ));
+        )))
+            .result;
         await usecase.execute(StartTaskCommand(
           sceneID: sceneID.value,
           content: 'yes',
@@ -153,10 +155,11 @@ void main() async {
           eventBus: bus,
         );
 
-        final id = await usecase.execute(StartTaskCommand(
+        final id = (await usecase.execute(StartTaskCommand(
           sceneID: sceneID.value,
           content: 'yes',
-        ));
+        )))
+            .result;
 
         final task = await repository.findStartedByID(id);
         expect(task, isNotNull);
@@ -211,10 +214,11 @@ void main() async {
           eventBus: bus,
         );
 
-        final id = await usecase.execute(StartTaskCommand(
+        final id = (await usecase.execute(StartTaskCommand(
           sceneID: sceneID.value,
           content: 'yes',
-        ));
+        )))
+            .result;
 
         final task = await repository.findStartedByID(id);
         expect(task, isNotNull);
@@ -263,10 +267,11 @@ void main() async {
           eventBus: bus,
         );
 
-        final id1 = await usecase.execute(StartTaskCommand(
+        final id1 = (await usecase.execute(StartTaskCommand(
           sceneID: sceneID.value,
           content: 'yes',
-        ));
+        )))
+            .result;
         await usecase.execute(StartTaskCommand(
           sceneID: sceneID.value,
           content: 'yes',

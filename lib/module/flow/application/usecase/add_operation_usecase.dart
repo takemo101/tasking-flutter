@@ -2,7 +2,7 @@ import 'package:meta/meta.dart';
 import 'package:tasking/module/flow/application/exception.dart';
 import 'package:tasking/module/flow/domain/entity/operation_detail.dart';
 import 'package:tasking/module/flow/domain/flow_repository.dart';
-import 'package:tasking/module/flow/domain/specification/limit_size_operations_spec.dart';
+import 'package:tasking/module/flow/domain/specification/not_limit_size_operations_spec.dart';
 import 'package:tasking/module/flow/domain/vo/operation_color.dart';
 import 'package:tasking/module/flow/domain/vo/operation_name.dart';
 import 'package:tasking/module/flow/domain/specification/unique_name_spec.dart';
@@ -60,7 +60,7 @@ class AddOperationUseCase {
         }
 
         // limit check
-        if (LimitSizeOperationsSpec().isSatisfiedBy(flow)) {
+        if (!NotLimitSizeOperationsSpec().isSatisfiedBy(flow)) {
           throw LimitSizeOperationsException();
         }
 

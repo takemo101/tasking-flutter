@@ -97,11 +97,12 @@ void main() async {
         }
 
         expect(() async {
-          await usecase.execute(AddOperationCommand(
+          (await usecase.execute(AddOperationCommand(
             id: SceneID.generate().value,
             name: 'aa',
             color: 11,
-          ));
+          )))
+              .exception();
         }, throwsA(const TypeMatcher<NotFoundException>()));
       }
     });
@@ -144,12 +145,13 @@ void main() async {
         }
 
         expect(() async {
-          await usecase.execute(ChangeOperationCommand(
+          (await usecase.execute(ChangeOperationCommand(
             id: findFlow.id.value,
             operationID: flow.operations.first.id.value,
             name: 'WEWEWE',
             color: 2222,
-          ));
+          )))
+              .exception();
         }, throwsA(const TypeMatcher<NotUniqueOperationNameException>()));
       }
     });
