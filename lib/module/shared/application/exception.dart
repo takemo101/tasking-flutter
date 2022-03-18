@@ -22,10 +22,9 @@ abstract class ApplicationException implements Exception {
 class NotFoundException extends ApplicationException {
   NotFoundException(
     String id, {
-    String name = '',
+    String? jp,
   }) : super(
-          detail: name.isEmpty
-              ? 'not found [id = $id] entity'
-              : 'not found [id = $id] $name entity',
+          detail: 'not found [id = $id] entity',
+          jp: jp,
         );
 }

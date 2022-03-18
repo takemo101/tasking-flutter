@@ -1,5 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:tasking/module/flow/domain/flow_repository.dart';
+import 'package:tasking/module/scene/domain/vo/scene_id.dart';
+import 'package:tasking/module/shared/application/exception.dart';
+import 'package:tasking/module/shared/application/result.dart';
 import 'package:tasking/module/shared/domain/event.dart';
 import 'package:tasking/module/shared/domain/transaction.dart';
 import 'package:tasking/module/task/application/dto/task_data.dart';
@@ -14,6 +17,7 @@ import 'package:tasking/module/task/application/usecase/started_task_list_usecas
 import 'package:tasking/module/task/application/usecase/tidy_tasks_usecase.dart';
 import 'package:tasking/module/task/domain/board_repository.dart';
 import 'package:tasking/module/task/domain/task_repository.dart';
+import 'package:tasking/module/task/domain/vo/task_id.dart';
 
 class TaskNotifier extends ChangeNotifier {
   final StartTaskUseCase _startUseCase;
@@ -79,62 +83,65 @@ class TaskNotifier extends ChangeNotifier {
         _discardedListUseCase = DiscardedTaskListUseCase(query: query),
         _startedTaskListUseCase = StartedTaskListUseCase(query: query);
 
-  Future<void> start({
+  Future<AppResult<TaskID, ApplicationException>> start({
     required String content,
   }) async {
-    await _startUseCase.execute(
+    return await _startUseCase.execute(
       StartTaskCommand(
         sceneID: _sceneID,
         content: content,
       ),
-    );
-
-    startedListUpdate();
+    )
+      ..onSuccess((_) => startedListUpdate());
   }
 
-  Future<void> changeOperation(String id) async {
-    await _changeUseCase.execute(id);
-
-    startedListUpdate();
+  Future<AppResult<TaskID, ApplicationException>> changeOperation(
+      String id) async {
+    return await _changeUseCase.execute(id)
+      ..onSuccess((_) => startedListUpdate());
   }
 
-  Future<void> discard(String id) async {
-    await _discardUseCase.execute(id);
-
-    startedListUpdate();
-    discardedListUpdate();
+  Future<AppResult<TaskID, ApplicationException>> discard(String id) async {
+    return await _discardUseCase.execute(id)
+      ..onSuccess((_) {
+        startedListUpdate();
+        discardedListUpdate();
+      });
   }
 
-  Future<void> resume(String id) async {
-    await _resumeUseCase.execute(id);
-
-    startedListUpdate();
-    discardedListUpdate();
+  Future<AppResult<TaskID, ApplicationException>> resume(String id) async {
+    return await _resumeUseCase.execute(id)
+      ..onSuccess((_) {
+        startedListUpdate();
+        discardedListUpdate();
+      });
   }
 
-  Future<void> remove(String id) async {
-    await _removeUseCase.execute(id);
-
-    discardedListUpdate();
+  Future<AppResult<TaskID, ApplicationException>> remove(String id) async {
+    return await _removeUseCase.execute(id)
+      ..onSuccess((_) => discardedListUpdate());
   }
 
-  Future<void> tidy() async {
-    await _tidyTasksUseCase.execute(_sceneID);
-
-    startedListUpdate();
+  Future<AppResult<SceneID, ApplicationException>> tidy() async {
+    return await _tidyTasksUseCase.execute(_sceneID)
+      ..onSuccess((_) => startedListUpdate());
   }
 
   void discardedListUpdate() {
-    _discardedListUseCase.execute(_sceneID).then((list) {
-      _discardedList = list;
-      notifyListeners();
+    _discardedListUseCase.execute(_sceneID).then((result) {
+      result.onSuccess((list) {
+        _discardedList = list;
+        notifyListeners();
+      });
     });
   }
 
   void startedListUpdate() {
-    _startedTaskListUseCase.execute(_sceneID).then((list) {
-      _startedList = list;
-      notifyListeners();
+    _startedTaskListUseCase.execute(_sceneID).then((result) {
+      result.onSuccess((list) {
+        _startedList = list;
+        notifyListeners();
+      });
     });
   }
 }

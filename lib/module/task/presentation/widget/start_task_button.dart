@@ -18,7 +18,7 @@ class StartTaskButton extends StatelessWidget {
         context: context,
         heading: '新規タスク',
         onSave: (content) async {
-          await notifier.start(
+          return await notifier.start(
             content: content,
           );
         },

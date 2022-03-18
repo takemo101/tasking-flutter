@@ -2,11 +2,13 @@ import 'package:meta/meta.dart';
 import 'package:tasking/module/flow/application/exception.dart';
 import 'package:tasking/module/flow/domain/entity/operation_detail.dart';
 import 'package:tasking/module/flow/domain/flow_repository.dart';
+import 'package:tasking/module/flow/domain/specification/limit_size_operations_spec.dart';
 import 'package:tasking/module/flow/domain/vo/operation_color.dart';
 import 'package:tasking/module/flow/domain/vo/operation_name.dart';
 import 'package:tasking/module/flow/domain/specification/unique_name_spec.dart';
 import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 import 'package:tasking/module/shared/application/exception.dart';
+import 'package:tasking/module/shared/application/result.dart';
 import 'package:tasking/module/shared/domain/transaction.dart';
 
 /// add operation command dto
@@ -34,30 +36,38 @@ class AddOperationUseCase {
   })  : _repository = repository,
         _transaction = transaction;
 
-  Future<void> execute(AddOperationCommand command) async {
+  Future<AppResult<SceneID, ApplicationException>> execute(
+      AddOperationCommand command) async {
     final operationDetail = OperationDetail(
       name: OperationName(command.name),
       color: OperationColor(command.color),
     );
 
-    await _transaction.transaction(() async {
-      final flow = await _repository.findByID(SceneID(command.id));
+    return await AppResult.listen(
+      () async => await _transaction.transaction(() async {
+        final flow = await _repository.findByID(SceneID(command.id));
 
-      if (flow == null) {
-        throw NotFoundException(command.id, name: 'flow');
-      }
+        if (flow == null) {
+          throw NotFoundException(
+            command.id,
+            jp: 'フローが見つかりません！',
+          );
+        }
 
-      // unique name check
-      if (!UniqueNameSpec(flow).isSatisfiedBy(operationDetail)) {
-        throw NotUniqueOperationNameException();
-      }
+        // unique name check
+        if (!UniqueNameSpec(operationDetail).isSatisfiedBy(flow)) {
+          throw NotUniqueOperationNameException();
+        }
 
-      // limit check
-      if (flow.isLimitSizeOperations) {
-        throw LimitSizeOperationsException();
-      }
+        // limit check
+        if (LimitSizeOperationsSpec().isSatisfiedBy(flow)) {
+          throw LimitSizeOperationsException();
+        }
 
-      await _repository.save(flow.addOperation(operationDetail));
-    });
+        await _repository.save(flow.addOperation(operationDetail));
+
+        return flow.id;
+      }),
+    );
   }
 }

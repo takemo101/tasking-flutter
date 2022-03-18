@@ -24,7 +24,7 @@ class UpdateOperationButton extends StatelessWidget {
         color: operation.color,
         name: operation.name,
         onSave: (name, color) async {
-          await notifier.changeOperation(
+          return await notifier.changeOperation(
             operationID: operation.id,
             name: name,
             color: color,

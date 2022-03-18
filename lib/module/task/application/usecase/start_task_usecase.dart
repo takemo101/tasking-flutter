@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 import 'package:tasking/module/flow/domain/flow_repository.dart';
 import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 import 'package:tasking/module/shared/application/exception.dart';
+import 'package:tasking/module/shared/application/result.dart';
 import 'package:tasking/module/shared/domain/event.dart';
 import 'package:tasking/module/shared/domain/transaction.dart';
 import 'package:tasking/module/task/domain/board_repository.dart';
@@ -43,30 +44,33 @@ class StartTaskUseCase {
         _transaction = transaction,
         _eventBus = eventBus;
 
-  Future<TaskID> execute(StartTaskCommand command) async {
-    final task = await _transaction.transaction<Task>(() async {
-      final flow = await _flowRepository.findByID(SceneID(command.sceneID));
+  Future<AppResult<TaskID, ApplicationException>> execute(
+      StartTaskCommand command) async {
+    return await AppResult.listen(() async {
+      final task = await _transaction.transaction<Task>(() async {
+        final flow = await _flowRepository.findByID(SceneID(command.sceneID));
 
-      if (flow == null) {
-        throw NotFoundException(command.sceneID, name: 'flow');
-      }
+        if (flow == null) {
+          throw NotFoundException(command.sceneID);
+        }
 
-      final factory = StartDefaultTask(flow);
-      final task = factory.start(TaskContent(command.content));
+        final factory = StartDefaultTask(flow);
+        final task = factory.start(TaskContent(command.content));
 
-      await _repository.store(task);
+        await _repository.store(task);
 
-      final board = await _boardRepository.findByID(task.sceneID);
+        final board = await _boardRepository.findByID(task.sceneID);
 
-      await _boardRepository.save(
-        board.addPinByStartedTask(task),
-      );
+        await _boardRepository.save(
+          board.addPinByStartedTask(task),
+        );
 
-      return task;
+        return task;
+      });
+
+      _eventBus.publishes(task.pullDomainEvents());
+
+      return task.id;
     });
-
-    _eventBus.publishes(task.pullDomainEvents());
-
-    return task.id;
   }
 }

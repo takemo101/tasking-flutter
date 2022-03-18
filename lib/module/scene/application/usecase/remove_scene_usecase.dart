@@ -1,6 +1,7 @@
 import 'package:tasking/module/scene/domain/scene_repository.dart';
 import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 import 'package:tasking/module/shared/application/exception.dart';
+import 'package:tasking/module/shared/application/result.dart';
 import 'package:tasking/module/shared/domain/transaction.dart';
 
 /// remove scene usecase
@@ -14,15 +15,19 @@ class RemoveSceneUseCase {
   })  : _repository = repository,
         _transaction = transaction;
 
-  Future<void> execute(String id) async {
-    _transaction.transaction(() async {
-      final scene = await _repository.findByID(SceneID(id));
+  Future<AppResult<SceneID, ApplicationException>> execute(String id) async {
+    return await AppResult.listen(
+      () async => await _transaction.transaction(() async {
+        final scene = await _repository.findByID(SceneID(id));
 
-      if (scene == null) {
-        throw NotFoundException(id, name: 'scene');
-      }
+        if (scene == null) {
+          throw NotFoundException(id);
+        }
 
-      await _repository.remove(scene.remove());
-    });
+        await _repository.remove(scene.remove());
+
+        return scene.id;
+      }),
+    );
   }
 }

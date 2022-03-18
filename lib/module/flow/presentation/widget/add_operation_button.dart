@@ -20,10 +20,12 @@ class AddOperationButton extends StatelessWidget {
         heading: '新規オペレーション',
         color: SelectColors.firstColor().color.value,
         onSave: (name, color) async {
-          await notifier.addOpertion(
+          return await notifier.addOpertion(
             name: name,
             color: color,
           );
+
+
         },
       ).show(),
     );

@@ -1,4 +1,5 @@
 import 'package:tasking/module/shared/application/exception.dart';
+import 'package:tasking/module/shared/application/result.dart';
 import 'package:tasking/module/shared/domain/event.dart';
 import 'package:tasking/module/shared/domain/transaction.dart';
 import 'package:tasking/module/task/domain/board_repository.dart';
@@ -23,27 +24,31 @@ class ResumeTaskUseCase {
         _transaction = transaction,
         _eventBus = eventBus;
 
-  Future<void> execute(String id) async {
-    final task = await _transaction.transaction<Task>(() async {
-      final task = await _repository.findDiscardedByID(TaskID(id));
+  Future<AppResult<TaskID, ApplicationException>> execute(String id) async {
+    return await AppResult.listen(() async {
+      final task = await _transaction.transaction<Task>(() async {
+        final task = await _repository.findDiscardedByID(TaskID(id));
 
-      if (task == null) {
-        throw NotFoundException(id, name: 'task');
-      }
+        if (task == null) {
+          throw NotFoundException(id);
+        }
 
-      final startedTask = task.resume();
+        final startedTask = task.resume();
 
-      await _repository.update(startedTask);
+        await _repository.update(startedTask);
 
-      final board = await _boardRepository.findByID(task.sceneID);
+        final board = await _boardRepository.findByID(task.sceneID);
 
-      await _boardRepository.save(
-        board.addPinByStartedTask(startedTask),
-      );
+        await _boardRepository.save(
+          board.addPinByStartedTask(startedTask),
+        );
 
-      return task;
+        return task;
+      });
+
+      _eventBus.publishes(task.pullDomainEvents());
+
+      return task.id;
     });
-
-    _eventBus.publishes(task.pullDomainEvents());
   }
 }

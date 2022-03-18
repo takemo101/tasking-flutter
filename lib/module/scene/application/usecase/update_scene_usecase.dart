@@ -6,6 +6,7 @@ import 'package:tasking/module/scene/domain/vo/genre.dart';
 import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 import 'package:tasking/module/scene/domain/vo/scene_name.dart';
 import 'package:tasking/module/shared/application/exception.dart';
+import 'package:tasking/module/shared/application/result.dart';
 import 'package:tasking/module/shared/domain/transaction.dart';
 
 /// update scene command dto
@@ -35,25 +36,30 @@ class UpdateSceneUseCase {
         _transaction = transaction,
         _spec = UniqueNameSpec(repository);
 
-  Future<void> execute(UpdateSceneCommand command) async {
-    await _transaction.transaction(() async {
-      final scene = await _repository.findByID(SceneID(command.id));
+  Future<AppResult<SceneID, ApplicationException>> execute(
+      UpdateSceneCommand command) async {
+    return await AppResult.listen(
+      () async => await _transaction.transaction(() async {
+        final scene = await _repository.findByID(SceneID(command.id));
 
-      if (scene == null) {
-        throw NotFoundException(command.id, name: 'scene');
-      }
+        if (scene == null) {
+          throw NotFoundException(command.id);
+        }
 
-      final updateScene = scene.updateContent(
-        name: SceneName(command.name),
-        genre: GenreName.fromName(command.genre),
-      );
+        final updateScene = scene.updateContent(
+          name: SceneName(command.name),
+          genre: GenreName.fromName(command.genre),
+        );
 
-      // unique name check
-      if (!await _spec.isSatisfiedBy(updateScene)) {
-        throw NotUniqueSceneNameException();
-      }
+        // unique name check
+        if (!await _spec.isSatisfiedBy(updateScene)) {
+          throw NotUniqueSceneNameException();
+        }
 
-      await _repository.update(updateScene);
-    });
+        await _repository.update(updateScene);
+
+        return updateScene.id;
+      }),
+    );
   }
 }

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tasking/module/flow/presentation/widget/color_dropdown.dart';
+import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 import 'package:tasking/module/shared/application/exception.dart';
+import 'package:tasking/module/shared/application/result.dart';
 import 'package:tasking/module/shared/domain/exception.dart';
 import 'package:tasking/module/shared/presentation/validator/validator.dart';
 import 'package:tasking/module/shared/presentation/widget/error_dialog.dart';
 
-typedef SaveCallback = Future<void> Function(String, int);
+typedef SaveCallback = Future<AppResult<SceneID, ApplicationException>>
+    Function(String, int);
 
 class NameEditingController = TextEditingController with Type;
 
@@ -86,27 +89,31 @@ class InputOperationDialog extends StatelessWidget {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
 
-      try {
-        await onSave(
-          _nameController.text,
-          color,
-        );
-        Navigator.of(context).pop();
-      } on DomainException catch (e) {
-        Navigator.of(context).pop();
-        ErrorDialog(
-          context: _context,
-          message: e.toJP(),
-          onConfirm: show,
-        ).show();
-      } on ApplicationException catch (e) {
-        Navigator.of(context).pop();
-        ErrorDialog(
-          context: _context,
-          message: e.toJP(),
-          onConfirm: show,
-        ).show();
-      }
+      await onSave(
+        _nameController.text,
+        color,
+      )
+        ..onSuccess((_) => Navigator.of(context).pop())
+        ..onFailure((e) {
+          Navigator.of(context).pop();
+          ErrorDialog(
+            context: _context,
+            message: e.toJP(),
+            onConfirm: show,
+          ).show();
+        })
+        ..onError((e) {
+          if (e.runtimeType == DomainException) {
+            Navigator.of(context).pop();
+            ErrorDialog(
+              context: _context,
+              message: (e as DomainException).toJP(),
+              onConfirm: show,
+            ).show();
+          } else {
+            throw e;
+          }
+        });
     }
   }
 }

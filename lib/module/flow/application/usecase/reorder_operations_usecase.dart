@@ -3,6 +3,7 @@ import 'package:tasking/module/flow/domain/flow_repository.dart';
 import 'package:tasking/module/flow/domain/vo/reorder_operation_ids.dart';
 import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 import 'package:tasking/module/shared/application/exception.dart';
+import 'package:tasking/module/shared/application/result.dart';
 import 'package:tasking/module/shared/domain/transaction.dart';
 
 /// oreder operation command dto
@@ -28,20 +29,25 @@ class ReOrderOperationsUseCase {
   })  : _repository = repository,
         _transaction = transaction;
 
-  Future<void> execute(ReOrderOperationsCommand command) async {
-    await _transaction.transaction(() async {
-      final flow = await _repository.findByID(SceneID(command.id));
+  Future<AppResult<SceneID, ApplicationException>> execute(
+      ReOrderOperationsCommand command) async {
+    return await AppResult.listen(
+      () async => await _transaction.transaction(() async {
+        final flow = await _repository.findByID(SceneID(command.id));
 
-      if (flow == null) {
-        throw NotFoundException(command.id, name: 'flow');
-      }
+        if (flow == null) {
+          throw NotFoundException(command.id);
+        }
 
-      final reOrderOperationIDs =
-          ReOrderOperationIDs.fromStringList(command.operationIDs);
+        final reOrderOperationIDs =
+            ReOrderOperationIDs.fromStringList(command.operationIDs);
 
-      await _repository.save(
-        flow.reorderOperations(reOrderOperationIDs),
-      );
-    });
+        await _repository.save(
+          flow.reorderOperations(reOrderOperationIDs),
+        );
+
+        return flow.id;
+      }),
+    );
   }
 }

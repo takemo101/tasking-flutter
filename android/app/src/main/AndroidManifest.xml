@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.tasking">
+    package="com.takemo101.tasking">
    <application
-        android:label="tasking"
+        android:label="HibiTask"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

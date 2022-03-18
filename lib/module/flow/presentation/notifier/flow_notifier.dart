@@ -7,6 +7,9 @@ import 'package:tasking/module/flow/application/usecase/flow_detail_usecase.dart
 import 'package:tasking/module/flow/application/usecase/remove_operation_usecase.dart';
 import 'package:tasking/module/flow/application/usecase/reorder_operations_usecase.dart';
 import 'package:tasking/module/flow/domain/flow_repository.dart';
+import 'package:tasking/module/scene/domain/vo/scene_id.dart';
+import 'package:tasking/module/shared/application/exception.dart';
+import 'package:tasking/module/shared/application/result.dart';
 import 'package:tasking/module/shared/domain/transaction.dart';
 import 'package:tasking/module/task/domain/task_repository.dart';
 
@@ -49,11 +52,11 @@ class FlowNotifier extends ChangeNotifier {
           transaction: transaction,
         );
 
-  Future<void> addOpertion({
+  Future<AppResult<SceneID, ApplicationException>> addOpertion({
     required String name,
     required int color,
   }) async {
-    await _addUseCase.execute(
+    final result = await _addUseCase.execute(
       AddOperationCommand(
         id: _id,
         name: name,
@@ -61,15 +64,19 @@ class FlowNotifier extends ChangeNotifier {
       ),
     );
 
-    detailUpdate();
+    if (result.isSuccess) {
+      detailUpdate();
+    }
+
+    return result;
   }
 
-  Future<void> changeOperation({
+  Future<AppResult<SceneID, ApplicationException>> changeOperation({
     required String operationID,
     required String name,
     required int color,
   }) async {
-    await _changeUseCase.execute(
+    final result = await _changeUseCase.execute(
       ChangeOperationCommand(
         id: _id,
         operationID: operationID,
@@ -78,41 +85,55 @@ class FlowNotifier extends ChangeNotifier {
       ),
     );
 
-    detailUpdate();
+    if (result.isSuccess) {
+      detailUpdate();
+    }
+
+    return result;
   }
 
-  Future<void> removeOperation({
+  Future<AppResult<SceneID, ApplicationException>> removeOperation({
     required String id,
     required String operationID,
   }) async {
-    await _removeUseCase.execute(
+    final result = await _removeUseCase.execute(
       RemoveOperationCommand(
         id: _id,
         operationID: operationID,
       ),
     );
 
-    detailUpdate();
+    if (result.isSuccess) {
+      detailUpdate();
+    }
+
+    return result;
   }
 
-  Future<void> reorderOperation({
+  Future<AppResult<SceneID, ApplicationException>> reorderOperation({
     required String id,
     required List<String> operationIDs,
   }) async {
-    await _reorderUseCase.execute(
+    final result = await _reorderUseCase.execute(
       ReOrderOperationsCommand(
         id: id,
         operationIDs: operationIDs,
       ),
     );
 
-    detailUpdate();
+    if (result.isSuccess) {
+      detailUpdate();
+    }
+
+    return result;
   }
 
   void detailUpdate() {
-    _detailUseCase.execute(_id).then((detail) {
-      _detail = detail;
-      notifyListeners();
+    _detailUseCase.execute(_id).then((result) {
+      if (result.isSuccess) {
+        _detail = result.result;
+        notifyListeners();
+      }
     });
   }
 }

@@ -22,7 +22,7 @@ class RemoveTaskButton extends StatelessWidget {
         title: 'タスク削除',
         message: 'このタスクを削除してもよろしいですか？',
         onRemove: () async {
-          await notifier.remove(id);
+          (await notifier.remove(id)).exception();
         },
       ).show(),
     );

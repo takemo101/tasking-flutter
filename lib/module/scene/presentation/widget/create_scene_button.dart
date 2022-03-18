@@ -20,7 +20,7 @@ class CreateSceneButton extends StatelessWidget {
         heading: '新規シーン',
         genre: GenreData.inital(),
         onSave: (name, genre) async {
-          await notifier.create(
+          return await notifier.create(
             name: name,
             genre: genre,
           );

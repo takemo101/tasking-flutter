@@ -24,10 +24,11 @@ class RemoveOperationButton extends StatelessWidget {
         title: 'オペレーション削除',
         message: 'このオペレーションを削除してもよろしいですか？',
         onRemove: () async {
-          await notifier.removeOperation(
+          (await notifier.removeOperation(
             id: id,
             operationID: operationID,
-          );
+          ))
+              .exception();
         },
       ).show(),
     );

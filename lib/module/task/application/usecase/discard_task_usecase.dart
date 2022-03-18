@@ -1,4 +1,5 @@
 import 'package:tasking/module/shared/application/exception.dart';
+import 'package:tasking/module/shared/application/result.dart';
 import 'package:tasking/module/shared/domain/event.dart';
 import 'package:tasking/module/shared/domain/transaction.dart';
 import 'package:tasking/module/task/domain/board_repository.dart';
@@ -23,26 +24,30 @@ class DiscardTaskUseCase {
         _transaction = transaction,
         _eventBus = eventBus;
 
-  Future<void> execute(String id) async {
-    final task = await _transaction.transaction<Task>(() async {
-      final task = await _repository.findStartedByID(TaskID(id));
+  Future<AppResult<TaskID, ApplicationException>> execute(String id) async {
+    return await AppResult.listen(() async {
+      final task = await _transaction.transaction<Task>(() async {
+        final task = await _repository.findStartedByID(TaskID(id));
 
-      if (task == null) {
-        throw NotFoundException(id, name: 'task');
-      }
+        if (task == null) {
+          throw NotFoundException(id);
+        }
 
-      final discardedTask = task.discard();
+        final discardedTask = task.discard();
 
-      await _repository.update(discardedTask);
+        await _repository.update(discardedTask);
 
-      final board = await _boardRepository.findByID(discardedTask.sceneID);
+        final board = await _boardRepository.findByID(discardedTask.sceneID);
 
-      await _boardRepository
-          .save(board.removePinByDiscardedTask(discardedTask));
+        await _boardRepository
+            .save(board.removePinByDiscardedTask(discardedTask));
 
-      return task;
+        return task;
+      });
+
+      _eventBus.publishes(task.pullDomainEvents());
+
+      return task.id;
     });
-
-    _eventBus.publishes(task.pullDomainEvents());
   }
 }

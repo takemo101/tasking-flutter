@@ -5,6 +5,7 @@ import 'package:tasking/module/flow/domain/specification/exists_task_operation_s
 import 'package:tasking/module/flow/domain/vo/operation_id.dart';
 import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 import 'package:tasking/module/shared/application/exception.dart';
+import 'package:tasking/module/shared/application/result.dart';
 import 'package:tasking/module/shared/domain/transaction.dart';
 import 'package:tasking/module/task/domain/task_repository.dart';
 
@@ -34,27 +35,32 @@ class RemoveOperationUseCase {
         _spec = ExistsTaskOperationSpec(taskRepository),
         _transaction = transaction;
 
-  Future<void> execute(RemoveOperationCommand command) async {
-    await _transaction.transaction(() async {
-      final flow = await _repository.findByID(SceneID(command.id));
+  Future<AppResult<SceneID, ApplicationException>> execute(
+      RemoveOperationCommand command) async {
+    return await AppResult.listen(
+      () async => await _transaction.transaction(() async {
+        final flow = await _repository.findByID(SceneID(command.id));
 
-      if (flow == null) {
-        throw NotFoundException(command.id, name: 'flow');
-      }
+        if (flow == null) {
+          throw NotFoundException(command.id);
+        }
 
-      final operationID = OperationID(command.operationID);
+        final operationID = OperationID(command.operationID);
 
-      if (!flow.isAssignableOperation(operationID)) {
-        throw NotFoundException(command.id, name: 'operation');
-      }
+        if (!flow.isAssignableOperation(operationID)) {
+          throw NotFoundException(command.id);
+        }
 
-      if (!await _spec.isSatisfiedBy(operationID)) {
-        throw ExistsTaskOperationException();
-      }
+        if (!await _spec.isSatisfiedBy(operationID)) {
+          throw ExistsTaskOperationException();
+        }
 
-      await _repository.save(
-        flow.removeOperation(operationID),
-      );
-    });
+        await _repository.save(
+          flow.removeOperation(operationID),
+        );
+
+        return flow.id;
+      }),
+    );
   }
 }

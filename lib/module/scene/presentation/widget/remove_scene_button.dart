@@ -22,7 +22,7 @@ class RemoveSceneButton extends StatelessWidget {
         title: 'シーン削除',
         message: 'このシーンを削除してもよろしいですか？',
         onRemove: () async {
-          await notifier.remove(id);
+          (await notifier.remove(id)).exception();
         },
       ).show(),
     );

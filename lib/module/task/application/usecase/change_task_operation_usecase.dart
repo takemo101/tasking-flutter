@@ -1,5 +1,6 @@
 import 'package:tasking/module/flow/domain/flow_repository.dart';
 import 'package:tasking/module/shared/application/exception.dart';
+import 'package:tasking/module/shared/application/result.dart';
 import 'package:tasking/module/shared/domain/event.dart';
 import 'package:tasking/module/shared/domain/transaction.dart';
 import 'package:tasking/module/task/domain/service/change_to_next_operation.dart';
@@ -24,23 +25,27 @@ class ChangeTaskOperationUseCase {
         _transaction = transaction,
         _eventBus = eventBus;
 
-  Future<void> execute(String id) async {
-    final task = await _transaction.transaction<Task>(() async {
-      final task = await _repository.findStartedByID(
-        TaskID(id),
-      );
+  Future<AppResult<TaskID, ApplicationException>> execute(String id) async {
+    return await AppResult.listen(() async {
+      final task = await _transaction.transaction<Task>(() async {
+        final task = await _repository.findStartedByID(
+          TaskID(id),
+        );
 
-      if (task == null) {
-        throw NotFoundException(id, name: 'task');
-      }
+        if (task == null) {
+          throw NotFoundException(id);
+        }
 
-      final startedTask = await _service.changeToNextOperation(task);
+        final startedTask = await _service.changeToNextOperation(task);
 
-      await _repository.update(startedTask);
+        await _repository.update(startedTask);
 
-      return startedTask;
+        return startedTask;
+      });
+
+      _eventBus.publishes(task.pullDomainEvents());
+
+      return task.id;
     });
-
-    _eventBus.publishes(task.pullDomainEvents());
   }
 }

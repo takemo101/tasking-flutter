@@ -49,3 +49,4 @@ app.*.map.json
 # For this pplication
 database.sqlite
 memo.txt
+Makefile

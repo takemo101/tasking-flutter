@@ -24,7 +24,7 @@ class UpdateSceneButton extends StatelessWidget {
         genre: scene.genre,
         name: scene.name,
         onSave: (name, genre) async {
-          await notifier.update(
+          return await notifier.update(
             id: scene.id,
             name: name,
             genre: genre,

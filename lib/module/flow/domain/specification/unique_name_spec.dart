@@ -4,12 +4,15 @@ import 'package:tasking/module/flow/domain/vo/operation_id.dart';
 
 // unique name specification
 class UniqueNameSpec {
-  final Flow _flow;
+  final OperationDetail _detail;
+  final OperationID? _operationID;
 
-  UniqueNameSpec(Flow flow) : _flow = flow;
+  UniqueNameSpec(OperationDetail detail, [OperationID? operationID])
+      : _detail = detail,
+        _operationID = operationID;
 
   // is unique operation name
-  bool isSatisfiedBy(OperationDetail detail, [OperationID? operationID]) {
-    return _flow.isUniqueOperationName(detail.name, operationID);
+  bool isSatisfiedBy(Flow flow) {
+    return flow.isUniqueOperationName(_detail.name, _operationID);
   }
 }

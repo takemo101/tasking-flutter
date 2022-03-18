@@ -17,7 +17,7 @@ class AboutTheFlowPage extends StatelessWidget {
         child: const Markdown(
           data: '''
 ## フローとは？
-フローとは、タスクに進捗状況のことです。
+フローとは、タスクの進捗状況のことです。
 
 フローに対してオペレーションを複数追加することができ、追加したオペレーションを進捗順に並び替えることで、シーンに応じたタスクのフローを編集することができます。
 
