@@ -71,6 +71,7 @@ android {
         release {
             // --- release setting ---
             signingConfig signingConfigs.release
+            // signingConfig signingConfigs.debug
             // ------
         }
     }

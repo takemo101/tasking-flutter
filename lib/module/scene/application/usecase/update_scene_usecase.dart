@@ -38,7 +38,7 @@ class UpdateSceneUseCase {
 
   Future<AppResult<SceneID, ApplicationException>> execute(
       UpdateSceneCommand command) async {
-    return await AppResult.listen(
+    return await AppResult.monitor(
       () async => await _transaction.transaction(() async {
         final scene = await _repository.findByID(SceneID(command.id));
 

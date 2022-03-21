@@ -16,7 +16,7 @@ class RemoveSceneUseCase {
         _transaction = transaction;
 
   Future<AppResult<SceneID, ApplicationException>> execute(String id) async {
-    return await AppResult.listen(
+    return await AppResult.monitor(
       () async => await _transaction.transaction(() async {
         final scene = await _repository.findByID(SceneID(id));
 

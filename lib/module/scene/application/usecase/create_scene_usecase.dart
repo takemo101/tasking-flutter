@@ -41,7 +41,7 @@ class CreateSceneUseCase {
 
   Future<AppResult<SceneID, ApplicationException>> execute(
       CreateSceneCommand command) async {
-    return await AppResult.listen(() async {
+    return await AppResult.monitor(() async {
       final scene = CreatedScene.create(
         id: SceneID.generate(),
         name: SceneName(command.name),

@@ -25,7 +25,7 @@ class ResumeTaskUseCase {
         _eventBus = eventBus;
 
   Future<AppResult<TaskID, ApplicationException>> execute(String id) async {
-    return await AppResult.listen(() async {
+    return await AppResult.monitor(() async {
       final task = await _transaction.transaction<Task>(() async {
         final task = await _repository.findDiscardedByID(TaskID(id));
 

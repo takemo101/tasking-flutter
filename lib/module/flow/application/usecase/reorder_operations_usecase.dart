@@ -31,7 +31,7 @@ class ReOrderOperationsUseCase {
 
   Future<AppResult<SceneID, ApplicationException>> execute(
       ReOrderOperationsCommand command) async {
-    return await AppResult.listen(
+    return await AppResult.monitor(
       () async => await _transaction.transaction(() async {
         final flow = await _repository.findByID(SceneID(command.id));
 

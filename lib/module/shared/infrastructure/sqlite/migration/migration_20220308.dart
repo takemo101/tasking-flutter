@@ -5,7 +5,7 @@ class Migration20220308 implements SQLiteMigration {
   const Migration20220308();
 
   @override
-  void create(Batch batch) {
+  void run(Batch batch) {
     // scenes table
     batch.execute('DROP TABLE IF EXISTS scenes');
     batch.execute('''
@@ -18,4 +18,7 @@ class Migration20220308 implements SQLiteMigration {
       )
     ''');
   }
+
+  @override
+  int get id => 20220308;
 }

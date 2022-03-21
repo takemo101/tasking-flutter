@@ -5,7 +5,7 @@ class Migration20220311 implements SQLiteMigration {
   const Migration20220311();
 
   @override
-  void create(Batch batch) {
+  void run(Batch batch) {
     // operations table
     batch.execute('DROP TABLE IF EXISTS operations');
     batch.execute('''
@@ -24,4 +24,7 @@ class Migration20220311 implements SQLiteMigration {
       ON operations(flow_order)
     ''');
   }
+
+  @override
+  int get id => 20220311;
 }

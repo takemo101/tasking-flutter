@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tasking/module/scene/presentation/page/scene_list_page.dart';
+import 'package:tasking/module/shared/infrastructure/dotenv/initializer.dart';
 import 'package:tasking/module/shared/infrastructure/initializer.dart';
 import 'package:tasking/module/shared/infrastructure/sqlite/initializer.dart';
 import 'package:tasking/module/shared/presentation/route.dart';
@@ -43,6 +44,7 @@ class App extends ConsumerWidget {
 
 Future<void> initialize() async {
   final initializer = Initializer([
+    DotEnvInitializer(),
     SQLiteInitializer(),
   ]);
 

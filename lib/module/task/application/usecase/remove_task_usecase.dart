@@ -16,7 +16,7 @@ class RemoveTaskUseCase {
         _transaction = transaction;
 
   Future<AppResult<TaskID, ApplicationException>> execute(String id) async {
-    return await AppResult.listen(() async {
+    return await AppResult.monitor(() async {
       return await _transaction.transaction(() async {
         final task = await _repository.findDiscardedByID(TaskID(id));
 

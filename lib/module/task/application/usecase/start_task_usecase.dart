@@ -46,7 +46,7 @@ class StartTaskUseCase {
 
   Future<AppResult<TaskID, ApplicationException>> execute(
       StartTaskCommand command) async {
-    return await AppResult.listen(() async {
+    return await AppResult.monitor(() async {
       final task = await _transaction.transaction<Task>(() async {
         final flow = await _flowRepository.findByID(SceneID(command.sceneID));
 

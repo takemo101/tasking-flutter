@@ -1,7 +1,9 @@
+import 'dart:ffi';
+
 import 'package:meta/meta.dart';
 
-// abstract app result
-abstract class AppResult<T, E extends Exception> {
+/// abstract app result
+abstract class AppResult<T, E extends Object> {
   // is success
   bool get isSuccess => this is SuccessResult<T, E>;
 
@@ -38,8 +40,8 @@ abstract class AppResult<T, E extends Exception> {
     //
   }
 
-  // listen exception
-  static Future<AppResult<S, F>> listen<S, F extends Exception>(
+  // monitor exceptions
+  static Future<AppResult<S, F>> monitor<S, F extends Object>(
       Future<S> Function() callback,
       [bool catchError = true]) async {
     if (catchError) {
@@ -58,11 +60,34 @@ abstract class AppResult<T, E extends Exception> {
       }
     }
   }
+
+  // monitor exceptions with none results
+  static Future<AppResult<void, F>> noneMonitor<F extends Object>(
+      Future<void> Function() callback,
+      [bool catchError = true]) async {
+    if (catchError) {
+      try {
+        await callback();
+        return NoneSuccessResult();
+      } on F catch (e) {
+        return NoneFailureResult(e);
+      } catch (e) {
+        return NoneErrorResult(e);
+      }
+    } else {
+      try {
+        await callback();
+        return NoneSuccessResult();
+      } on F catch (e) {
+        return NoneFailureResult(e);
+      }
+    }
+  }
 }
 
-// success results class
+/// success results class
 @immutable
-class SuccessResult<T, E extends Exception> extends AppResult<T, E> {
+class SuccessResult<T, E extends Object> extends AppResult<T, E> {
   final T _result;
 
   SuccessResult(T result) : _result = result;
@@ -86,9 +111,28 @@ class SuccessResult<T, E extends Exception> extends AppResult<T, E> {
   String toString() => 'success: $_result';
 }
 
-// failure result class
+/// none success results class
 @immutable
-class FailureResult<T, E extends Exception> extends AppResult<T, E> {
+class NoneSuccessResult<E extends Object> extends SuccessResult<void, E> {
+  NoneSuccessResult() : super(Void);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is SuccessResult<void, E>;
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() => 'success: none';
+}
+
+/// failure result class
+@immutable
+class FailureResult<T, E extends Object> extends AppResult<T, E> {
   final E _error;
 
   FailureResult(E error) : _error = error;
@@ -117,9 +161,15 @@ class FailureResult<T, E extends Exception> extends AppResult<T, E> {
   String toString() => 'failure: $_error';
 }
 
+/// none failure result class
+@immutable
+class NoneFailureResult<E extends Object> extends FailureResult<void, E> {
+  NoneFailureResult(E error) : super(error);
+}
+
 // error result class
 @immutable
-class ErrorResult<T, E extends Exception> extends AppResult<T, E> {
+class ErrorResult<T, E extends Object> extends AppResult<T, E> {
   final Object _error;
 
   ErrorResult(Object error) : _error = error;
@@ -146,4 +196,10 @@ class ErrorResult<T, E extends Exception> extends AppResult<T, E> {
 
   @override
   String toString() => 'error: $_error';
+}
+
+// none error result class
+@immutable
+class NoneErrorResult<E extends Object> extends ErrorResult<void, E> {
+  NoneErrorResult(Object error) : super(error);
 }

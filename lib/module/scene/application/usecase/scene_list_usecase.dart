@@ -12,6 +12,6 @@ class SceneListUseCase {
   }) : _query = query;
 
   Future<AppResult<List<SceneData>, ApplicationException>> execute() async {
-    return await AppResult.listen(() async => await _query.all());
+    return await AppResult.monitor(() async => await _query.all());
   }
 }

@@ -23,7 +23,7 @@ class TidyTasksUseCase {
 
   Future<AppResult<SceneID, ApplicationException>> execute(
       String sceneID) async {
-    return await AppResult.listen(() async {
+    return await AppResult.monitor(() async {
       return await _transaction.transaction(() async {
         final board = await _boardRepository.findByID(SceneID(sceneID));
 

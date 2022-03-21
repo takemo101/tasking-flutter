@@ -6,16 +6,6 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart';
 import 'package:tasking/module/shared/infrastructure/sqlite/migration.dart';
 
-import 'package:tasking/module/shared/infrastructure/sqlite/migration/migration_20220308.dart';
-import 'package:tasking/module/shared/infrastructure/sqlite/migration/migration_20220311.dart';
-import 'package:tasking/module/shared/infrastructure/sqlite/migration/migration_20220312.dart';
-
-const List<SQLiteMigration> _migrations = <SQLiteMigration>[
-  Migration20220308(),
-  Migration20220311(),
-  Migration20220312(),
-];
-
 class SQLiteHelper {
   static SQLiteHelper? _instance;
 
@@ -86,12 +76,29 @@ class SQLiteHelper {
 
   /// create database
   FutureOr<void> _onCreate(Database db, int version) async {
-    var batch = db.batch();
-    for (final migration in _migrations) {
-      migration.create(batch);
-    }
+    final batch = db.batch();
 
-    await batch.commit();
+    final migrator = Migrator(batch);
+
+    // create migrations table
+    await migrator.createTable();
+
+    // run migrate
+    await migrator.migrate();
+
+    // run record factory
+    await migrator.factory();
+  }
+
+  /// upgrade database
+  FutureOr<void> _onUpgrade(
+      Database db, int beforeVersion, int afterVersion) async {
+    final batch = db.batch();
+
+    final migrator = Migrator(batch);
+
+    // run migrate
+    await migrator.migrate();
   }
 
   /// configure database
@@ -122,6 +129,12 @@ class SQLiteHelper {
       path,
       version: _databaseVersion,
       onCreate: (Database db, int version) => _onCreate(db, version),
+      onUpgrade: (Database db, int beforeVersion, int afterVersion) =>
+          _onUpgrade(
+        db,
+        beforeVersion,
+        afterVersion,
+      ),
       onConfigure: (Database db) => _onConfigure(db),
     );
   }

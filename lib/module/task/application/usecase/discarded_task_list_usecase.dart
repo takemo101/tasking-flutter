@@ -14,7 +14,7 @@ class DiscardedTaskListUseCase {
 
   Future<AppResult<List<TaskData>, ApplicationException>> execute(
       String sceneID) async {
-    return await AppResult.listen(
+    return await AppResult.monitor(
         () async => await _query.allDiscardedBySceneID(SceneID(sceneID)));
   }
 }

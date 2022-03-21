@@ -13,7 +13,7 @@ class FlowDetailUseCase {
   }) : _query = query;
 
   Future<AppResult<FlowData, ApplicationException>> execute(String id) async {
-    return await AppResult.listen(() async {
+    return await AppResult.monitor(() async {
       final flow = await _query.detail(SceneID(id));
 
       if (flow == null) {

@@ -43,7 +43,7 @@ class AddOperationUseCase {
       color: OperationColor(command.color),
     );
 
-    return await AppResult.listen(
+    return await AppResult.monitor(
       () async => await _transaction.transaction(() async {
         final flow = await _repository.findByID(SceneID(command.id));
 
