@@ -81,7 +81,7 @@ class Operations {
   }
 
   /// add operation
-  void add(OperationDetail detail) {
+  Operation add(OperationDetail detail) {
     // duplicate check
     if (hasByName(detail.name)) {
       throw DomainException(
@@ -90,20 +90,26 @@ class Operations {
       );
     }
 
-    _operations.add(Operation.create(
+    final operation = Operation.create(
       order: _lastOrder.nextOrder(),
       detail: detail,
-    ));
+    );
+
+    _operations.add(operation);
+
+    return operation;
   }
 
   /// change operation by id
-  void changeByID(OperationID id, OperationDetail detail) {
+  Operation changeByID(OperationID id, OperationDetail detail) {
     final index = _operations.indexWhere((op) => op.id == id);
 
     // replace operation
     if (index != -1) {
-      _operations[index] = _operations[index].changeDetail(detail);
-      return;
+      final operation = _operations[index].changeDetail(detail);
+      _operations[index] = operation;
+
+      return operation;
     }
 
     throw DomainException(
@@ -113,7 +119,7 @@ class Operations {
   }
 
   /// remove operation by id
-  void removeByID(OperationID id) {
+  Operation removeByID(OperationID id) {
     final index = _operations.indexWhere((op) => op.id == id);
 
     if (index != -1) {
@@ -124,7 +130,7 @@ class Operations {
         );
       }
 
-      _operations.removeAt(index);
+      final operation = _operations.removeAt(index);
 
       var order = FlowOrder.initial();
 
@@ -134,7 +140,7 @@ class Operations {
         order = order.nextOrder();
       });
 
-      return;
+      return operation;
     }
 
     throw DomainException(

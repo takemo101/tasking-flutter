@@ -5,6 +5,7 @@ import 'package:tasking/module/scene/domain/vo/genre.dart';
 import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 import 'package:tasking/module/scene/domain/vo/scene_last_modified.dart';
 import 'package:tasking/module/scene/domain/vo/scene_name.dart';
+import 'package:tasking/module/scene/domain/vo/scene_type.dart';
 import 'package:tasking/module/scene/infrastructure/in_memory/scene_repository.dart';
 
 void main() {
@@ -21,6 +22,7 @@ void main() {
         id: firstID,
         name: firstName,
         genre: Genre.life,
+        type: SceneType.task,
         lastModified: SceneLastModified.now(),
       ),
     );
@@ -29,6 +31,7 @@ void main() {
         id: SceneID.generate(),
         name: SceneName('name2'),
         genre: Genre.jobs,
+        type: SceneType.task,
         lastModified: SceneLastModified.now(),
       ),
     );
@@ -37,6 +40,7 @@ void main() {
         id: SceneID.generate(),
         name: SceneName('name3'),
         genre: Genre.hobby,
+        type: SceneType.task,
         lastModified: SceneLastModified.now(),
       ),
     );

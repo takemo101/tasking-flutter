@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tasking/module/flow/flow_provider.dart';
+import 'package:tasking/module/scene/scene_provider.dart';
 import 'package:tasking/module/shared/shared_provider.dart';
 import 'package:tasking/module/task/application/query/task_query.dart';
 import 'package:tasking/module/task/domain/board_repository.dart';
@@ -24,6 +25,7 @@ final taskNotifierProvider =
               sceneID,
               repository: ref.read(taskRepositoryProvider),
               flowRepository: ref.read(flowRepositoryProvider),
+              sceneRepository: ref.read(sceneRepositoryProvider),
               boardRepository: ref.read(boardRepositoryProvider),
               query: ref.read(taskQueryProvider),
               transaction: ref.read(transactionProvider),

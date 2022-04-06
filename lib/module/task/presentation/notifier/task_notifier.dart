@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:tasking/module/flow/domain/flow_repository.dart';
+import 'package:tasking/module/scene/domain/scene_repository.dart';
 import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 import 'package:tasking/module/shared/application/exception.dart';
 import 'package:tasking/module/shared/application/result.dart';
@@ -41,6 +42,7 @@ class TaskNotifier extends ChangeNotifier {
     String sceneID, {
     required TaskRepository repository,
     required FlowRepository flowRepository,
+    required SceneRepository sceneRepository,
     required BoardRepository boardRepository,
     required TaskQuery query,
     required Transaction transaction,
@@ -48,8 +50,9 @@ class TaskNotifier extends ChangeNotifier {
   })  : _sceneID = sceneID,
         _startUseCase = StartTaskUseCase(
           repository: repository,
-          boardRepository: boardRepository,
           flowRepository: flowRepository,
+          sceneRepository: sceneRepository,
+          boardRepository: boardRepository,
           transaction: transaction,
           eventBus: eventBus,
         ),

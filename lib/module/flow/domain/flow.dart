@@ -11,7 +11,7 @@ import 'package:tasking/module/shared/domain/event.dart';
 
 /// aggregate root class
 @immutable
-class Flow extends Scene {
+class Flow extends TaskTypeScene {
   final Operations _operations;
 
   /// private constructor

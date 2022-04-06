@@ -25,7 +25,7 @@ class ManualDrawer extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '本アプリでは、シーン・フロー・タスクという三つの機能を利用してタスク管理を行います',
+                  '本アプリでは、シーン・フロー・アラーム・タスクという4つの機能を利用してタスク管理を行います',
                   style: TextStyle(
                     color: Theme.of(context).secondaryHeaderColor,
                     fontSize: 12,

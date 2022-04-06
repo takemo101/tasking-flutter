@@ -51,3 +51,4 @@ database.sqlite
 memo.txt
 Makefile
 /.env
+/sqlite/*.sqlite

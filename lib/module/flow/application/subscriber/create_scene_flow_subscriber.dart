@@ -4,7 +4,8 @@ import 'package:tasking/module/scene/domain/event/scene_event.dart';
 import 'package:tasking/module/shared/domain/event.dart';
 import 'package:tasking/module/shared/domain/transaction.dart';
 
-class CreateSceneFlowSubscriber implements EventSubscriber<CreateSceneEvent> {
+class CreateSceneFlowSubscriber
+    implements EventSubscriber<CreateTaskSceneEvent> {
   final FlowRepository _repository;
   final Transaction _transaction;
 
@@ -15,7 +16,7 @@ class CreateSceneFlowSubscriber implements EventSubscriber<CreateSceneEvent> {
         _transaction = transaction;
 
   @override
-  void handle(CreateSceneEvent event) async {
+  void handle(CreateTaskSceneEvent event) async {
     await _transaction.transaction(() async {
       await _repository.save(
         Flow.create(id: event.id),

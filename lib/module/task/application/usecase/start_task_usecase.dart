@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:tasking/module/flow/domain/flow_repository.dart';
+import 'package:tasking/module/scene/domain/scene_repository.dart';
 import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 import 'package:tasking/module/shared/application/exception.dart';
 import 'package:tasking/module/shared/application/result.dart';
@@ -28,6 +29,7 @@ class StartTaskCommand {
 class StartTaskUseCase {
   final TaskRepository _repository;
   final FlowRepository _flowRepository;
+  final SceneRepository _sceneRepository;
   final BoardRepository _boardRepository;
   final Transaction _transaction;
   final DomainEventBus _eventBus;
@@ -35,11 +37,13 @@ class StartTaskUseCase {
   StartTaskUseCase({
     required TaskRepository repository,
     required FlowRepository flowRepository,
+    required SceneRepository sceneRepository,
     required BoardRepository boardRepository,
     required Transaction transaction,
     required DomainEventBus eventBus,
   })  : _repository = repository,
         _flowRepository = flowRepository,
+        _sceneRepository = sceneRepository,
         _boardRepository = boardRepository,
         _transaction = transaction,
         _eventBus = eventBus;
@@ -54,8 +58,11 @@ class StartTaskUseCase {
           throw NotFoundException(command.sceneID);
         }
 
-        final factory = StartDefaultTask(flow);
-        final task = factory.start(TaskContent(command.content));
+        final factory = StartDefaultTask(
+          sceneRepository: _sceneRepository,
+          flow: flow,
+        );
+        final task = await factory.start(TaskContent(command.content));
 
         await _repository.store(task);
 

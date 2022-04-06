@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:tasking/module/scene/domain/vo/scene_type.dart';
 import 'package:tasking/module/scene/presentation/widget/create_scene_button.dart';
 import 'package:tasking/module/scene/presentation/widget/manual_drawer.dart';
 import 'package:tasking/module/scene/presentation/widget/remove_scene_button.dart';
@@ -44,9 +45,18 @@ class SceneListPage extends ConsumerWidget {
                 itemBuilder: (context, index) {
                   final scene = list[index];
                   return ListTile(
-                      leading: Row(
+                      leading: Column(
                         mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
+                          Text(
+                            scene.type.name,
+                            style: const TextStyle(
+                              fontSize: 10,
+                              fontFamily: 'OpenSans',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                           Text(
                             scene.genre.name,
                             style: const TextStyle(
@@ -75,6 +85,16 @@ class SceneListPage extends ConsumerWidget {
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
+                          if (scene.type.label == SceneType.task.name)
+                            ListIconButton(
+                              icon: Icons.low_priority,
+                              onPressed: () {
+                                Navigator.of(context).pushNamed(
+                                  AppRoute.flowPage.route,
+                                  arguments: scene,
+                                );
+                              },
+                            ),
                           RemoveSceneButton(
                             notifier: notifier,
                             id: scene.id,
@@ -83,21 +103,14 @@ class SceneListPage extends ConsumerWidget {
                             notifier: notifier,
                             scene: scene,
                           ),
-                          ListIconButton(
-                            icon: Icons.low_priority,
-                            onPressed: () {
-                              Navigator.of(context).pushNamed(
-                                AppRoute.flowPage.route,
-                                arguments: scene,
-                              );
-                            },
-                          ),
                         ],
                       ),
                       onTap: () {
                         Navigator.of(context)
                             .pushNamed(
-                          AppRoute.taskPage.route,
+                          scene.type.label == SceneType.task.name
+                              ? AppRoute.taskPage.route
+                              : AppRoute.alarmPage.route,
                           arguments: scene,
                         )
                             .then((_) {
@@ -132,6 +145,14 @@ class SceneListPage extends ConsumerWidget {
             onTap: () {
               Navigator.of(context).pushNamed(
                 AppRoute.manualAboutTheFlowPage.route,
+              );
+            },
+          ),
+          ListTile(
+            title: const Text('アラームについて'),
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                AppRoute.manualAboutTheAlarmPage.route,
               );
             },
           ),

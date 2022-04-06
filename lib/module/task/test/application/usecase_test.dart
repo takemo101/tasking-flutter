@@ -12,6 +12,7 @@ import 'package:tasking/module/scene/application/subscriber/start_task_scene_sub
 import 'package:tasking/module/scene/application/usecase/create_scene_usecase.dart';
 import 'package:tasking/module/scene/domain/event/scene_event.dart';
 import 'package:tasking/module/scene/domain/vo/genre.dart';
+import 'package:tasking/module/scene/domain/vo/scene_type.dart';
 import 'package:tasking/module/scene/infrastructure/sqlite/scene_repository.dart';
 import 'package:tasking/module/shared/infrastructure/event.dart';
 import 'package:tasking/module/shared/infrastructure/sqlite/helper.dart';
@@ -27,10 +28,12 @@ import 'package:tasking/module/task/infrastructure/sqlite/task_query.dart';
 import 'package:tasking/module/task/infrastructure/sqlite/task_repository.dart';
 
 void main() async {
-  final helper = SQLiteHelper();
+  final helper = SQLiteHelper(name: 'sqlite/task_usecase.sqlite');
 
   File file = File(helper.currentDatabasePath());
-  file.deleteSync();
+  if (file.existsSync()) {
+    file.deleteSync();
+  }
   file.createSync();
 
   await helper.open();
@@ -45,7 +48,7 @@ void main() async {
 
   SyncDomainEventBus bus = SyncDomainEventBus();
 
-  bus.subscribe<CreateSceneEvent>(CreateSceneFlowSubscriber(
+  bus.subscribe<CreateTaskSceneEvent>(CreateSceneFlowSubscriber(
     repository: flowRepository,
     transaction: transaction,
   ));
@@ -71,6 +74,7 @@ void main() async {
   final sceneID = (await sceneUseCase.execute(CreateSceneCommand(
     name: 'hello',
     genre: Genre.hobby.name,
+    type: SceneType.task.name,
   )))
       .result;
 
@@ -97,6 +101,7 @@ void main() async {
         final usecase = StartTaskUseCase(
           repository: repository,
           flowRepository: flowRepository,
+          sceneRepository: sceneRepository,
           boardRepository: boardRepository,
           transaction: transaction,
           eventBus: bus,
@@ -149,8 +154,9 @@ void main() async {
       if (scene != null) {
         final usecase = StartTaskUseCase(
           repository: repository,
-          boardRepository: boardRepository,
           flowRepository: flowRepository,
+          sceneRepository: sceneRepository,
+          boardRepository: boardRepository,
           transaction: transaction,
           eventBus: bus,
         );
@@ -208,8 +214,9 @@ void main() async {
       if (scene != null) {
         final usecase = StartTaskUseCase(
           repository: repository,
-          boardRepository: boardRepository,
           flowRepository: flowRepository,
+          sceneRepository: sceneRepository,
+          boardRepository: boardRepository,
           transaction: transaction,
           eventBus: bus,
         );
@@ -261,8 +268,9 @@ void main() async {
       if (scene != null) {
         final usecase = StartTaskUseCase(
           repository: repository,
-          boardRepository: boardRepository,
+          sceneRepository: sceneRepository,
           flowRepository: flowRepository,
+          boardRepository: boardRepository,
           transaction: transaction,
           eventBus: bus,
         );

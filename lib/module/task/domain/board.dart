@@ -12,7 +12,7 @@ import 'package:tasking/module/task/domain/vo/tidy_operation_ids.dart';
 
 /// aggregate root class
 @immutable
-class Board extends Scene {
+class Board extends TaskTypeScene {
   final Pins _pins;
 
   /// private constructor

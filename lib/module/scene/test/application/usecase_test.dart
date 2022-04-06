@@ -17,10 +17,12 @@ import 'package:tasking/module/shared/infrastructure/sqlite/helper.dart';
 import 'package:tasking/module/shared/infrastructure/sqlite/transaction.dart';
 
 void main() async {
-  final helper = SQLiteHelper();
+  final helper = SQLiteHelper(name: 'sqlite/scene_usecase.sqlite');
 
   File file = File(helper.currentDatabasePath());
-  file.deleteSync();
+  if (file.existsSync()) {
+    file.deleteSync();
+  }
   file.createSync();
 
   await helper.open();
@@ -31,7 +33,7 @@ void main() async {
   SQLiteTransaction transaction = SQLiteTransaction(helper: helper);
   SyncDomainEventBus bus = SyncDomainEventBus();
 
-  bus.subscribe<CreateSceneEvent>(CreateSceneFlowSubscriber(
+  bus.subscribe<CreateTaskSceneEvent>(CreateSceneFlowSubscriber(
     repository: flowRepository,
     transaction: transaction,
   ));
@@ -69,6 +71,7 @@ void main() async {
       final id = (await createUsecase.execute(const CreateSceneCommand(
         name: 'hello',
         genre: 'jobs',
+        type: 'task',
       )))
           .result;
 
@@ -99,6 +102,7 @@ void main() async {
       final id = (await createUsecase.execute(const CreateSceneCommand(
         name: 'hello2',
         genre: 'jobs',
+        type: 'task',
       )))
           .result;
 

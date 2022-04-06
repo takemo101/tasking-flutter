@@ -5,12 +5,25 @@ import 'package:tasking/module/scene/domain/vo/scene_name.dart';
 import 'package:tasking/module/shared/domain/event.dart';
 
 @immutable
-class CreateSceneEvent implements Event {
+class CreateTaskSceneEvent implements Event {
   final SceneID id;
   final SceneName name;
   final Genre genre;
 
-  const CreateSceneEvent({
+  const CreateTaskSceneEvent({
+    required this.id,
+    required this.name,
+    required this.genre,
+  });
+}
+
+@immutable
+class CreateAlarmSceneEvent implements Event {
+  final SceneID id;
+  final SceneName name;
+  final Genre genre;
+
+  const CreateAlarmSceneEvent({
     required this.id,
     required this.name,
     required this.genre,

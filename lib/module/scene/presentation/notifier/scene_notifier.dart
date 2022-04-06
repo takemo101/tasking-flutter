@@ -45,11 +45,13 @@ class SceneNotifier extends ChangeNotifier {
   Future<AppResult<SceneID, ApplicationException>> create({
     required String name,
     required String genre,
+    required String type,
   }) async {
     return await _createUseCase.execute(
       CreateSceneCommand(
         name: name,
         genre: genre,
+        type: type,
       ),
     )
       ..onSuccess((_) => listUpdate());

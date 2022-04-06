@@ -43,7 +43,7 @@ class ResumeTaskUseCase {
           board.addPinByStartedTask(startedTask),
         );
 
-        return task;
+        return startedTask;
       });
 
       _eventBus.publishes(task.pullDomainEvents());

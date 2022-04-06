@@ -1,8 +1,10 @@
 import 'package:meta/meta.dart';
 import 'package:tasking/module/flow/domain/vo/operation_id.dart';
+import 'package:tasking/module/scene/domain/scene.dart';
 import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 import 'package:tasking/module/shared/domain/aggregate_root.dart';
 import 'package:tasking/module/shared/domain/event.dart';
+import 'package:tasking/module/shared/domain/exception.dart';
 import 'package:tasking/module/task/domain/event/task_event.dart';
 import 'package:tasking/module/task/domain/vo/task_content.dart';
 import 'package:tasking/module/task/domain/vo/task_id.dart';
@@ -81,23 +83,30 @@ class StartedTask extends CreatedTask {
   StartedTask.start({
     required TaskID id,
     required TaskContent content,
-    required SceneID sceneID,
+    required Scene scene,
     required OperationID operationID,
   }) : super._(
           id: id,
           content: content,
-          sceneID: sceneID,
+          sceneID: scene.id,
           operationID: operationID,
           lastModified: TaskLastModified.now(),
           events: [
             StartTaskEvent(
               id: id,
               content: content,
-              sceneID: sceneID,
+              sceneID: scene.id,
               operationID: operationID,
             )
           ],
-        );
+        ) {
+    if (!scene.isTaskType) {
+      throw DomainException(
+        type: DomainExceptionType.specification,
+        detail: "can't start the task due to the specifications!",
+      );
+    }
+  }
 
   /// reconstruct
   const StartedTask.reconstruct({

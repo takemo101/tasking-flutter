@@ -6,24 +6,27 @@ import 'package:tasking/module/scene/domain/vo/genre.dart';
 import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 import 'package:tasking/module/scene/domain/vo/scene_last_modified.dart';
 import 'package:tasking/module/scene/domain/vo/scene_name.dart';
+import 'package:tasking/module/scene/domain/vo/scene_type.dart';
 import 'package:tasking/module/scene/infrastructure/sqlite/scene_repository.dart';
 import 'package:tasking/module/shared/infrastructure/sqlite/helper.dart';
 
-void main() {
-  SceneSQLiteRepository repository =
-      SceneSQLiteRepository(helper: SQLiteHelper());
+void main() async {
+  final helper = SQLiteHelper(name: 'sqlite/scene_repository.sqlite');
 
-  SQLiteHelper helper = SQLiteHelper();
   File file = File(helper.currentDatabasePath());
-  file.deleteSync();
+  if (file.existsSync()) {
+    file.deleteSync();
+  }
   file.createSync();
+
+  await helper.open();
+
+  SceneSQLiteRepository repository = SceneSQLiteRepository(helper: helper);
 
   SceneID firstID = SceneID.generate();
   SceneName firstName = SceneName('name1');
 
   setUp(() async {
-    await helper.open();
-
     repository = SceneSQLiteRepository(helper: helper);
 
     repository.store(
@@ -31,6 +34,7 @@ void main() {
         id: firstID,
         name: firstName,
         genre: Genre.life,
+        type: SceneType.task,
         lastModified: SceneLastModified.now(),
       ),
     );
@@ -39,6 +43,7 @@ void main() {
         id: SceneID.generate(),
         name: SceneName('name2'),
         genre: Genre.jobs,
+        type: SceneType.task,
         lastModified: SceneLastModified.now(),
       ),
     );
@@ -47,6 +52,7 @@ void main() {
         id: SceneID.generate(),
         name: SceneName('name3'),
         genre: Genre.hobby,
+        type: SceneType.task,
         lastModified: SceneLastModified.now(),
       ),
     );

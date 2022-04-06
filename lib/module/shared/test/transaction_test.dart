@@ -6,34 +6,35 @@ import 'package:tasking/module/scene/domain/vo/genre.dart';
 import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 import 'package:tasking/module/scene/domain/vo/scene_last_modified.dart';
 import 'package:tasking/module/scene/domain/vo/scene_name.dart';
+import 'package:tasking/module/scene/domain/vo/scene_type.dart';
 import 'package:tasking/module/shared/infrastructure/sqlite/helper.dart';
 import 'package:tasking/module/scene/infrastructure/sqlite/scene_repository.dart';
 import 'package:tasking/module/shared/infrastructure/sqlite/transaction.dart';
 
 void main() {
-  SceneSQLiteRepository repository =
-      SceneSQLiteRepository(helper: SQLiteHelper());
-  SQLiteTransaction transaction = SQLiteTransaction(helper: SQLiteHelper());
+  final helper = SQLiteHelper(name: 'sqlite/database.sqlite');
 
-  SQLiteHelper helper = SQLiteHelper();
   File file = File(helper.currentDatabasePath());
-  file.deleteSync();
+  if (file.existsSync()) {
+    file.deleteSync();
+  }
   file.createSync();
+
+  helper.open();
+
+  SceneSQLiteRepository repository = SceneSQLiteRepository(helper: helper);
+  SQLiteTransaction transaction = SQLiteTransaction(helper: helper);
 
   SceneID firstID = SceneID.generate();
   SceneName firstName = SceneName('name1');
 
   setUp(() async {
-    await helper.open();
-
-    repository = SceneSQLiteRepository(helper: helper);
-    transaction = SQLiteTransaction(helper: helper);
-
     repository.store(
       CreatedScene.reconstruct(
         id: firstID,
         name: firstName,
         genre: Genre.life,
+        type: SceneType.task,
         lastModified: SceneLastModified.now(),
       ),
     );
@@ -42,6 +43,7 @@ void main() {
         id: SceneID.generate(),
         name: SceneName('name2'),
         genre: Genre.jobs,
+        type: SceneType.task,
         lastModified: SceneLastModified.now(),
       ),
     );
@@ -50,6 +52,7 @@ void main() {
         id: SceneID.generate(),
         name: SceneName('name3'),
         genre: Genre.hobby,
+        type: SceneType.task,
         lastModified: SceneLastModified.now(),
       ),
     );
@@ -75,17 +78,15 @@ void main() {
       try {
         await transaction.transaction<void>(() async {
           final scene = await repository.findByID(firstID);
-
           expect(scene, isNotNull);
           if (scene != null) {
-            repository.remove(scene.remove());
+            await repository.remove(scene.remove());
 
             throw Exception('exception');
           }
         });
       } catch (e) {
         final removeScene = await repository.findByID(firstID);
-
         expect(removeScene, isNotNull);
       }
     });

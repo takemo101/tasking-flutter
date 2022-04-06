@@ -80,7 +80,7 @@ class RecordFactory implements SQLiteRecordFactory {
     final task = StartedTask.start(
       id: TaskID.generate(),
       content: TaskContent('部屋の掃除をする！'),
-      sceneID: scene.id,
+      scene: scene,
       operationID: flow.defaultOperationID,
     );
 

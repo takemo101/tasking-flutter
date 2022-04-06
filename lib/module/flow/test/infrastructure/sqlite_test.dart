@@ -14,17 +14,20 @@ import 'package:tasking/module/scene/domain/vo/genre.dart';
 import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 import 'package:tasking/module/scene/domain/vo/scene_last_modified.dart';
 import 'package:tasking/module/scene/domain/vo/scene_name.dart';
+import 'package:tasking/module/scene/domain/vo/scene_type.dart';
 import 'package:tasking/module/scene/infrastructure/sqlite/scene_repository.dart';
 import 'package:tasking/module/shared/infrastructure/sqlite/helper.dart';
 
 void main() async {
-  SQLiteHelper helper = SQLiteHelper();
+  final helper = SQLiteHelper(name: 'sqlite/flow_repository.sqlite');
 
   File file = File(helper.currentDatabasePath());
-  file.deleteSync();
+  if (file.existsSync()) {
+    file.deleteSync();
+  }
   file.createSync();
 
-  await helper.open();
+  helper.open();
 
   FlowSQLiteRepository repository = FlowSQLiteRepository(helper: helper);
 
@@ -37,6 +40,7 @@ void main() async {
       id: id,
       name: SceneName('sc1'),
       genre: Genre.jobs,
+      type: SceneType.task,
       lastModified: SceneLastModified.now(),
     ),
   );
@@ -85,6 +89,7 @@ void main() async {
           id: id,
           name: SceneName('sc2'),
           genre: Genre.jobs,
+          type: SceneType.task,
           lastModified: SceneLastModified.now(),
         ),
       );
@@ -136,7 +141,7 @@ void main() async {
       final id = SceneID.generate();
 
       final firstOperationID = OperationID.generate();
-      final firstOperationName = OperationName('nameUpdate');
+      final firstOperationName = OperationName('nameUpda');
       var firstOperationColor = const OperationColor(333);
 
       await sceneRepository.store(
@@ -144,6 +149,7 @@ void main() async {
           id: id,
           name: SceneName('scUpdate'),
           genre: Genre.jobs,
+          type: SceneType.task,
           lastModified: SceneLastModified.now(),
         ),
       );

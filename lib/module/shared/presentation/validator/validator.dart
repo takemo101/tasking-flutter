@@ -79,3 +79,41 @@ class NameValidator extends Validatable<String?> {
         return null;
       };
 }
+
+/// for between min and max number validator
+class BetweenNumberValidator extends Validatable<String?> {
+  final String name;
+  final int min;
+  final int max;
+
+  BetweenNumberValidator({
+    required this.name,
+    required this.min,
+    required this.max,
+  }) {
+    if (max < min) {
+      throw ValidatorException(detail: 'max and min number is invalid');
+    }
+  }
+
+  @override
+  String? Function(String?) get validate => (value) {
+        if (value == null || value.isEmpty) {
+          return '$nameが空です！';
+        }
+
+        int number = 0;
+
+        try {
+          number = int.parse(value);
+        } catch (e) {
+          return '$nameは数値のみで入力してください！';
+        }
+
+        if (number < min || number > max) {
+          return '$nameは$minから$maxの範囲で入力してください！';
+        }
+
+        return null;
+      };
+}

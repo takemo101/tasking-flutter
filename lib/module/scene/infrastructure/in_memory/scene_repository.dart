@@ -18,6 +18,7 @@ class SceneInMemoryRepository implements SceneRepository {
             id: scene.id,
             name: scene.name,
             genre: scene.genre,
+            type: scene.type,
             lastModified: scene.lastModified,
           );
   }
@@ -38,6 +39,7 @@ class SceneInMemoryRepository implements SceneRepository {
       id: scene.id,
       name: scene.name,
       genre: scene.genre,
+      type: scene.type,
       lastModified: scene.lastModified,
     ));
   }
@@ -51,6 +53,7 @@ class SceneInMemoryRepository implements SceneRepository {
         id: scene.id,
         name: scene.name,
         genre: scene.genre,
+        type: scene.type,
         lastModified: scene.lastModified,
       ));
     }

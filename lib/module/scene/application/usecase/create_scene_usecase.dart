@@ -6,6 +6,7 @@ import 'package:tasking/module/scene/domain/specification/unique_name_spec.dart'
 import 'package:tasking/module/scene/domain/vo/genre.dart';
 import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 import 'package:tasking/module/scene/domain/vo/scene_name.dart';
+import 'package:tasking/module/scene/domain/vo/scene_type.dart';
 import 'package:tasking/module/shared/application/exception.dart';
 import 'package:tasking/module/shared/application/result.dart';
 import 'package:tasking/module/shared/domain/event.dart';
@@ -16,10 +17,12 @@ import 'package:tasking/module/shared/domain/transaction.dart';
 class CreateSceneCommand {
   final String name;
   final String genre;
+  final String type;
 
   const CreateSceneCommand({
     required this.name,
     required this.genre,
+    required this.type,
   });
 }
 
@@ -46,6 +49,7 @@ class CreateSceneUseCase {
         id: SceneID.generate(),
         name: SceneName(command.name),
         genre: GenreName.fromName(command.genre),
+        type: SceneTypeName.fromName(command.type),
       );
 
       await _transaction.transaction(() async {

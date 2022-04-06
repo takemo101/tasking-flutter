@@ -7,9 +7,11 @@ import 'package:tasking/module/shared/infrastructure/sqlite/migration/migration_
 import 'package:tasking/module/shared/infrastructure/sqlite/migration/migration_20220312.dart';
 
 import 'package:tasking/module/shared/infrastructure/sqlite/migration/factory.dart';
+import 'package:tasking/module/shared/infrastructure/sqlite/migration/migration_20220327.dart';
+import 'package:tasking/module/shared/infrastructure/sqlite/migration/migration_20220331.dart';
 
 abstract class SQLiteMigration {
-  /// get id
+  /// get unique id
   int get id;
 
   /// on create migrate process
@@ -25,6 +27,8 @@ const List<SQLiteMigration> _migrations = <SQLiteMigration>[
   Migration20220308(),
   Migration20220311(),
   Migration20220312(),
+  Migration20220327(),
+  Migration20220331(),
 ];
 
 const SQLiteRecordFactory _factory = RecordFactory();

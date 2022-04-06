@@ -20,11 +20,15 @@ import 'package:tasking/module/shared/infrastructure/sqlite/transaction.dart';
 import 'package:tasking/module/task/infrastructure/sqlite/task_repository.dart';
 
 void main() async {
-  final helper = SQLiteHelper();
+  final helper = SQLiteHelper(name: 'sqlite/flow_usecase.sqlite');
 
   File file = File(helper.currentDatabasePath());
-  file.deleteSync();
+  if (file.existsSync()) {
+    file.deleteSync();
+  }
   file.createSync();
+
+  helper.open();
 
   await helper.open();
 
@@ -40,11 +44,11 @@ void main() async {
     genre: Genre.hobby,
   );
 
-  sceneRepository.store(scene);
+  await sceneRepository.store(scene);
 
   final flow = Flow.create(id: scene.id);
 
-  repository.save(flow);
+  await repository.save(flow);
 
   group('FlowUseCase test', () {
     test("AddOperationUseCase and RemoveOperationUseCase test", () async {

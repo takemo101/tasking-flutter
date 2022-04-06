@@ -1,9 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tasking/module/alarm/domain/event/alarm_event.dart';
 import 'package:tasking/module/flow/application/subscriber/create_scene_flow_subscriber.dart';
 import 'package:tasking/module/flow/flow_provider.dart';
 import 'package:tasking/module/scene/application/subscriber/change_task_operation_scene_subscriber.dart';
+import 'package:tasking/module/scene/application/subscriber/resume_alarm_scene_subscriber.dart';
 import 'package:tasking/module/scene/application/subscriber/resume_task_scene_subscriber.dart';
+import 'package:tasking/module/scene/application/subscriber/start_alarm_scene_subscriber.dart';
 import 'package:tasking/module/scene/application/subscriber/start_task_scene_subscriber.dart';
+import 'package:tasking/module/scene/application/subscriber/update_alarm_time_scene_subscriber.dart';
 import 'package:tasking/module/scene/domain/event/scene_event.dart';
 import 'package:tasking/module/scene/scene_provider.dart';
 import 'package:tasking/module/shared/domain/event.dart';
@@ -48,9 +52,27 @@ final domainEventBusProvider = Provider.autoDispose<DomainEventBus>((ref) {
         transaction: ref.read(transactionProvider),
       ),
     )
-    ..subscribe<CreateSceneEvent>(
+    ..subscribe<CreateTaskSceneEvent>(
       CreateSceneFlowSubscriber(
         repository: ref.read(flowRepositoryProvider),
+        transaction: ref.read(transactionProvider),
+      ),
+    )
+    ..subscribe<StartAlarmEvent>(
+      StartAlarmSceneSubscriber(
+        repository: ref.read(sceneRepositoryProvider),
+        transaction: ref.read(transactionProvider),
+      ),
+    )
+    ..subscribe<ResumeAlarmEvent>(
+      ResumeAlarmSceneSubscriber(
+        repository: ref.read(sceneRepositoryProvider),
+        transaction: ref.read(transactionProvider),
+      ),
+    )
+    ..subscribe<UpdateAlarmTimeEvent>(
+      UpdateAlarmTimeSceneSubscriber(
+        repository: ref.read(sceneRepositoryProvider),
         transaction: ref.read(transactionProvider),
       ),
     );

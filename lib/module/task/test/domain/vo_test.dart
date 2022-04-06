@@ -1,6 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tasking/module/flow/domain/vo/operation_id.dart';
+import 'package:tasking/module/scene/domain/scene.dart';
+import 'package:tasking/module/scene/domain/vo/genre.dart';
 import 'package:tasking/module/scene/domain/vo/scene_id.dart';
+import 'package:tasking/module/scene/domain/vo/scene_name.dart';
 import 'package:tasking/module/task/domain/task.dart';
 import 'package:tasking/module/task/domain/vo/task_content.dart';
 import 'package:tasking/module/task/domain/vo/task_id.dart';
@@ -9,10 +12,15 @@ void main() {
   group('Task entity test', () {
     test("Task start OK test", () {
       final sceneID = SceneID.generate();
+      final scene = CreatedScene.create(
+        id: sceneID,
+        name: SceneName('name'),
+        genre: Genre.hobby,
+      );
       final start = StartedTask.start(
         id: TaskID.generate(),
         content: TaskContent('hello'),
-        sceneID: sceneID,
+        scene: scene,
         operationID: OperationID.generate(),
       );
 
@@ -21,10 +29,15 @@ void main() {
 
     test("Task changeOperation OK test", () {
       final sceneID = SceneID.generate();
+      final scene = CreatedScene.create(
+        id: sceneID,
+        name: SceneName('name'),
+        genre: Genre.hobby,
+      );
       final start = StartedTask.start(
         id: TaskID.generate(),
         content: TaskContent('hello'),
-        sceneID: sceneID,
+        scene: scene,
         operationID: OperationID.generate(),
       );
 
@@ -35,10 +48,15 @@ void main() {
 
     test("Task discard and remove OK test", () {
       final sceneID = SceneID.generate();
+      final scene = CreatedScene.create(
+        id: sceneID,
+        name: SceneName('name'),
+        genre: Genre.hobby,
+      );
       final start = StartedTask.start(
         id: TaskID.generate(),
         content: TaskContent('hello'),
-        sceneID: sceneID,
+        scene: scene,
         operationID: OperationID.generate(),
       );
 

@@ -4,6 +4,7 @@ import 'package:tasking/module/scene/presentation/page/scene_list_page.dart';
 import 'package:tasking/module/shared/infrastructure/dotenv/initializer.dart';
 import 'package:tasking/module/shared/infrastructure/initializer.dart';
 import 'package:tasking/module/shared/infrastructure/sqlite/initializer.dart';
+import 'package:tasking/module/shared/infrastructure/timezone/initializer.dart';
 import 'package:tasking/module/shared/presentation/route.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
@@ -46,6 +47,7 @@ Future<void> initialize() async {
   final initializer = Initializer([
     DotEnvInitializer(),
     SQLiteInitializer(),
+    TimeZoneInitializer(),
   ]);
 
   await initializer.initialize();

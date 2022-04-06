@@ -37,7 +37,7 @@ class TaskSQLiteRepository implements TaskRepository {
       whereArgs: [id.value, 0],
     );
 
-    return list.isEmpty ? null : _mapper.fromMapToStartedTask(list[0]);
+    return list.isEmpty ? null : _mapper.fromMapToStartedTask(list.first);
   }
 
   @override
@@ -49,7 +49,7 @@ class TaskSQLiteRepository implements TaskRepository {
       whereArgs: [id.value, 1],
     );
 
-    return list.isEmpty ? null : _mapper.fromMapToDiscardedTask(list[0]);
+    return list.isEmpty ? null : _mapper.fromMapToDiscardedTask(list.first);
   }
 
   @override

@@ -18,10 +18,12 @@ import 'package:tasking/module/task/domain/vo/task_id.dart';
 import 'package:tasking/module/task/infrastructure/sqlite/task_repository.dart';
 
 void main() async {
-  final helper = SQLiteHelper();
+  final helper = SQLiteHelper(name: 'sqlite/task_repository.sqlite');
 
   File file = File(helper.currentDatabasePath());
-  file.deleteSync();
+  if (file.existsSync()) {
+    file.deleteSync();
+  }
   file.createSync();
 
   await helper.open();
@@ -44,7 +46,7 @@ void main() async {
 
       var flow = Flow.create(id: scene.id);
       flow = flow.addOperation(OperationDetail(
-        name: OperationName('operation'),
+        name: OperationName('operat'),
         color: const OperationColor(1),
       ));
 
@@ -52,8 +54,8 @@ void main() async {
 
       final task = StartedTask.start(
         id: TaskID.generate(),
-        content: TaskContent('store test'),
-        sceneID: scene.id,
+        content: TaskContent('store'),
+        scene: scene,
         operationID: flow.defaultOperationID,
       );
 
@@ -80,7 +82,7 @@ void main() async {
 
       var flow = Flow.create(id: scene.id);
       flow = flow.addOperation(OperationDetail(
-        name: OperationName('operation'),
+        name: OperationName('operat'),
         color: const OperationColor(1),
       ));
 
@@ -88,8 +90,8 @@ void main() async {
 
       final task = StartedTask.start(
         id: TaskID.generate(),
-        content: TaskContent('store test'),
-        sceneID: scene.id,
+        content: TaskContent('store'),
+        scene: scene,
         operationID: flow.defaultOperationID,
       );
 
@@ -134,7 +136,7 @@ void main() async {
 
       var flow = Flow.create(id: scene.id);
       flow = flow.addOperation(OperationDetail(
-        name: OperationName('operation'),
+        name: OperationName('operat'),
         color: const OperationColor(1),
       ));
 
@@ -142,8 +144,8 @@ void main() async {
 
       final task = StartedTask.start(
         id: TaskID.generate(),
-        content: TaskContent('store test'),
-        sceneID: scene.id,
+        content: TaskContent('store'),
+        scene: scene,
         operationID: flow.defaultOperationID,
       ).discard();
 

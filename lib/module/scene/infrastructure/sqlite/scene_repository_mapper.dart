@@ -3,6 +3,7 @@ import 'package:tasking/module/scene/domain/vo/genre.dart';
 import 'package:tasking/module/scene/domain/vo/scene_id.dart';
 import 'package:tasking/module/scene/domain/vo/scene_last_modified.dart';
 import 'package:tasking/module/scene/domain/vo/scene_name.dart';
+import 'package:tasking/module/scene/domain/vo/scene_type.dart';
 
 /// scene repository mapper class
 class SceneRepositoryMapper {
@@ -12,6 +13,7 @@ class SceneRepositoryMapper {
       'id': scene.id.value,
       'name': scene.name.value,
       'genre': scene.genre.name,
+      'type': scene.type.name,
       'last_modified': scene.lastModified.toString(),
     };
   }
@@ -22,6 +24,7 @@ class SceneRepositoryMapper {
       id: SceneID(map['id'].toString()),
       name: SceneName(map['name'].toString()),
       genre: GenreName.fromName(map['genre'].toString()),
+      type: SceneTypeName.fromName(map['type'].toString()),
       lastModified: SceneLastModified.fromString(
         map['last_modified'].toString(),
       ),

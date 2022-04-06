@@ -11,10 +11,12 @@ import 'package:tasking/module/scene/infrastructure/sqlite/scene_repository.dart
 import 'package:tasking/module/shared/infrastructure/sqlite/helper.dart';
 
 void main() async {
-  final helper = SQLiteHelper();
+  final helper = SQLiteHelper(name: 'sqlite/scene_query.sqlite');
 
   File file = File(helper.currentDatabasePath());
-  file.deleteSync();
+  if (file.existsSync()) {
+    file.deleteSync();
+  }
   file.createSync();
 
   await helper.open();
@@ -24,6 +26,8 @@ void main() async {
 
   group('SceneSQLiteQuery test', () {
     test("SceneSQLiteQuery all", () async {
+      final firstAll = await query.all();
+
       repository.store(
         CreatedScene.create(
           id: SceneID.generate(),
@@ -48,8 +52,8 @@ void main() async {
 
       final all = await query.all();
 
-      expect(all.length, 3);
-      expect(all.first.genre, 'hobby');
+      expect(all.length, firstAll.length + 3);
+      expect(all.first.genre.label, 'hobby');
     });
   });
 }
