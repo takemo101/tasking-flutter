@@ -76,9 +76,7 @@ class SQLiteHelper {
 
   /// create database
   FutureOr<void> _onCreate(Database db, int version) async {
-    final batch = db.batch();
-
-    final migrator = Migrator(batch);
+    final migrator = Migrator(db);
 
     // create migrations table
     await migrator.createTable();
@@ -93,9 +91,7 @@ class SQLiteHelper {
   /// upgrade database
   FutureOr<void> _onUpgrade(
       Database db, int beforeVersion, int afterVersion) async {
-    final batch = db.batch();
-
-    final migrator = Migrator(batch);
+    final migrator = Migrator(db);
 
     // run migrate
     await migrator.migrate();
@@ -114,6 +110,12 @@ class SQLiteHelper {
     final options = OpenDatabaseOptions(
       version: _databaseVersion,
       onCreate: (Database db, int version) => _onCreate(db, version),
+      onUpgrade: (Database db, int beforeVersion, int afterVersion) =>
+          _onUpgrade(
+        db,
+        beforeVersion,
+        afterVersion,
+      ),
       onConfigure: (Database db) => _onConfigure(db),
     );
 

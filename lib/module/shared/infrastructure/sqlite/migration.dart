@@ -15,12 +15,12 @@ abstract class SQLiteMigration {
   int get id;
 
   /// on create migrate process
-  void run(Batch batch);
+  Future<void> run(Database db);
 }
 
 abstract class SQLiteRecordFactory {
   /// record factory process
-  void factory(Batch batch);
+  Future<void> factory(Database db);
 }
 
 const List<SQLiteMigration> _migrations = <SQLiteMigration>[
@@ -36,25 +36,23 @@ const SQLiteRecordFactory _factory = RecordFactory();
 class Migrator {
   final String _table = 'migrations';
 
-  final Batch _batch;
+  final Database _db;
 
-  Migrator(Batch batch) : _batch = batch;
+  Migrator(Database db) : _db = db;
 
   Future<void> createTable() async {
-    _batch.execute('DROP TABLE IF EXISTS $_table');
-    _batch.execute('''
+    await _db.execute('DROP TABLE IF EXISTS $_table');
+    await _db.execute('''
       CREATE TABLE $_table (
         id INTEGER NOT NULL,
         PRIMARY KEY (id)
       )
     ''');
-
-    await _batch.commit();
   }
 
   Future<void> _save(List<int> ids) async {
     for (final id in ids) {
-      _batch.insert(
+      await _db.insert(
         _table,
         {
           'id': id,
@@ -62,17 +60,17 @@ class Migrator {
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
     }
-
-    await _batch.commit();
   }
 
   Future<bool> _has(int id) async {
-    _batch.rawQuery(
+    final batch = _db.batch();
+
+    batch.rawQuery(
       'SELECT COUNT(id) as count FROM $_table WHERE id = ?',
       [id],
     );
 
-    final result = BatchCommitObject(await _batch.commit());
+    final result = BatchCommitObject(await batch.commit());
 
     if (result.hasResult) {
       final count = result.result<int>('count');
@@ -89,8 +87,7 @@ class Migrator {
     // run migrations
     for (final migration in _migrations) {
       if (!await _has(migration.id)) {
-        migration.run(_batch);
-        await _batch.commit();
+        migration.run(_db);
       }
 
       migratedIDs.add(migration.id);
@@ -101,8 +98,7 @@ class Migrator {
   }
 
   Future<void> factory() async {
-    _factory.factory(_batch);
-    await _batch.commit();
+    await _factory.factory(_db);
   }
 }
 

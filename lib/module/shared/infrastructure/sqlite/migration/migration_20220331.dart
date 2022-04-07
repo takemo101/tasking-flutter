@@ -1,11 +1,13 @@
 import 'package:tasking/module/shared/infrastructure/sqlite/migration.dart';
-import 'package:sqflite/sqflite.dart' show Batch;
+import 'package:sqflite/sqflite.dart';
 
 class Migration20220331 implements SQLiteMigration {
   const Migration20220331();
 
   @override
-  void run(Batch batch) {
+  Future<void> run(Database db) async {
+    final batch = db.batch();
+
     // alarms table
     batch.execute('DROP TABLE IF EXISTS alarms');
     batch.execute('''
@@ -44,6 +46,8 @@ class Migration20220331 implements SQLiteMigration {
         FOREIGN KEY (alarm_time_id) REFERENCES alarm_times (id) ON DELETE CASCADE
       )
     ''');
+
+    await batch.commit();
   }
 
   @override

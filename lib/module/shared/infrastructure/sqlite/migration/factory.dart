@@ -22,10 +22,14 @@ class RecordFactory implements SQLiteRecordFactory {
   const RecordFactory();
 
   @override
-  void factory(Batch batch) {
+  Future<void> factory(Database db) async {
+    final batch = db.batch();
+
     final scene = insertScene(batch);
     final flow = insertFlow(batch, scene);
     insertTask(batch, scene, flow);
+
+    await batch.commit();
   }
 
   Scene insertScene(Batch batch) {

@@ -1,11 +1,13 @@
 import 'package:tasking/module/shared/infrastructure/sqlite/migration.dart';
-import 'package:sqflite/sqflite.dart' show Batch;
+import 'package:sqflite/sqflite.dart';
 
 class Migration20220312 implements SQLiteMigration {
   const Migration20220312();
 
   @override
-  void run(Batch batch) {
+  Future<void> run(Database db) async {
+    final batch = db.batch();
+
     // tasks table
     batch.execute('DROP TABLE IF EXISTS tasks');
     batch.execute('''
@@ -37,6 +39,8 @@ class Migration20220312 implements SQLiteMigration {
         FOREIGN KEY (task_id) REFERENCES tasks (id) ON DELETE CASCADE
       )
     ''');
+
+    await batch.commit();
   }
 
   @override

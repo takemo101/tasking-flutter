@@ -1,11 +1,13 @@
 import 'package:tasking/module/shared/infrastructure/sqlite/migration.dart';
-import 'package:sqflite/sqflite.dart' show Batch;
+import 'package:sqflite/sqflite.dart';
 
 class Migration20220311 implements SQLiteMigration {
   const Migration20220311();
 
   @override
-  void run(Batch batch) {
+  Future<void> run(Database db) async {
+    final batch = db.batch();
+
     // operations table
     batch.execute('DROP TABLE IF EXISTS operations');
     batch.execute('''
@@ -23,6 +25,8 @@ class Migration20220311 implements SQLiteMigration {
       CREATE INDEX idx_flow_order
       ON operations(flow_order)
     ''');
+
+    await batch.commit();
   }
 
   @override

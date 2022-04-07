@@ -52,3 +52,4 @@ memo.txt
 Makefile
 /.env
 /sqlite/*.sqlite
+/*.apks

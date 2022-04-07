@@ -39,6 +39,7 @@ class AlarmTimeLocalNotificator implements AlarmTimeNotificator {
       time.id.value,
       'タスクの時間です',
       channelDescription: content.value,
+      largeIcon: const DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
       importance: Importance.max,
       priority: Priority.high,
       ticker: 'ticker',
