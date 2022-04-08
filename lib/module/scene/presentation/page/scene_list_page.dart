@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:tasking/module/scene/application/dto/scene_data.dart';
 import 'package:tasking/module/scene/domain/vo/scene_type.dart';
+import 'package:tasking/module/scene/presentation/notifier/scene_sort_notifier.dart';
 import 'package:tasking/module/scene/presentation/widget/create_scene_button.dart';
 import 'package:tasking/module/scene/presentation/widget/manual_drawer.dart';
 import 'package:tasking/module/scene/presentation/widget/remove_scene_button.dart';
@@ -18,10 +20,27 @@ class SceneListPage extends ConsumerWidget {
 
   SceneListPage({Key? key}) : super(key: key);
 
+  List<SceneData> makeSceneDataList(List<SceneData> list, SceneSort sort) {
+    switch (sort) {
+      case SceneSort.task:
+        return list
+            .where((scene) => scene.type.label == SceneType.task.name)
+            .toList();
+      case SceneSort.alarm:
+        return list
+            .where((scene) => scene.type.label == SceneType.alarm.name)
+            .toList();
+      default:
+        return list;
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.watch(sceneNotifierProvider);
-    final list = notifier.list;
+    final sort = ref.watch(sceneSortStateNotifierProvider);
+
+    final list = makeSceneDataList(notifier.list, sort);
 
     return Scaffold(
       key: _key,
@@ -39,87 +58,123 @@ class SceneListPage extends ConsumerWidget {
         ],
       ),
       body: Container(
-        child: list.isNotEmpty
-            ? ListView.builder(
-                itemCount: list.length,
-                itemBuilder: (context, index) {
-                  final scene = list[index];
-                  return ListTile(
-                      leading: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            scene.type.name,
-                            style: const TextStyle(
-                              fontSize: 10,
-                              fontFamily: 'OpenSans',
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            scene.genre.name,
-                            style: const TextStyle(
-                              fontFamily: 'OpenSans',
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      title: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            DateFormat('yyyy.MM.dd HH:mm')
-                                .format(scene.lastModified),
-                            style: const TextStyle(
-                              fontSize: 10,
-                            ),
-                          ),
-                          Text(StringHelper.limit(
-                            scene.name,
-                            limit: 8,
-                          )),
-                        ],
-                      ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          if (scene.type.label == SceneType.task.name)
-                            ListIconButton(
-                              icon: Icons.low_priority,
-                              onPressed: () {
-                                Navigator.of(context).pushNamed(
-                                  AppRoute.flowPage.route,
-                                  arguments: scene,
-                                );
-                              },
-                            ),
-                          RemoveSceneButton(
-                            notifier: notifier,
-                            id: scene.id,
-                          ),
-                          UpdateSceneButton(
-                            notifier: notifier,
-                            scene: scene,
-                          ),
-                        ],
-                      ),
-                      onTap: () {
-                        Navigator.of(context)
-                            .pushNamed(
-                          scene.type.label == SceneType.task.name
-                              ? AppRoute.taskPage.route
-                              : AppRoute.alarmPage.route,
-                          arguments: scene,
-                        )
-                            .then((_) {
-                          notifier.listUpdate();
-                        });
-                      });
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ToggleButtons(
+                isSelected: SceneSort.values.map((s) => s == sort).toList(),
+                onPressed: (index) {
+                  final change =
+                      SceneSort.values.firstWhere((s) => s.index == index);
+
+                  ref
+                      .read(sceneSortStateNotifierProvider.notifier)
+                      .change(change);
                 },
-              )
-            : const EmptyContainer('新規シーンを追加してください'),
+                children: SceneSort.values.map((s) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 30.0),
+                    child: Text(
+                      s.jpname,
+                    ),
+                  );
+                }).toList(),
+                borderRadius: BorderRadius.circular(30.0),
+                textStyle: const TextStyle(fontSize: 12),
+                constraints: BoxConstraints.expand(
+                  width: (MediaQuery.of(context).size.width /
+                          SceneSort.values.length) -
+                      20.0,
+                ),
+              ),
+            ),
+            Flexible(
+              child: list.isNotEmpty
+                  ? ListView.builder(
+                      itemCount: list.length,
+                      itemBuilder: (context, index) {
+                        final scene = list[index];
+                        return ListTile(
+                            leading: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  scene.type.name,
+                                  style: const TextStyle(
+                                    fontSize: 10,
+                                    fontFamily: 'OpenSans',
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  scene.genre.name,
+                                  style: const TextStyle(
+                                    fontFamily: 'OpenSans',
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            title: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  DateFormat('yyyy.MM.dd HH:mm')
+                                      .format(scene.lastModified),
+                                  style: const TextStyle(
+                                    fontSize: 10,
+                                  ),
+                                ),
+                                Text(StringHelper.limit(
+                                  scene.name,
+                                  limit: 8,
+                                )),
+                              ],
+                            ),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                if (scene.type.label == SceneType.task.name)
+                                  ListIconButton(
+                                    icon: Icons.low_priority,
+                                    onPressed: () {
+                                      Navigator.of(context).pushNamed(
+                                        AppRoute.flowPage.route,
+                                        arguments: scene,
+                                      );
+                                    },
+                                  ),
+                                RemoveSceneButton(
+                                  notifier: notifier,
+                                  id: scene.id,
+                                ),
+                                UpdateSceneButton(
+                                  notifier: notifier,
+                                  scene: scene,
+                                ),
+                              ],
+                            ),
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushNamed(
+                                scene.type.label == SceneType.task.name
+                                    ? AppRoute.taskPage.route
+                                    : AppRoute.alarmPage.route,
+                                arguments: scene,
+                              )
+                                  .then((_) {
+                                notifier.listUpdate();
+                              });
+                            });
+                      },
+                    )
+                  : const EmptyContainer('新規シーンを追加してください'),
+            ),
+          ],
+        ),
         color: const Color.fromRGBO(255, 255, 255, 1),
       ),
       drawer: ManualDrawer(

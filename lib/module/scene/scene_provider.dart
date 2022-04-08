@@ -4,6 +4,7 @@ import 'package:tasking/module/scene/domain/scene_repository.dart';
 import 'package:tasking/module/scene/infrastructure/sqlite/scene_query.dart';
 import 'package:tasking/module/scene/infrastructure/sqlite/scene_repository.dart';
 import 'package:tasking/module/scene/presentation/notifier/scene_notifier.dart';
+import 'package:tasking/module/scene/presentation/notifier/scene_sort_notifier.dart';
 import 'package:tasking/module/shared/shared_provider.dart';
 
 final sceneRepositoryProvider = Provider<SceneRepository>(
@@ -19,3 +20,8 @@ final sceneNotifierProvider =
           transaction: ref.read(transactionProvider),
           eventBus: ref.read(domainEventBusProvider),
         )..listUpdate());
+
+final sceneSortStateNotifierProvider =
+    StateNotifierProvider<SceneSortStateNotifier, SceneSort>((ref) {
+  return SceneSortStateNotifier();
+});
