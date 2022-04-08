@@ -19,11 +19,14 @@ jobs:
       - name: Flutter pub get
         run: flutter pub get
 
+      - name: Copy dot env
+        run: cp ./.example.env ./.env
+
       - name: Flutter domain test
         run: flutter test ./lib/module
 
   build-android-test:
-    name: Android app build test
+    name: Build test for android
     runs-on: ubuntu-latest
     steps:
       - name: Set up repository
@@ -32,6 +35,18 @@ jobs:
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '2.10.4'
+          channel: 'stable'
 
-      - name: Flutter domain test
+      - name: Set up java
+        uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+
+      - name: Flutter pub get
+        run: flutter pub get
+
+      - name: Copy dot env
+        run: cp ./.example.env ./.env
+
+      - name: Flutter build test for android
         run: flutter build apk -v
