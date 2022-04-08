@@ -14,10 +14,17 @@ typedef SaveCallback = Future<AppResult<AlarmID, ApplicationException>>
 class HourEditingController = TextEditingController with Type;
 class MinuteEditingController = TextEditingController with Type;
 
+class SelectedAlarmTime {
+  List<DayOfWeek> selectedDayOfWeeks;
+  SelectedAlarmTime({
+    required this.selectedDayOfWeeks,
+  });
+}
+
 class InputAlarmTimeDialog extends StatelessWidget {
   final BuildContext _context;
   final String heading;
-  final List<DayOfWeek> dayOfWeeks;
+  final SelectedAlarmTime _selected;
   final SaveCallback onSave;
   final HourEditingController _hourController;
   final MinuteEditingController _minuteController;
@@ -28,11 +35,12 @@ class InputAlarmTimeDialog extends StatelessWidget {
     required BuildContext context,
     required this.heading,
     required TimeOfDay timeOfDay,
-    this.dayOfWeeks = const <DayOfWeek>[],
+    List<DayOfWeek> dayOfWeeks = const <DayOfWeek>[],
     required this.onSave,
     String name = '',
     Key? key,
   })  : _context = context,
+        _selected = SelectedAlarmTime(selectedDayOfWeeks: dayOfWeeks),
         _hourController = HourEditingController()
           ..text = timeOfDay.hour.toString(),
         _minuteController = MinuteEditingController()
@@ -41,8 +49,6 @@ class InputAlarmTimeDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<DayOfWeek> selectedDayOfWeeks = dayOfWeeks;
-
     return Center(
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -77,8 +83,8 @@ class InputAlarmTimeDialog extends StatelessWidget {
                   ]),
                 ),
                 DayOfWeekCheckboxes(
-                  dayOfWeeks: dayOfWeeks,
-                  onChanged: (weeks) => selectedDayOfWeeks = weeks,
+                  dayOfWeeks: _selected.selectedDayOfWeeks,
+                  onChanged: (weeks) => _selected.selectedDayOfWeeks = weeks,
                 ),
               ],
             ),
@@ -89,7 +95,8 @@ class InputAlarmTimeDialog extends StatelessWidget {
               ),
               TextButton(
                 child: const Text('保存'),
-                onPressed: () async => _onPressed(context, selectedDayOfWeeks),
+                onPressed: () async =>
+                    _onPressed(context, _selected.selectedDayOfWeeks),
               ),
             ],
           ),

@@ -134,13 +134,13 @@ class SceneListPage extends ConsumerWidget {
                                       );
                                     },
                                   ),
-                                RemoveSceneButton(
-                                  notifier: notifier,
-                                  id: scene.id,
-                                ),
                                 UpdateSceneButton(
                                   notifier: notifier,
                                   scene: scene,
+                                ),
+                                RemoveSceneButton(
+                                  notifier: notifier,
+                                  id: scene.id,
                                 ),
                               ],
                             ),

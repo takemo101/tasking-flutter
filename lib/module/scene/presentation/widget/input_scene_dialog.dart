@@ -14,10 +14,20 @@ typedef SaveCallback = Future<AppResult<SceneID, ApplicationException>>
 
 class NameEditingController = TextEditingController with Type;
 
+class SelectedScene {
+  GenreData selectedGenre;
+  SceneTypeData selectedType;
+
+  SelectedScene({
+    required this.selectedGenre,
+    required this.selectedType,
+  });
+}
+
 class InputSceneDialog extends StatelessWidget {
   final BuildContext _context;
   final String heading;
-  final GenreData genre;
+  final SelectedScene _selected;
   final SceneTypeData? type;
   final SaveCallback onSave;
   final NameEditingController _nameController;
@@ -27,20 +37,21 @@ class InputSceneDialog extends StatelessWidget {
   InputSceneDialog({
     required BuildContext context,
     required this.heading,
-    required this.genre,
+    required GenreData genre,
     this.type,
     required this.onSave,
     String name = '',
     Key? key,
   })  : _context = context,
+        _selected = SelectedScene(
+          selectedGenre: genre,
+          selectedType: type ?? SceneTypeData.inital(),
+        ),
         _nameController = NameEditingController()..text = name,
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    GenreData selectedGenre = genre;
-    SceneTypeData selectedType = type ?? SceneTypeData.inital();
-
     return Center(
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -62,13 +73,13 @@ class InputSceneDialog extends StatelessWidget {
                   ]),
                 ),
                 GenreDropdown(
-                  value: genre,
-                  onChanged: (gen) => selectedGenre = gen,
+                  value: _selected.selectedGenre,
+                  onChanged: (gen) => _selected.selectedGenre = gen,
                 ),
                 if (type == null)
                   SceneTypeDropdown(
-                    value: SceneTypeData.inital(),
-                    onChanged: (typ) => selectedType = typ,
+                    value: _selected.selectedType,
+                    onChanged: (typ) => _selected.selectedType = typ,
                   ),
               ],
             ),
@@ -79,8 +90,8 @@ class InputSceneDialog extends StatelessWidget {
               ),
               TextButton(
                 child: const Text('保存'),
-                onPressed: () async =>
-                    _onPressed(context, selectedGenre, selectedType),
+                onPressed: () async => _onPressed(
+                    context, _selected.selectedGenre, _selected.selectedType),
               ),
             ],
           ),

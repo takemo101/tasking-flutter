@@ -12,10 +12,17 @@ typedef SaveCallback = Future<AppResult<SceneID, ApplicationException>>
 
 class NameEditingController = TextEditingController with Type;
 
+class SelectedOperation {
+  Color selectedColor;
+  SelectedOperation({
+    required this.selectedColor,
+  });
+}
+
 class InputOperationDialog extends StatelessWidget {
   final BuildContext _context;
   final String heading;
-  final int color;
+  final SelectedOperation _selected;
   final SaveCallback onSave;
   final NameEditingController _nameController;
 
@@ -24,18 +31,17 @@ class InputOperationDialog extends StatelessWidget {
   InputOperationDialog({
     required BuildContext context,
     required this.heading,
-    required this.color,
+    required int color,
     required this.onSave,
     String name = '',
     Key? key,
   })  : _context = context,
+        _selected = SelectedOperation(selectedColor: Color(color)),
         _nameController = NameEditingController()..text = name,
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Color selectedColor = Color(color);
-
     return Center(
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -57,8 +63,8 @@ class InputOperationDialog extends StatelessWidget {
                   ]),
                 ),
                 ColorDropdown(
-                  color: selectedColor,
-                  onChanged: (c) => selectedColor = c,
+                  color: _selected.selectedColor,
+                  onChanged: (c) => _selected.selectedColor = c,
                 ),
               ],
             ),
@@ -69,7 +75,8 @@ class InputOperationDialog extends StatelessWidget {
               ),
               TextButton(
                 child: const Text('保存'),
-                onPressed: () async => _onPressed(context, selectedColor.value),
+                onPressed: () async =>
+                    _onPressed(context, _selected.selectedColor.value),
               ),
             ],
           ),
