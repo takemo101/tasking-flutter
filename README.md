@@ -51,3 +51,61 @@ KEY_ALIAS=key # キーエイリアスですが「key」のままで問題ない�
 ```
 make test-module
 ```
+
+## アーキテクチャについて
+```mermaid
+graph LR
+    subgraph PresentationLayer
+    Notifier
+    Page
+    Widget
+    end
+
+    subgraph ApplicationLayer
+    UseCase
+    CommandDTO
+    Result
+    Query
+    ReadModelDTO
+    EventSubscriber
+    end
+
+    subgraph DomainLayer
+    AggregateRoot
+    Entity
+    ValueObject
+    Repository
+    DomainService
+    DomainEvent
+    end
+    
+    subgraph InfrastructureLayer
+    RepositoryImpl
+    QueryImpl
+    Adapter
+    AdapterImpl
+    end
+
+    Page --> Notifier
+    Widget --> Notifier
+
+    Notifier --> UseCase
+    UseCase -- プレゼンからのコマンド --- CommandDTO
+    UseCase -- プレゼンへの処理結果 --- Result
+    UseCase -- ReadModelの取得 --- Query
+    Query --- ReadModelDTO
+    EventSubscriber --> DomainEvent
+
+    UseCase --> AggregateRoot
+    UseCase --> Repository
+    UseCase --> DomainService
+    AggregateRoot -- 集約内の集合 --- Entity
+    AggregateRoot -- 集約またはエンティティの値 --- ValueObject
+    AggregateRoot -- ドメインでのイベント --- DomainEvent
+
+    RepositoryImpl -.-> Repository
+    QueryImpl -.-> Query
+    RepositoryImpl --> Adapter
+    AdapterImpl -.-> Adapter
+
+```
