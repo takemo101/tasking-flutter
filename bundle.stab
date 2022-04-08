@@ -1,7 +1,5 @@
 #!/bin/sh
 
-SKIP_INSTALL=0
-
 KEY_STORE_PASS=xxx
 KEY_PASS=xxx
 AAB_PATH=./build/app/outputs/bundle/release/app-release.aab
