@@ -1,0 +1,36 @@
+name: Flutter test
+
+on:
+  push:
+    branches: [develop, main]
+
+jobs:
+  domain-test:
+    name: Flutter domain test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@v2
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '2.10.4'
+
+      - name: Flutter pub get
+        run: flutter pub get
+
+      - name: Flutter domain test
+        run: flutter test ./lib/module
+
+  build-android-test:
+    name: Android app build test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@v2
+
+      - name: Build app for android
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '2.10.4'
+        run: flutter build apk -v

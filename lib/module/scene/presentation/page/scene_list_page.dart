@@ -14,6 +14,7 @@ import 'package:tasking/module/shared/presentation/route.dart';
 import 'package:tasking/module/shared/presentation/widget/empty_container.dart';
 import 'package:tasking/module/shared/presentation/widget/list_icon_button.dart';
 import 'package:tasking/module/shared/presentation/widget/side_action_button.dart';
+import 'package:tasking/module/shared/presentation/widget/sort_toggle_buttons.dart';
 
 class SceneListPage extends ConsumerWidget {
   final GlobalKey<ScaffoldState> _key = GlobalKey<ScaffoldState>();
@@ -62,7 +63,7 @@ class SceneListPage extends ConsumerWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: ToggleButtons(
+              child: SortToggleButtons<SceneSort>(
                 isSelected: SceneSort.values.map((s) => s == sort).toList(),
                 onPressed: (index) {
                   final change =
@@ -72,22 +73,8 @@ class SceneListPage extends ConsumerWidget {
                       .read(sceneSortStateNotifierProvider.notifier)
                       .change(change);
                 },
-                children: SceneSort.values.map((s) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 30.0),
-                    child: Text(
-                      s.jpname,
-                    ),
-                  );
-                }).toList(),
-                borderRadius: BorderRadius.circular(30.0),
-                textStyle: const TextStyle(fontSize: 12),
-                constraints: BoxConstraints.expand(
-                  width: (MediaQuery.of(context).size.width /
-                          SceneSort.values.length) -
-                      20.0,
-                ),
+                toggles: SceneSort.values,
+                toText: (s) => Text(s.jpname),
               ),
             ),
             Flexible(
