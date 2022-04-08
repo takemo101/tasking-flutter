@@ -29,8 +29,9 @@ jobs:
       - name: Set up repository
         uses: actions/checkout@v2
 
-      - name: Build app for android
-        uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@v2
         with:
           flutter-version: '2.10.4'
+
+      - name: Flutter domain test
         run: flutter build apk -v
