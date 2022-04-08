@@ -49,4 +49,4 @@ jobs:
         run: cp ./.example.env ./.env
 
       - name: Flutter build test for android
-        run: flutter build apk -v
+        run: flutter build apk --debug -v

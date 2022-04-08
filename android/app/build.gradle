@@ -66,15 +66,12 @@ android {
             storePassword keystoreProperties['storePassword']
         }
     }
-    // ------
     buildTypes {
         release {
-            // --- release setting ---
             signingConfig signingConfigs.release
-            // signingConfig signingConfigs.debug
-            // ------
         }
     }
+    // ------
 }
 
 flutter {

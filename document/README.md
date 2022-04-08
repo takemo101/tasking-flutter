@@ -39,12 +39,10 @@
 
 | 対象 | 詳細 |
 | --- | --- |
-| フレームワーク | Flutter/Riverpod/Freezed |
+| フレームワーク | Flutter/Riverpod |
 | 言語 | Dart |
-| DB | Firebase Store |
-| プッシュ通知 | Firebase Notification |
-| CI/CD | Github Actions |
-| テスト | Firebase App Distribution |
+| DB | SQLite |
+| CI | Github Actions |
 
 #### 開発プロセス
 今回は、基本はICONIXプロセスで進めます。  
