@@ -49,7 +49,6 @@ app.*.map.json
 # For this pplication
 database.sqlite
 memo.txt
-Makefile
 /.env
 /sqlite/*.sqlite
 /*.apks
